@@ -45,7 +45,6 @@ setMethod("initialize", "YahooAPI", function(.Object, ...) {
 #' @param interval Interval to retrieve quotes.
 #' @export
 setMethod("getSymbol", "YahooAPI", function(obj, symbol, range, from, to, interval = obj@.conn_args$interval) {
-  browser()
   stopifnot(nchar(symbol) > 0)
   message("Downloading: ", symbol, " (source: ", class(obj), ").")
   
@@ -71,9 +70,10 @@ setMethod("getSymbol", "YahooAPI", function(obj, symbol, range, from, to, interv
   
   # Try downloading results in JSON.
   res <- try(jsonlite::fromJSON(con), silent = TRUE)
-  message(url)
   if (inherits(res, "try-error")) {
-    message(res[1])
+    warning(res[1])
+    warning(url)
+    warning(obj@.handle)
   } else {
     # Convert the historical prices into a time-series.
     # Note; other data to be considered for later.
@@ -85,7 +85,7 @@ setMethod("getSymbol", "YahooAPI", function(obj, symbol, range, from, to, interv
       Close = res$chart$result$indicators$quote[[1]]$close[[1]],
       Volume = res$chart$result$indicators$quote[[1]]$volume[[1]]
     )
-    return(xts::as.xts(res[,-1], order.by = res$Date))
+    return(na.locf(xts::as.xts(res[,-1], order.by = res$Date)))
   }
 })
 
