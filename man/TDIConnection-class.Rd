@@ -4,18 +4,39 @@
 \name{TDIConnection-class}
 \alias{TDIConnection-class}
 \title{TDIConnection class}
+\usage{
+\S4method{initialize}{TDIConnection}(.Object, ...)
+}
 \description{
-Wraps objects of the [TDIDriver-class] class with connection options.
-The purpose is to store both the driver and the connection options.
+Wraps an object of class [TDIDriver-class] and the connection parameters.
+Its purpose is to establish a connection and to store all connection details.
 
-API access can be established through [apiConnect()], 
-passing only the object with optional additional arguments.
+Connection(s) are established by the `TDIConnector`,
+which keeps a connection pool to re-use connection(s).
+
+Initialize object(s) of class `TDIConnection`.
 }
-\examples{
-# TO-DO
-}
+\section{Slots}{
+
+\describe{
+\item{\code{.drv}}{Object of class [TDIDriver-class].}
+
+\item{\code{.conn_args}}{List with connection parameters.}
+
+\item{\code{.endpoints}}{List with available API endpoints.}
+}}
+
 \seealso{
 Other TDI classes: 
+\code{\link{TDIConnector-class}},
+\code{\link{TDIDriver-class}},
+\code{\link{TDIObject-class}}
+
+Other TDIConnection generics: 
+\code{\link{getSymbol}()}
+
+Other TDI classes: 
+\code{\link{TDIConnector-class}},
 \code{\link{TDIDriver-class}},
 \code{\link{TDIObject-class}}
 }

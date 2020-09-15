@@ -10,8 +10,8 @@
 #' @name TDIDriver-class
 #' @family TDI classes
 #' @family TDIDriver generics
-#' @export
 #' @include TDIObject.R
+#' @export
 setClass("TDIDriver", contains = c("TDIObject", "VIRTUAL"))
 
 #' @title Create driver for the source API.
@@ -26,18 +26,15 @@ driver <- function(source) {
 
 #' @title Provide API connection
 #' Retrieves information on objects of classes inheriting from [TDIObject-class].
-#'
 #' @param obj An object of [TDIDriver-class],
 #' @param ... Other arguments.
 #' @family TDIDriver generics
 #' @inherit TDItest::spec_get_info return
-#' @export
 setGeneric("apiConnect",
   def = function(obj, ...) standardGeneric("apiConnect")
 )
 
 #' @rdname TDIDriver-class
-#' @export
-setMethod("getInfo", "yahoo", function(obj, ...) {
+setMethod("getInfo", "TDIDriver", function(obj, ...) {
   return(class(obj))
 })

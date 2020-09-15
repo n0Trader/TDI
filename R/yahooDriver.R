@@ -3,14 +3,14 @@ NULL
 
 #' @title Yahoo Finance API driver
 #' @description 
-#' Driver for TDI object(s) to facilitatie access the Yahoo Finance API.
+#' Helper function to establish a connection with Yahoo Finance API.
 #' @rdname YahooDrv-class
 #' @export
 YahooDriver <- function() {
   if (nargs() > 0) {
     warning("All arguments to the Yahoo driver are ignored.", call. = FALSE)
   }
-  new("yahoo")
+  TDIConnector$connect("yahoo")
 }
 
 #' @title Yahoo Finance API driver class and methods.
@@ -22,15 +22,17 @@ YahooDriver <- function() {
 #' 
 #' @docType class
 #' @rdname YahooDrv-class
-#' @export
+#' @include TDIDriver.R
 #' @keywords internal
+#' @export
 setClass("yahoo", contains = "TDIDriver")
 
 #' @rdname YahooDrv-class
 #' @export
 setMethod("apiConnect", "yahoo", function(obj, ...) {
   message("Connecting with Yahoo Finance API.")
-  con <- new("YahooAPI", .drv = obj, 
+  con <- new("YahooAPI",
+    .drv = obj,
     .conn_args = list(
       baseURL = "https://query1.finance.yahoo.com"
     ),

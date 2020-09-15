@@ -19,7 +19,6 @@ Retrieves information on objects of classes inheriting from [TDIObject-class].
 \seealso{
 Other TDIDriver generics: 
 \code{\link{TDIDriver-class}},
-\code{\link{apiConnect}()},
-\code{\link{getSymbols}()}
+\code{\link{apiConnect}()}
 }
 \concept{TDIDriver generics}

@@ -33,7 +33,6 @@ setClass("TDIObject", "VIRTUAL")
 #' @param ... Other arguments.
 #' @family TDIDriver generics
 #' @inherit TDItest::spec_get_info return
-#' @export
 setGeneric("getInfo",
   def = function(obj, ...) standardGeneric("getInfo")
 )

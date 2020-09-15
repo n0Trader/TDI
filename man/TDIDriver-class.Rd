@@ -3,28 +3,27 @@
 \docType{class}
 \name{TDIDriver-class}
 \alias{TDIDriver-class}
-\alias{driver}
+\alias{getInfo,TDIDriver-method}
 \title{TDIDriver class}
 \usage{
-driver(source)
+\S4method{getInfo}{TDIDriver}(obj, ...)
 }
 \description{
 Base class for all TDI drivers (e.g., Yahoo, IEX, etc).
 The virtual class `TDIDriver` is the generic class for API specific driver(s).
+
 Each API implements an inherited [TDIDriver-class] to create the API driver object.
 Object(s) of classes inheriting from [TDIDriver-class] to access the API.
-
-Generic helper method to create a driver object to access the source API.
 }
 \seealso{
 Other TDI classes: 
 \code{\link{TDIConnection-class}},
+\code{\link{TDIConnector-class}},
 \code{\link{TDIObject-class}}
 
 Other TDIDriver generics: 
 \code{\link{apiConnect}()},
-\code{\link{getInfo}()},
-\code{\link{getSymbols}()}
+\code{\link{getInfo}()}
 }
 \concept{TDI classes}
 \concept{TDIDriver generics}

@@ -1,13 +1,38 @@
 #' @title Yahoo Finance API.
 #' @description 
 #' Yahoo Finance API class inheriting from [TDIConnection-class].
-#' Objects of this class provide the Yahoo API methods.
+#' This class implements the Yahoo Finance API requests.
 #' 
 #' @docType class
-#' @rdname YahooAPI-class
+#' @name YahooAPI-class
 #' @keywords internal
+#' @slot .handle Curl connection handle.
+#' @include TDIConnection.R
 #' @export
-setClass("YahooAPI", contains = "TDIConnection")
+setClass("YahooAPI", contains = "TDIConnection",
+  # Workaround for unknown class in slots.
+  slots = c(".handle")
+)
+
+#' @title Class constructor YahooAPI
+#' @description 
+#' Initialize object(s) of class `YahooAPI`.
+#' 
+#' @name YahooAPI-class
+setMethod("initialize", "YahooAPI", function(.Object, ...) {
+  .Object <- callNextMethod() # initiate object from parameters
+  
+  # Set connection defaults.
+  year <- as.numeric(format(Sys.Date(), "%Y")) - 5
+  .Object@.conn_args$from <- as.Date(paste(year, "01-01", sep = "-"))
+  .Object@.conn_args$range <- "2y"
+  .Object@.conn_args$interval <- "1d"
+  
+  # Curl constructs a handle for the connection.
+  .Object@.handle <- curl::new_handle()
+  
+  invisible(.Object)
+})
 
 #' @rdname YahooAPI-class
 #' @importFrom curl curl
@@ -42,8 +67,7 @@ setMethod("getSymbol", "YahooAPI", function(obj, symbol, range, from, to, interv
 
   # Contruct final URL and create connection.
   url <- paste0(obj@.conn_args$baseURL, url)
-  h <- curl::new_handle()
-  con <- curl::curl(url, handle = h)
+  con <- curl::curl(url, handle = obj@.handle)
   
   # Try downloading results in JSON.
   res <- try(jsonlite::fromJSON(con), silent = TRUE)

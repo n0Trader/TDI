@@ -28,6 +28,7 @@ Inspired by \link[DBI]{DBIObject}
 
 Other TDI classes: 
 \code{\link{TDIConnection-class}},
+\code{\link{TDIConnector-class}},
 \code{\link{TDIDriver-class}}
 }
 \concept{TDI classes}
