@@ -52,6 +52,7 @@ setMethod("validInterval", "YahooAPI", function(obj, interval) {
 
 #' @rdname YahooAPI-class
 #' @importFrom xts xts
+#' @importFrom zoo na.locf
 #' @export
 setMethod("getSymbol", "YahooAPI", function(obj, symbol, range, from, to, interval) {
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
@@ -93,7 +94,7 @@ setMethod("getSymbol", "YahooAPI", function(obj, symbol, range, from, to, interv
       Close = res$chart$result$indicators$quote[[1]]$close[[1]],
       Volume = res$chart$result$indicators$quote[[1]]$volume[[1]]
     )
-    return(na.locf(xts::as.xts(res[,-1], order.by = res$Date)))
+    return(zoo::na.locf(xts::as.xts(res[,-1], order.by = res$Date)))
   } else {
     warning(paste(res$chart$error$code, res$chart$error$description, sep = ": "))
     return(null)
