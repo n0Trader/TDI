@@ -1,0 +1,17 @@
+# Test IEX Cloud API driver constructor.
+expect_true(inherits(driver("iex"), "TDIDriver"))
+expect_true(inherits(driver("iex"), "iex"))
+
+# Test IEX connection constructor.
+expect_true(inherits(apiConnect(driver("iex")), "TDIConnection"))
+expect_true(inherits(apiConnect(driver("iex")), "iexAPI"))
+
+# Validate methods
+expect_true(hasMethod("getSymbol", "iexAPI"))
+
+# Test IEX connection object.
+con <- apiConnect(driver("iex"))
+expect_true(inherits(con@.drv, "iex"))
+expect_true(inherits(con@.handle, "curl_handle"))
+expect_true(grepl("iexapis", con@.conn_args$baseURL))
+expect_true(nchar(con@.endpoints$quotes) > 0)

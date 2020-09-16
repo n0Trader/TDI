@@ -1,4 +1,4 @@
-# Helpers to convert Yahoo date format.
+# Helpers to convert date formats.
 convertUnix2Date <- function(x) {
   as.Date(as.POSIXct(x, origin="1970-01-01"))
 }
