@@ -1,0 +1,12 @@
+# Configuration parameters.
+message("Loading configuration settings.")
+
+# IEX Cloud API connection parameters.
+iex_params <- function(name) {
+  params <- list(
+    base_url = "https://cloud.iexapis.com",
+    api_token = "pk_your_token_here",
+    api_version = "stable"
+  )
+  return(params[name])
+}

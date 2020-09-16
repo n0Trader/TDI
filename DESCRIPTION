@@ -1,7 +1,7 @@
 Package: TDI
 Title: R Trading Data Interface
-Version: 0.0.2
-Date: 2020-09-15
+Version: 0.0.3
+Date: 2020-09-16
 Description: A generic interface to retrieve trading data from different sources.
 License: GPL-3
 URL: https://github.com/n0Trader/TDI
