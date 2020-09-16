@@ -7,10 +7,10 @@
 #' which keeps a connection pool to re-use connection(s).
 #' 
 #' @docType class
+#' @include TDIDriver.R
 #' @name TDIConnection-class
 #' @family TDI classes
 #' @family TDIConnection generics
-#' @include TDIObject.R
 #' @export
 setClass("TDIConnection", contains = c("TDIObject"),
   slots = list(
@@ -34,14 +34,58 @@ setMethod("initialize", "TDIConnection", function(.Object, ...) {
   invisible(.Object)
 })
 
+#' @title Execute API request
+#' Call the API endpoint with the relative URL path and query parameters.
+#' @import httr
+#' @family TDIConnection generics
+#' @param obj An object of [TDIConnection-class].
+#' @param path Relative path for the endpoint.
+#' @param query URL query arguments.
+#' @export
+setGeneric("request",
+  def = function(obj, path, query) standardGeneric("request")
+)
+
+#' @title Execute API request with JSON
+#' Generic helper method to execute JSON requests.
+#' @rdname TDIConnection-class
+#' @import httr
+#' @param obj An object of [TDIConnection-class].
+#' @param url Final URL for the endpoint.
+#' @param query URL query arguments.
+#' @export
+setGeneric("reqJSON", def = function(obj, url, query) standardGeneric("reqJSON"))
+setMethod("reqJSON", "TDIConnection", function(obj, url, query = NULL) {
+  stopifnot(any(is.null(query), is.list(query)))
+  
+  # Call the URL and check the results.
+  resp <- httr::GET(url, query = query)
+  if (httr::status_code(resp) != 200) {
+    warning(paste0("API request failed with HTTP status: ", httr::status_code(resp)))
+  } else if (httr::http_type(resp) != "application/json") {
+    stop("API did not return json", call. = FALSE)
+  }
+  
+  # Parse the JSON results and check the results.
+  resp <- try(jsonlite::fromJSON(httr::content(resp, "text")), silent = TRUE)
+  if (inherits(resp, "try-error")) {
+    warning(res[1])
+    return(NULL)
+  } else return(resp)
+})
+
 #' @title Retrieve symbols historical prices
 #' Retrieves historical prices for the symbols.
 #'
 #' @family TDIConnection generics
 #' @param obj An object of [TDIConnection-class].
 #' @param symbol Symbol to identify the instrument.
+#' @param range Optional period range.
+#' @param from Optional start date of period.
+#' @param to Optional end date of period.
+#' @param interval Optional interval to retrieve quotes.
 #' @param ... Other arguments.
 #' @export
 setGeneric("getSymbol",
-  def = function(obj, symbol, ...) standardGeneric("getSymbol")
+  def = function(obj, symbol, range = NULL, from = NULL, to = NULL, interval = NULL, ...) standardGeneric("getSymbol")
 )

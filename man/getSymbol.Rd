@@ -5,12 +5,28 @@
 \title{Retrieve symbols historical prices
 Retrieves historical prices for the symbols.}
 \usage{
-getSymbol(obj, symbol, ...)
+getSymbol(
+  obj,
+  symbol,
+  range = NULL,
+  from = NULL,
+  to = NULL,
+  interval = NULL,
+  ...
+)
 }
 \arguments{
 \item{obj}{An object of [TDIConnection-class].}
 
 \item{symbol}{Symbol to identify the instrument.}
+
+\item{range}{Optional period range.}
+
+\item{from}{Optional start date of period.}
+
+\item{to}{Optional end date of period.}
+
+\item{interval}{Optional interval to retrieve quotes.}
 
 \item{...}{Other arguments.}
 }
@@ -20,6 +36,7 @@ Retrieves historical prices for the symbols.
 }
 \seealso{
 Other TDIConnection generics: 
-\code{\link{TDIConnection-class}}
+\code{\link{TDIConnection-class}},
+\code{\link{request}()}
 }
 \concept{TDIConnection generics}

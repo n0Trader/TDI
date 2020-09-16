@@ -3,9 +3,19 @@
 \docType{class}
 \name{TDIConnection-class}
 \alias{TDIConnection-class}
+\alias{reqJSON}
 \title{TDIConnection class}
 \usage{
 \S4method{initialize}{TDIConnection}(.Object, ...)
+
+reqJSON(obj, url, query)
+}
+\arguments{
+\item{obj}{An object of [TDIConnection-class].}
+
+\item{url}{Final URL for the endpoint.}
+
+\item{query}{URL query arguments.}
 }
 \description{
 Wraps an object of class [TDIDriver-class] and the connection parameters.
@@ -30,15 +40,18 @@ Initialize object(s) of class `TDIConnection`.
 Other TDI classes: 
 \code{\link{TDIConnector-class}},
 \code{\link{TDIDriver-class}},
-\code{\link{TDIObject-class}}
+\code{\link{TDIObject-class}},
+\code{\link{TDIResult-class}}
 
 Other TDIConnection generics: 
-\code{\link{getSymbol}()}
+\code{\link{getSymbol}()},
+\code{\link{request}()}
 
 Other TDI classes: 
 \code{\link{TDIConnector-class}},
 \code{\link{TDIDriver-class}},
-\code{\link{TDIObject-class}}
+\code{\link{TDIObject-class}},
+\code{\link{TDIResult-class}}
 }
 \concept{TDI classes}
 \concept{TDIConnection generics}

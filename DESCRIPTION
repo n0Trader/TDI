@@ -12,9 +12,10 @@ Suggests: tinytest
 RoxygenNote: 7.0.2
 Collate: 
     'TDIObject.R'
-    'TDIConnection.R'
     'TDIDriver.R'
+    'TDIConnection.R'
     'TDIConnector.R'
+    'TDIResult.R'
     'yahooAPI.R'
     'yahooDriver.R'
     'yahooUtils.R'

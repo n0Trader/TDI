@@ -35,46 +35,50 @@ setMethod("initialize", "YahooAPI", function(.Object, ...) {
 })
 
 #' @rdname YahooAPI-class
-#' @importFrom curl curl
-#' @importFrom jsonlite fromJSON
+#' @importFrom httr modify_url
+setMethod("request", "YahooAPI", function(obj, path, query = NULL) {
+  # Contruct final URL and execute the request.
+  url <- httr::modify_url(obj@.conn_args$baseURL, path = path)
+  return(reqJSON(obj, url, query))
+})
+
+#' @rdname YahooAPI-class
 #' @importFrom xts xts
-#' @importFrom zoo as.Date
-#' @param range A period range.
-#' @param from Start date of period.
-#' @param to End date of period.
-#' @param interval Interval to retrieve quotes.
 #' @export
 setMethod("getSymbol", "YahooAPI", function(obj, symbol, range, from, to, interval = obj@.conn_args$interval) {
   stopifnot(nchar(symbol) > 0)
-  message("Downloading: ", symbol, " (source: ", class(obj), ").")
+  message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
   
-  # Interval with a period range or period specified by two dates.
-  if (missing(range)) {
-    from <- convertDate2Unix(ifelse(missing(from), obj@.conn_args$from, from))
+  # Set endpoint with query parameters.
+  path <- paste(obj@.endpoints$quotes, symbol, sep = "/")
+  interval  <- ifelse(interval %in% c("1d", "1w", "1mo"), interval, obj@.conn_args$interval)
+  if (!missing(from)) {
+    # Specify period by specific dates. 
+    from <- convertDate2Unix(from)
     to <- convertDate2Unix(ifelse(missing(to), Sys.Date(), to))
-    interval  <- ifelse(interval %in% c("1d", "1w", "1m"), interval, obj@.conn_args$interval)
-    
-    # Construct endpoint URL with parameters.
-    url <- sprintf(paste(obj@.endpoints$quotes, "?period1=", "&period2=", "&interval=", "&includeTimestamps=true", sep = "%s"), symbol, from, to, interval)
+
+    # Query parameters.
+    params <- list(
+      "period1" = from,
+      "period2" = to,
+      "interval" = interval,
+      "includeTimestamps" = TRUE
+    )
   } else {
+    # Specify period by a date range.
     range  <- ifelse(range %in% c("1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max"), range, obj@.conn_args$range)
-    interval  <- ifelse(interval %in% c("1d", "1w", "1mo"), interval, obj@.conn_args$interval)
-    
-    # Construct endpoint URL with parameters.
-    url <- sprintf(paste(obj@.endpoints$quotes, "?range=", "&interval=", "&includeTimestamps=true", sep = "%s"), symbol, range, interval)
+
+    # Query parameters.
+    params <- list(
+      "range" = range,
+      "interval" = interval,
+      "includeTimestamps" = TRUE
+    )
   }
 
-  # Contruct final URL and create connection.
-  url <- paste0(obj@.conn_args$baseURL, url)
-  con <- curl::curl(url, handle = obj@.handle)
-  
-  # Try downloading results in JSON.
-  res <- try(jsonlite::fromJSON(con), silent = TRUE)
-  if (inherits(res, "try-error")) {
-    warning(res[1])
-    warning(url)
-    warning(obj@.handle)
-  } else {
+  # Execute the API request.
+  res <- request(obj, path, params)
+  if (is.null(res$chart$error)) {
     # Convert the historical prices into a time-series.
     # Note; other data to be considered for later.
     res <- data.frame(
@@ -86,6 +90,9 @@ setMethod("getSymbol", "YahooAPI", function(obj, symbol, range, from, to, interv
       Volume = res$chart$result$indicators$quote[[1]]$volume[[1]]
     )
     return(na.locf(xts::as.xts(res[,-1], order.by = res$Date)))
+  } else {
+    warning(paste(res$chart$error$code, res$chart$error$description, sep = ": "))
+    return(null)
   }
 })
 

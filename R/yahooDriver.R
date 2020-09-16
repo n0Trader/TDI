@@ -37,7 +37,7 @@ setMethod("apiConnect", "yahoo", function(obj, ...) {
       baseURL = "https://query1.finance.yahoo.com"
     ),
     .endpoints = list(
-      quotes = "/v8/finance/chart/"
+      quotes = "/v8/finance/chart"
     )
   )
   invisible(con)

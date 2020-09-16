@@ -3,21 +3,15 @@
 \docType{class}
 \name{YahooAPI-class}
 \alias{YahooAPI-class}
+\alias{request,YahooAPI-method}
 \alias{getSymbol,YahooAPI-method}
 \title{Yahoo Finance API.}
 \usage{
 \S4method{initialize}{YahooAPI}(.Object, ...)
 
+\S4method{request}{YahooAPI}(obj, path, query = NULL)
+
 \S4method{getSymbol}{YahooAPI}(obj, symbol, range, from, to, interval = obj@.conn_args$interval)
-}
-\arguments{
-\item{range}{A period range.}
-
-\item{from}{Start date of period.}
-
-\item{to}{End date of period.}
-
-\item{interval}{Interval to retrieve quotes.}
 }
 \description{
 Yahoo Finance API class inheriting from [TDIConnection-class].

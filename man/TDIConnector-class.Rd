@@ -40,7 +40,8 @@ getSymbols(con, "MSFT")
 Other TDI classes: 
 \code{\link{TDIConnection-class}},
 \code{\link{TDIDriver-class}},
-\code{\link{TDIObject-class}}
+\code{\link{TDIObject-class}},
+\code{\link{TDIResult-class}}
 }
 \concept{TDI classes}
 \keyword{datasets}

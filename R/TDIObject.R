@@ -4,8 +4,10 @@
 #'
 #' Main classes:
 #' - TDIObject, a common base class
+#' - TDIDriver, the instrument data source/driver
+#' - TDIResult, results returned by API(s)
 #' - TDIInstrument, represents generic instrument
-#' - TDISource, the instrument data source/driver
+#' - TDIIndex, represents specific instrument
 #' - TDI<type>, specific instrument types
 #' - TDIExchange, represent the exchange
 #' 

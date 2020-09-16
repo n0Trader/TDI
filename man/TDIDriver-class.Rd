@@ -19,7 +19,8 @@ Object(s) of classes inheriting from [TDIDriver-class] to access the API.
 Other TDI classes: 
 \code{\link{TDIConnection-class}},
 \code{\link{TDIConnector-class}},
-\code{\link{TDIObject-class}}
+\code{\link{TDIObject-class}},
+\code{\link{TDIResult-class}}
 
 Other TDIDriver generics: 
 \code{\link{apiConnect}()},
