@@ -45,7 +45,9 @@ Other TDI classes:
 
 Other TDIConnection generics: 
 \code{\link{getSymbol}()},
-\code{\link{request}()}
+\code{\link{request}()},
+\code{\link{validInterval}()},
+\code{\link{validRange}()}
 
 Other TDI classes: 
 \code{\link{TDIConnector-class}},

@@ -15,3 +15,13 @@ expect_true(inherits(con@.drv, "iex"))
 expect_true(inherits(con@.handle, "curl_handle"))
 expect_true(grepl("iexapis", con@.conn_args$baseURL))
 expect_true(nchar(con@.endpoints$quotes) > 0)
+
+# Test parameter range validation
+expect_equal(validRange(con, "5d"), "5d")
+expect_equal(validRange(con, "0d"), "3m")
+expect_true(is.null(validRange(con)))
+
+# Test parameter interval validation
+expect_equal(validInterval(con, "1mo"), "1mo")
+expect_equal(validInterval(con, "0d"), "1d")
+expect_equal(validInterval(con), "1d")

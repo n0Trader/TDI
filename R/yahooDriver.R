@@ -34,7 +34,9 @@ setMethod("apiConnect", "yahoo", function(obj, ...) {
   con <- new("YahooAPI",
     .drv = obj,
     .conn_args = list(
-      baseURL = "https://query1.finance.yahoo.com"
+      baseURL = "https://query1.finance.yahoo.com",
+      chart_range = "5y",
+      chart_interval = "1d"
     ),
     .endpoints = list(
       quotes = "/v8/finance/chart"

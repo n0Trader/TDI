@@ -15,3 +15,13 @@ expect_true(inherits(con@.drv, "yahoo"))
 expect_true(inherits(con@.handle, "curl_handle"))
 expect_true(grepl("finance.yahoo.com", con@.conn_args$baseURL))
 expect_true(nchar(con@.endpoints$quotes) > 0)
+
+# Test parameter range validation
+expect_equal(validRange(con, "1d"), "1d")
+expect_equal(validRange(con, "0d"), "5y")
+expect_equal(validRange(con), "5y")
+
+# Test parameter interval validation
+expect_equal(validInterval(con, "1mo"), "1mo")
+expect_equal(validInterval(con, "0d"), "1d")
+expect_equal(validInterval(con), "1d")

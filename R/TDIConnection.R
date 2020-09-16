@@ -46,6 +46,26 @@ setGeneric("request",
   def = function(obj, path, query) standardGeneric("request")
 )
 
+#' @title Validate the API range parameter
+#' Generic validation method for API range parameter.
+#' @family TDIConnection generics
+#' @param obj An object of [TDIConnection-class].
+#' @param range Range query parameter.
+#' @export
+setGeneric("validRange",
+  def = function(obj, range = NULL) standardGeneric("validRange")
+)
+
+#' @title Validate the API interval parameter
+#' Generic validation method for API interval parameter.
+#' @family TDIConnection generics
+#' @param obj An object of [TDIConnection-class].
+#' @param interval Interval query parameter.
+#' @export
+setGeneric("validInterval",
+  def = function(obj, interval = NULL) standardGeneric("validInterval")
+)
+
 #' @title Execute API request with JSON
 #' Generic helper method to execute JSON requests.
 #' @rdname TDIConnection-class

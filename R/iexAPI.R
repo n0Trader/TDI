@@ -29,12 +29,6 @@ setClass("iexAPI", contains = "TDIConnection",
 setMethod("initialize", "iexAPI", function(.Object, ...) {
   .Object <- callNextMethod() # initiate object from parameters
   
-  # Set connection defaults.
-  year <- as.numeric(format(Sys.Date(), "%Y")) - 5
-  .Object@.conn_args$from <- as.Date(paste(year, "01-01", sep = "-"))
-  .Object@.conn_args$range <- "2y"
-  .Object@.conn_args$interval <- "1d"
-  
   # Curl constructs a handle for the connection.
   .Object@.handle <- curl::new_handle()
   
@@ -52,6 +46,22 @@ setMethod("request", "iexAPI", function(obj, path, query = NULL) {
   return(reqJSON(obj, url, query))
 })
 
+#' @rdname iexAPI-class
+setMethod("validRange", "iexAPI", function(obj, range) {
+  if (is.null(range)) {
+    return(NULL)
+  } else if (isTRUE(range %in% c("5y", "2y", "1y", "ytd", "6m", "3m", "1m", "5d"))) { 
+    return(range)
+  } else return(obj@.conn_args$chart_range)
+})
+
+#' @rdname iexAPI-class
+setMethod("validInterval", "iexAPI", function(obj, interval) {
+  if (isTRUE(interval %in% c("1d", "1w", "1mo"))) { 
+    return(interval)
+  } else return(obj@.conn_args$chart_interval)
+})
+
 #' @title Retrieve symbol chart
 #' Method to request adjusted daily price data (OHLC) for maximum 15 years.
 #' 
@@ -62,12 +72,12 @@ setMethod("request", "iexAPI", function(obj, path, query = NULL) {
 #' @importFrom xts xts
 #' @seealso https://iexcloud.io/docs/api/#charts
 #' @export
-setMethod("getSymbol", "iexAPI", function(obj, symbol, range, from, to, interval = obj@.conn_args$interval) {
+setMethod("getSymbol", "iexAPI", function(obj, symbol, range, from, to, interval) {
   stopifnot(nchar(symbol) > 0)
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
 
-  # Set endpoint with query parameters.  
-  endpoint <- paste(sprintf(obj@.endpoints$quotes, symbol), range, sep = "/")
+  # Set endpoint with query parameters.
+  endpoint <- paste(sprintf(obj@.endpoints$quotes, symbol), validRange(obj,range), sep = "/")
   query <- list(chartByDay = TRUE)
   
   # Execute the API request.
@@ -78,12 +88,6 @@ setMethod("getSymbol", "iexAPI", function(obj, symbol, range, from, to, interval
     return(na.locf(xts::as.xts(df[,-1], order.by = convertUnix2Date(df$Date))))
   } else return(null)
 })
-
-#' Validate the range value is allowed.
-#' @noRd
-# .range_valid <- function(r) {
-#   return(r %in% list("5y", "2y", "1y", "ytd", "6m", "3m", "1m", "5d"))
-# }
 
 #' Set the range from the last date.
 #' The purpose is to only retrieve missing dates.

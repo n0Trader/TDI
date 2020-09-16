@@ -41,7 +41,9 @@ setMethod("apiConnect", "iex", function(obj, ...) {
       .conn_args = list(
         baseURL = iex_params("base_url"),
         api_token = iex_params("api_token"),
-        api_version = iex_params("api_version")
+        api_version = iex_params("api_version"),
+        chart_range = "3m",
+        chart_interval = "1d"
       ),
         .endpoints = list(
         quotes = "/stock/%s/chart"

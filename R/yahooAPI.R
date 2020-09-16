@@ -22,12 +22,6 @@ setClass("YahooAPI", contains = "TDIConnection",
 setMethod("initialize", "YahooAPI", function(.Object, ...) {
   .Object <- callNextMethod() # initiate object from parameters
   
-  # Set connection defaults.
-  year <- as.numeric(format(Sys.Date(), "%Y")) - 5
-  .Object@.conn_args$from <- as.Date(paste(year, "01-01", sep = "-"))
-  .Object@.conn_args$range <- "2y"
-  .Object@.conn_args$interval <- "1d"
-  
   # Curl constructs a handle for the connection.
   .Object@.handle <- curl::new_handle()
   
@@ -43,16 +37,29 @@ setMethod("request", "YahooAPI", function(obj, path, query = NULL) {
 })
 
 #' @rdname YahooAPI-class
+setMethod("validRange", "YahooAPI", function(obj, range) {
+  if (isTRUE(range %in% c("1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max"))) { 
+    return(range)
+  } else return(obj@.conn_args$chart_range)
+})
+
+#' @rdname YahooAPI-class
+setMethod("validInterval", "YahooAPI", function(obj, interval) {
+  if (isTRUE(interval %in% c("1d", "1w", "1mo"))) { 
+    return(interval)
+  } else return(obj@.conn_args$chart_interval)
+})
+
+#' @rdname YahooAPI-class
 #' @importFrom xts xts
 #' @export
-setMethod("getSymbol", "YahooAPI", function(obj, symbol, range, from, to, interval = obj@.conn_args$interval) {
-  stopifnot(nchar(symbol) > 0)
+setMethod("getSymbol", "YahooAPI", function(obj, symbol, range, from, to, interval) {
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
+  stopifnot(nchar(symbol) > 0)
   
   # Set endpoint with query parameters.
   path <- paste(obj@.endpoints$quotes, symbol, sep = "/")
-  interval  <- ifelse(interval %in% c("1d", "1w", "1mo"), interval, obj@.conn_args$interval)
-  if (!missing(from)) {
+  if (!is.null(from)) {
     # Specify period by specific dates. 
     from <- convertDate2Unix(from)
     to <- convertDate2Unix(ifelse(missing(to), Sys.Date(), to))
@@ -61,17 +68,14 @@ setMethod("getSymbol", "YahooAPI", function(obj, symbol, range, from, to, interv
     params <- list(
       "period1" = from,
       "period2" = to,
-      "interval" = interval,
+      "interval" = validInterval(obj, interval),
       "includeTimestamps" = TRUE
     )
   } else {
-    # Specify period by a date range.
-    range  <- ifelse(range %in% c("1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max"), range, obj@.conn_args$range)
-
     # Query parameters.
     params <- list(
-      "range" = range,
-      "interval" = interval,
+      "range" = validRange(obj, range),
+      "interval" = validInterval(obj, interval),
       "includeTimestamps" = TRUE
     )
   }

@@ -37,6 +37,8 @@ Retrieves historical prices for the symbols.
 \seealso{
 Other TDIConnection generics: 
 \code{\link{TDIConnection-class}},
-\code{\link{request}()}
+\code{\link{request}()},
+\code{\link{validInterval}()},
+\code{\link{validRange}()}
 }
 \concept{TDIConnection generics}
