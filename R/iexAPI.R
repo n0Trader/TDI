@@ -48,12 +48,12 @@ setMethod("validInterval", "iexAPI", function(obj, interval) {
 #' @rdname iexAPI-class
 #' @importFrom xts xts
 #' @importFrom zoo na.locf
-setMethod("getSymbol", "iexAPI", function(obj, symbol, range, from, to, interval) {
+setMethod("getSeries", "iexAPI", function(obj, symbol, range, from, to, interval) {
   stopifnot(all(is.character(symbol), nchar(symbol) > 0))
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
 
   # Set endpoint with query parameters.
-  endpoint <- paste(sprintf(obj@.endpoints$quotes, symbol), validRange(obj,range), sep = "/")
+  endpoint <- paste(sprintf(obj@.endpoints$series, symbol), validRange(obj,range), sep = "/")
   query <- list(chartByDay = TRUE)
   
   # Execute the API request.

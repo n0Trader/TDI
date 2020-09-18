@@ -43,7 +43,7 @@ Other TDI classes:
 \code{\link{TDIResult-class}}
 
 Other TDIConnection generics: 
-\code{\link{getSymbol}()},
+\code{\link{getSeries}()},
 \code{\link{request}()},
 \code{\link{validInterval}()},
 \code{\link{validRange}()}

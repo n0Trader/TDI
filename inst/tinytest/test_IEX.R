@@ -7,13 +7,14 @@ expect_true(inherits(apiConnect(driver("iex")), "TDIConnection"))
 expect_true(inherits(apiConnect(driver("iex")), "iexAPI"))
 
 # Validate methods
-expect_true(hasMethod("getSymbol", "iexAPI"))
+expect_true(hasMethod("getSeries", "iexAPI"))
 
 # Test IEX connection object.
 con <- apiConnect(driver("iex"))
 expect_true(inherits(con@.drv, "iex"))
 expect_true(grepl("iexapis", con@.conn_args$baseURL))
-expect_true(nchar(con@.endpoints$quotes) > 0)
+expect_true(is.vector(con@.conn_args$api_token))
+expect_true(is.vector(con@.endpoints$series))
 
 # Test parameter range validation
 expect_equal(validRange(con, "5d"), "5d")

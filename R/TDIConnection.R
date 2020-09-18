@@ -23,12 +23,7 @@ setClass("TDIConnection", contains = c("TDIObject"),
   )
 )
 
-#' @title Class constructor TDIConnection
-#' @description 
-#' Initialize object(s) of class `TDIConnection`.
-#' 
-#' @name TDIConnection-class
-#' @family TDI classes
+#' @rdname TDIConnection-class
 setMethod("initialize", "TDIConnection", function(.Object, ...) {
   .Object <- callNextMethod() # initiate object from parameters
   invisible(.Object)
@@ -81,7 +76,10 @@ setMethod("reqJSON", "TDIConnection", function(obj, url, query = NULL) {
   # Call the URL and check the results.
   resp <- httr::GET(url, query = query)
   if (httr::status_code(resp) != 200) {
-    warning(paste0("API request failed with HTTP status: ", httr::status_code(resp)))
+    warning(paste(url,
+      paste0("API request failed with HTTP status: ", httr::status_code(resp)),
+      sep = "\n"
+    ))
   } else if (httr::http_type(resp) != "application/json") {
     stop("API did not return json", call. = FALSE)
   }
@@ -94,11 +92,10 @@ setMethod("reqJSON", "TDIConnection", function(obj, url, query = NULL) {
   } else return(resp)
 })
 
-#' @title Retrieve symbol prices
+#' @title Retrieve historical data time series.
 #' @description 
-#' Generic S4 method to retrieve historical prices for the symbol.
-#' 
-#' The [TDIDriver-class] sub-class implements the method for a specific trading data API.
+#' Generic S4 method to retrieve historical data time series for the symbol.
+#' Sub-classes implements the method for a specific trading data API.
 #'
 #' @family TDIConnection generics
 #' @param obj An object of [TDIConnection-class].
@@ -109,6 +106,6 @@ setMethod("reqJSON", "TDIConnection", function(obj, url, query = NULL) {
 #' @param interval Optional interval to retrieve quotes.
 #' @param ... Other arguments.
 #' @export
-setGeneric("getSymbol",
-  def = function(obj, symbol, range = NULL, from = NULL, to = NULL, interval = NULL, ...) standardGeneric("getSymbol")
+setGeneric("getSeries",
+  def = function(obj, symbol, range = NULL, from = NULL, to = NULL, interval = NULL, ...) standardGeneric("getSeries")
 )

@@ -40,12 +40,12 @@ setMethod("validInterval", "YahooAPI", function(obj, interval) {
 #' @rdname YahooAPI-class
 #' @importFrom xts xts
 #' @importFrom zoo na.locf
-setMethod("getSymbol", "YahooAPI", function(obj, symbol, range, from, to, interval) {
+setMethod("getSeries", "YahooAPI", function(obj, symbol, range, from, to, interval) {
   stopifnot(all(is.character(symbol), nchar(symbol) > 0))
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
 
   # Set endpoint path and query parameters.
-  path <- paste(obj@.endpoints$quotes, symbol, sep = "/")
+  path <- paste(obj@.endpoints$series, symbol, sep = "/")
   if (!is.null(from)) {
     # Specify period by specific dates. 
     from <- convertDate2Unix(from)

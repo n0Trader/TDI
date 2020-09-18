@@ -33,7 +33,7 @@ setMethod("apiConnect", "yahoo", function(obj, ...) {
       chart_interval = "1d"
     ),
     .endpoints = list(
-      quotes = "/v8/finance/chart"
+      series = "/v8/finance/chart"
     )
   )
   invisible(con)

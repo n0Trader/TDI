@@ -39,8 +39,8 @@ setMethod("apiConnect", "iex", function(obj, ...) {
         chart_range = "3m",
         chart_interval = "1d"
       ),
-        .endpoints = list(
-        quotes = "/stock/%s/chart"
+      .endpoints = list(
+        series = "/stock/%s/chart"
       )
     )
     invisible(con)
