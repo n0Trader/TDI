@@ -3,6 +3,7 @@
 \docType{class}
 \name{YahooAPI-class}
 \alias{YahooAPI-class}
+\alias{initialize,YahooAPI-method}
 \alias{request,YahooAPI-method}
 \alias{validRange,YahooAPI-method}
 \alias{validInterval,YahooAPI-method}
@@ -22,8 +23,6 @@
 \description{
 Yahoo Finance API class inheriting from [TDIConnection-class].
 This class implements the Yahoo Finance API requests.
-
-Initialize object(s) of class `YahooAPI`.
 }
 \section{Slots}{
 

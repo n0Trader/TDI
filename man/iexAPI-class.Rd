@@ -3,6 +3,7 @@
 \docType{class}
 \name{iexAPI-class}
 \alias{iexAPI-class}
+\alias{initialize,iexAPI-method}
 \alias{request,iexAPI-method}
 \alias{validRange,iexAPI-method}
 \alias{validInterval,iexAPI-method}
@@ -22,8 +23,6 @@
 \description{
 IEX Cloud API class inheriting from [TDIConnection-class].
 This class implements the IEX Cloud API requests.
-
-Initialize object(s) of class `iexAPI`.
 }
 \details{
 IEX Cloud API interface functions.

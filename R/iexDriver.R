@@ -1,6 +1,3 @@
-#' @include yahooAPI.R
-NULL
-
 #' @title IEX Cloud API driver
 #' @description 
 #' Helper function to establish a connection with IEX Cloud API.
@@ -22,12 +19,13 @@ IEXDriver <- function() {
 #' 
 #' @docType class
 #' @rdname iexDrv-class
-#' @include TDIDriver.R
 #' @keywords internal
+#' @include TDIDriver.R
 #' @export
 setClass("iex", contains = "TDIDriver")
 
 #' @rdname iexDrv-class
+#' @include iexAPI.R
 #' @export
 setMethod("apiConnect", "iex", function(obj, ...) {
   if (file.exists("./config.R")) {

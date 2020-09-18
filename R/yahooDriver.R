@@ -1,6 +1,3 @@
-#' @include yahooAPI.R
-NULL
-
 #' @title Yahoo Finance API driver
 #' @description 
 #' Helper function to establish a connection with Yahoo Finance API.
@@ -22,12 +19,13 @@ YahooDriver <- function() {
 #' 
 #' @docType class
 #' @rdname YahooDrv-class
-#' @include TDIDriver.R
 #' @keywords internal
+#' @include TDIDriver.R
 #' @export
 setClass("yahoo", contains = "TDIDriver")
 
 #' @rdname YahooDrv-class
+#' @include yahooAPI.R
 #' @export
 setMethod("apiConnect", "yahoo", function(obj, ...) {
   message("Connecting with Yahoo Finance API.")

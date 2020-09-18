@@ -17,7 +17,7 @@ Collate:
     'TDIConnector.R'
     'TDIResult.R'
     'iexAPI.R'
-    'yahooAPI.R'
     'iexDriver.R'
     'utils.R'
+    'yahooAPI.R'
     'yahooDriver.R'

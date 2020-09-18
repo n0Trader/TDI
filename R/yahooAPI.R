@@ -3,7 +3,6 @@
 #' Yahoo Finance API class inheriting from [TDIConnection-class].
 #' This class implements the Yahoo Finance API requests.
 #' 
-#' @docType class
 #' @name YahooAPI-class
 #' @keywords internal
 #' @slot .handle Curl connection handle.
@@ -14,11 +13,7 @@ setClass("YahooAPI", contains = "TDIConnection",
   slots = c(".handle")
 )
 
-#' @title Class constructor YahooAPI
-#' @description 
-#' Initialize object(s) of class `YahooAPI`.
-#' 
-#' @name YahooAPI-class
+#' @rdname YahooAPI-class
 setMethod("initialize", "YahooAPI", function(.Object, ...) {
   .Object <- callNextMethod() # initiate object from parameters
   
@@ -53,7 +48,6 @@ setMethod("validInterval", "YahooAPI", function(obj, interval) {
 #' @rdname YahooAPI-class
 #' @importFrom xts xts
 #' @importFrom zoo na.locf
-#' @export
 setMethod("getSymbol", "YahooAPI", function(obj, symbol, range, from, to, interval) {
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
   stopifnot(nchar(symbol) > 0)
@@ -100,5 +94,3 @@ setMethod("getSymbol", "YahooAPI", function(obj, symbol, range, from, to, interv
     return(null)
   }
 })
-
-

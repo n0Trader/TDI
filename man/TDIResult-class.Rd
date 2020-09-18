@@ -6,9 +6,19 @@
 \title{TDIResult class}
 \description{
 Base class for all TDI result(s) sub-classes (e.g. Instrument, Index).
-The virtual class `TDIResult` is the generic class for specific result(s) classes.
-Each type of results implements a specific [TDIResult-class].
+The class `TDIResult` is the generic class for specific result(s) classes,
+and implements its shared generic methods.
 }
+\section{Slots}{
+
+\describe{
+\item{\code{.symbol}}{Unique identification symbol.}
+
+\item{\code{.type}}{Type of result (related to class).}
+
+\item{\code{.series}}{Time-series of class xts.}
+}}
+
 \seealso{
 Other TDI classes: 
 \code{\link{TDIConnection-class}},

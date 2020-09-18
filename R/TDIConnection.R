@@ -94,8 +94,11 @@ setMethod("reqJSON", "TDIConnection", function(obj, url, query = NULL) {
   } else return(resp)
 })
 
-#' @title Retrieve symbols historical prices
-#' Retrieves historical prices for the symbols.
+#' @title Retrieve symbol prices
+#' @description 
+#' Generic S4 method to retrieve historical prices for the symbol.
+#' 
+#' The [TDIDriver-class] sub-class implements the method for a specific trading data API.
 #'
 #' @family TDIConnection generics
 #' @param obj An object of [TDIConnection-class].

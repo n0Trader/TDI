@@ -2,8 +2,7 @@
 % Please edit documentation in R/TDIConnection.R
 \name{getSymbol}
 \alias{getSymbol}
-\title{Retrieve symbols historical prices
-Retrieves historical prices for the symbols.}
+\title{Retrieve symbol prices}
 \usage{
 getSymbol(
   obj,
@@ -31,8 +30,9 @@ getSymbol(
 \item{...}{Other arguments.}
 }
 \description{
-Retrieve symbols historical prices
-Retrieves historical prices for the symbols.
+Generic S4 method to retrieve historical prices for the symbol.
+
+The [TDIDriver-class] sub-class implements the method for a specific trading data API.
 }
 \seealso{
 Other TDIConnection generics: 

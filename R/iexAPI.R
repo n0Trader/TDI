@@ -21,11 +21,7 @@ setClass("iexAPI", contains = "TDIConnection",
   slots = c(".handle")
 )
 
-#' @title Class constructor IEX API
-#' @description 
-#' Initialize object(s) of class `iexAPI`.
-#' 
-#' @name iexAPI-class
+#' @rdname iexAPI-class
 setMethod("initialize", "iexAPI", function(.Object, ...) {
   .Object <- callNextMethod() # initiate object from parameters
   
@@ -72,7 +68,6 @@ setMethod("validInterval", "iexAPI", function(obj, interval) {
 #' @importFrom xts xts
 #' @importFrom zoo na.locf
 #' @seealso https://iexcloud.io/docs/api/#charts
-#' @export
 setMethod("getSymbol", "iexAPI", function(obj, symbol, range, from, to, interval) {
   stopifnot(nchar(symbol) > 0)
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
