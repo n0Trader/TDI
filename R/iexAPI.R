@@ -61,8 +61,9 @@ setMethod("getSeries", "iexAPI", function(obj, symbol, range, from, to, interval
   if (is.data.frame(res)) {
     df <- res[, c("date", "open", "high", "low", "close", "volume")]
     colnames(df) <- c("Date", "Open", "High", "Low", "Close", "Volume")
-    return(zoo::na.locf(xts::as.xts(df[,-1], order.by = convertUnix2Date(df$Date))))
-  } else return(null)
+    if (nrow(df) == 0) { return(xts::xts())
+    } else { return(zoo::na.locf(xts::as.xts(df[,-1], order.by = convertUnix2Date(df$Date)))) }
+  } else return(NULL)
 })
 
 #' Set the range from the last date.

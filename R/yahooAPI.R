@@ -47,14 +47,10 @@ setMethod("getSeries", "YahooAPI", function(obj, symbol, range, from, to, interv
   # Set endpoint path and query parameters.
   path <- paste(obj@.endpoints$series, symbol, sep = "/")
   if (!is.null(from)) {
-    # Specify period by specific dates. 
-    from <- convertDate2Unix(from)
-    to <- convertDate2Unix(ifelse(is.null(to), Sys.Date(), to))
-
-    # Query parameters with series period dates.
+    # Query parameters with series period by dates.
     params <- list(
-      "period1" = from,
-      "period2" = to,
+      "period1" = convertDate2Unix(from),
+      "period2" = ifelse(is.null(to), convertDate2Unix(Sys.Date()), convertDate2Unix(to)),
       "interval" = validInterval(obj, interval),
       "includeTimestamps" = TRUE
     )
@@ -80,9 +76,10 @@ setMethod("getSeries", "YahooAPI", function(obj, symbol, range, from, to, interv
       Close = res$chart$result$indicators$quote[[1]]$close[[1]],
       Volume = res$chart$result$indicators$quote[[1]]$volume[[1]]
     )
-    return(zoo::na.locf(xts::as.xts(res[,-1], order.by = res$Date)))
+    if (nrow(res) == 0) { return(xts::xts())
+    } else { return(zoo::na.locf(xts::as.xts(res[,-1], order.by = res$Date))) }
   } else {
     warning(paste(res$chart$error$code, res$chart$error$description, sep = ": "))
-    return(null)
+    return(NULL)
   }
 })
