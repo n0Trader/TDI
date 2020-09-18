@@ -1,7 +1,7 @@
 # TDI - Trading Data Interface
 Generic interface to retrieve trading data, inspired by **[DBI](https://dbi.r-dbi.org/)**.
 
-The generic interface has a first draft implementation for the Yahoo Finance API and IEX Cloud API. 
+The generic interface has a first draft implementation for the Yahoo Finance API, IEX Cloud API and FRED Economic data API. For now the generic **Trading Data Interface** and its first implementation are developed into the TDI package. The objective is to later split the generic interface and the API implementations into different packages. 
 
 The code is in initial development (alpha), and suggestion or contributions are welcome.
 
