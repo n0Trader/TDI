@@ -5,8 +5,17 @@ message("Loading configuration settings.")
 iex_params <- function(name) {
   params <- list(
     base_url = "https://cloud.iexapis.com",
-    api_token = "pk_your_token_here",
+    api_token = "your_token_here",
     api_version = "stable"
+  )
+  return(params[name])
+}
+
+# Federal Reserve Economic Data API.
+fred_params <- function(name) {
+  params <- list(
+    base_url = "https://api.stlouisfed.org/fred",
+    api_key = "your_key_here"
   )
   return(params[name])
 }
