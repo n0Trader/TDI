@@ -49,7 +49,7 @@ setMethod("getSeries", "YahooAPI", function(obj, symbol, range, from, to, interv
   if (!is.null(from)) {
     # Specify period by specific dates. 
     from <- convertDate2Unix(from)
-    to <- convertDate2Unix(ifelse(missing(to), Sys.Date(), to))
+    to <- convertDate2Unix(ifelse(is.null(to), Sys.Date(), to))
 
     # Query parameters with series period dates.
     params <- list(
