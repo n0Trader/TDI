@@ -12,11 +12,7 @@ YahooDriver <- function() {
 
 #' @title Yahoo Finance API driver class and methods.
 #' @description 
-#' Driver class to implement Yahoo Finance API access.
-#' 
-#' The driver class `yahoo` is named with commonly used source name.
-#' This makes is simpler to keep references to the driver with the data.
-#' 
+#' Driver class to implement Yahoo Finance API access, simply called `yahoo`.
 #' @docType class
 #' @rdname YahooDrv-class
 #' @keywords internal

@@ -8,11 +8,11 @@
 \alias{validRange,iexAPI-method}
 \alias{validInterval,iexAPI-method}
 \alias{getSymbol,iexAPI-method}
-\title{IEX Cloud API.}
+\title{IEX Cloud API}
 \usage{
 \S4method{initialize}{iexAPI}(.Object, ...)
 
-\S4method{request}{iexAPI}(obj, path, query = NULL)
+\S4method{request}{iexAPI}(obj, path, query)
 
 \S4method{validRange}{iexAPI}(obj, range = NULL)
 
@@ -24,21 +24,7 @@
 IEX Cloud API class inheriting from [TDIConnection-class].
 This class implements the IEX Cloud API requests.
 }
-\details{
-IEX Cloud API interface functions.
-
-TODO: other REST API's
-/ref-data/region/nl/symbols?token=
-/ref-data/exchange/nas/symbols?token=
-/ref-data/exchanges?token=
-}
-\section{Slots}{
-
-\describe{
-\item{\code{.handle}}{Curl connection handle.}
-}}
-
 \seealso{
-https://iexcloud.io/docs/api/#charts
+API documentation on \strong{\href{https://iexcloud.io/docs/api}{IEX Cloud API website}}.
 }
 \keyword{internal}

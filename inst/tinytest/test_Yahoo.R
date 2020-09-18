@@ -12,7 +12,6 @@ expect_true(hasMethod("getSymbol", "YahooAPI"))
 # Test Yahoo connection object.
 con <- apiConnect(driver("yahoo"))
 expect_true(inherits(con@.drv, "yahoo"))
-expect_true(inherits(con@.handle, "curl_handle"))
 expect_true(grepl("finance.yahoo.com", con@.conn_args$baseURL))
 expect_true(nchar(con@.endpoints$quotes) > 0)
 

@@ -12,11 +12,7 @@ IEXDriver <- function() {
 
 #' @title IEX Cloud API driver class and methods.
 #' @description 
-#' Driver class to implement IEX Cloud API access.
-#' 
-#' The driver class `iex` is named with commonly used source name.
-#' This makes it simpler to keep references to the driver with the data.
-#' 
+#' Driver class to implement IEX Cloud API access, simply called `iex`.
 #' @docType class
 #' @rdname iexDrv-class
 #' @keywords internal

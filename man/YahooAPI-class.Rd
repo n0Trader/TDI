@@ -8,7 +8,7 @@
 \alias{validRange,YahooAPI-method}
 \alias{validInterval,YahooAPI-method}
 \alias{getSymbol,YahooAPI-method}
-\title{Yahoo Finance API.}
+\title{Yahoo Finance API}
 \usage{
 \S4method{initialize}{YahooAPI}(.Object, ...)
 
@@ -24,10 +24,4 @@
 Yahoo Finance API class inheriting from [TDIConnection-class].
 This class implements the Yahoo Finance API requests.
 }
-\section{Slots}{
-
-\describe{
-\item{\code{.handle}}{Curl connection handle.}
-}}
-
 \keyword{internal}

@@ -1,31 +1,23 @@
-#' @title Yahoo Finance API.
+#' @title Yahoo Finance API
 #' @description 
 #' Yahoo Finance API class inheriting from [TDIConnection-class].
 #' This class implements the Yahoo Finance API requests.
 #' 
 #' @name YahooAPI-class
 #' @keywords internal
-#' @slot .handle Curl connection handle.
 #' @include TDIConnection.R
 #' @export
-setClass("YahooAPI", contains = "TDIConnection",
-  # Workaround for unknown class in slots.
-  slots = c(".handle")
-)
+setClass("YahooAPI", contains = "TDIConnection")
 
 #' @rdname YahooAPI-class
 setMethod("initialize", "YahooAPI", function(.Object, ...) {
   .Object <- callNextMethod() # initiate object from parameters
-  
-  # Curl constructs a handle for the connection.
-  .Object@.handle <- curl::new_handle()
-  
   invisible(.Object)
 })
 
 #' @rdname YahooAPI-class
 #' @importFrom httr modify_url
-setMethod("request", "YahooAPI", function(obj, path, query = NULL) {
+setMethod("request", "YahooAPI", function(obj, path, query) {
   # Contruct final URL and execute the request.
   url <- httr::modify_url(obj@.conn_args$baseURL, path = path)
   return(reqJSON(obj, url, query))
@@ -49,17 +41,17 @@ setMethod("validInterval", "YahooAPI", function(obj, interval) {
 #' @importFrom xts xts
 #' @importFrom zoo na.locf
 setMethod("getSymbol", "YahooAPI", function(obj, symbol, range, from, to, interval) {
+  stopifnot(all(is.character(symbol), nchar(symbol) > 0))
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
-  stopifnot(nchar(symbol) > 0)
-  
-  # Set endpoint with query parameters.
+
+  # Set endpoint path and query parameters.
   path <- paste(obj@.endpoints$quotes, symbol, sep = "/")
   if (!is.null(from)) {
     # Specify period by specific dates. 
     from <- convertDate2Unix(from)
     to <- convertDate2Unix(ifelse(missing(to), Sys.Date(), to))
 
-    # Query parameters.
+    # Query parameters with series period dates.
     params <- list(
       "period1" = from,
       "period2" = to,
@@ -67,7 +59,7 @@ setMethod("getSymbol", "YahooAPI", function(obj, symbol, range, from, to, interv
       "includeTimestamps" = TRUE
     )
   } else {
-    # Query parameters.
+    # Query parameters with series range.
     params <- list(
       "range" = validRange(obj, range),
       "interval" = validInterval(obj, interval),

@@ -1,11 +1,4 @@
-#' IEX Cloud API interface functions.
-#'
-#' TODO: other REST API's
-#' /ref-data/region/nl/symbols?token=
-#' /ref-data/exchange/nas/symbols?token=
-#' /ref-data/exchanges?token=
-
-#' @title IEX Cloud API.
+#' @title IEX Cloud API
 #' @description 
 #' IEX Cloud API class inheriting from [TDIConnection-class].
 #' This class implements the IEX Cloud API requests.
@@ -13,31 +6,25 @@
 #' @docType class
 #' @name iexAPI-class
 #' @keywords internal
-#' @slot .handle Curl connection handle.
+#' @seealso API documentation on \strong{\href{https://iexcloud.io/docs/api}{IEX Cloud API website}}.
 #' @include TDIConnection.R
 #' @export
-setClass("iexAPI", contains = "TDIConnection",
-  # Workaround for unknown class in slots.
-  slots = c(".handle")
-)
+setClass("iexAPI", contains = "TDIConnection")
 
 #' @rdname iexAPI-class
 setMethod("initialize", "iexAPI", function(.Object, ...) {
   .Object <- callNextMethod() # initiate object from parameters
-  
-  # Curl constructs a handle for the connection.
-  .Object@.handle <- curl::new_handle()
-  
   invisible(.Object)
 })
 
 #' @rdname iexAPI-class
 #' @importFrom httr modify_url
-setMethod("request", "iexAPI", function(obj, path, query = NULL) {
+setMethod("request", "iexAPI", function(obj, path, query) {
+  stopifnot(is.list(query))
+  
   # Contruct final URL, merge query params and execute the request.
   endpoint <- c(as.character(obj@.conn_args$api_version), path)
   url <- httr::modify_url(obj@.conn_args$baseURL, path = endpoint)
-  message(url)
   query <- c(list(token = as.character(obj@.conn_args$api_token)), query)
   return(reqJSON(obj, url, query))
 })
@@ -58,18 +45,11 @@ setMethod("validInterval", "iexAPI", function(obj, interval) {
   } else return(obj@.conn_args$chart_interval)
 })
 
-#' @title Retrieve symbol chart
-#' Method to request adjusted daily price data (OHLC) for maximum 15 years.
-#' 
-#' REST GET /stock/{symbol}/chart/{range}/{date}
-#' Please note to include 'chartByDay=true'.
-#' 
 #' @rdname iexAPI-class
 #' @importFrom xts xts
 #' @importFrom zoo na.locf
-#' @seealso https://iexcloud.io/docs/api/#charts
 setMethod("getSymbol", "iexAPI", function(obj, symbol, range, from, to, interval) {
-  stopifnot(nchar(symbol) > 0)
+  stopifnot(all(is.character(symbol), nchar(symbol) > 0))
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
 
   # Set endpoint with query parameters.

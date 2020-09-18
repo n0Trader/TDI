@@ -3,6 +3,7 @@
 \docType{class}
 \name{TDIConnection-class}
 \alias{TDIConnection-class}
+\alias{initialize,TDIConnection-method}
 \alias{reqJSON}
 \title{TDIConnection class}
 \usage{
@@ -23,8 +24,6 @@ Its purpose is to establish a connection and to store all connection details.
 
 Connection(s) are established by the `TDIConnector`,
 which keeps a connection pool to re-use connection(s).
-
-Initialize object(s) of class `TDIConnection`.
 }
 \section{Slots}{
 
@@ -48,12 +47,6 @@ Other TDIConnection generics:
 \code{\link{request}()},
 \code{\link{validInterval}()},
 \code{\link{validRange}()}
-
-Other TDI classes: 
-\code{\link{TDIConnector-class}},
-\code{\link{TDIDriver-class}},
-\code{\link{TDIObject-class}},
-\code{\link{TDIResult-class}}
 }
 \concept{TDI classes}
 \concept{TDIConnection generics}

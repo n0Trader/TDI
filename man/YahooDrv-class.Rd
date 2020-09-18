@@ -14,9 +14,6 @@ YahooDriver()
 \description{
 Helper function to establish a connection with Yahoo Finance API.
 
-Driver class to implement Yahoo Finance API access.
-
-The driver class `yahoo` is named with commonly used source name.
-This makes is simpler to keep references to the driver with the data.
+Driver class to implement Yahoo Finance API access, simply called `yahoo`.
 }
 \keyword{internal}
