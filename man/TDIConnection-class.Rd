@@ -39,6 +39,8 @@ which keeps a connection pool to re-use connection(s).
 Other TDI classes: 
 \code{\link{TDIConnector-class}},
 \code{\link{TDIDriver-class}},
+\code{\link{TDIIndicator-class}},
+\code{\link{TDIInstrument-class}},
 \code{\link{TDIObject-class}},
 \code{\link{TDIResult-class}}
 

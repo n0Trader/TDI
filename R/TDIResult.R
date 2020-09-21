@@ -13,6 +13,8 @@
 #' @export
 setClass("TDIResult", contains = c("TDIObject"),
   slots = list(
+    #' @slot .source Named list of sources for the data.
+    ".sources" = "list", 
     #' @slot .symbol Unique identification symbol.
     ".symbol" = "character", 
     #' @slot .type Type of result (related to class).
@@ -21,4 +23,3 @@ setClass("TDIResult", contains = c("TDIObject"),
     ".series" = "ANY" # S3 class xts
   )
 )
-

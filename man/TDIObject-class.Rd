@@ -32,6 +32,8 @@ Other TDI classes:
 \code{\link{TDIConnection-class}},
 \code{\link{TDIConnector-class}},
 \code{\link{TDIDriver-class}},
+\code{\link{TDIIndicator-class}},
+\code{\link{TDIInstrument-class}},
 \code{\link{TDIResult-class}}
 }
 \concept{TDI classes}

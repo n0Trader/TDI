@@ -12,6 +12,8 @@ and implements its shared generic methods.
 \section{Slots}{
 
 \describe{
+\item{\code{.source}}{Named list of sources for the data.}
+
 \item{\code{.symbol}}{Unique identification symbol.}
 
 \item{\code{.type}}{Type of result (related to class).}
@@ -24,6 +26,8 @@ Other TDI classes:
 \code{\link{TDIConnection-class}},
 \code{\link{TDIConnector-class}},
 \code{\link{TDIDriver-class}},
+\code{\link{TDIIndicator-class}},
+\code{\link{TDIInstrument-class}},
 \code{\link{TDIObject-class}}
 }
 \concept{TDI classes}
