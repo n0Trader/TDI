@@ -3,7 +3,7 @@ Generic interface to retrieve trading data, inspired by **[DBI](https://dbi.r-db
 
 The generic interface has a first draft implementation for the Yahoo Finance API, IEX Cloud API and FRED Economic data API. For now the generic **Trading Data Interface** and its first implementation are developed into the TDI package. Later we shall split the generic interface and the API implementations into different packages. 
 
-In the philosophy of Tinyverse - **"[Light weight is the right weight](http://www.tinyverse.org/)"** - our aim is **keep it simple and keep it clean**.
+In the philosophy of Tinyverse - **"[Light weight is the right weight](http://www.tinyverse.org/)"** - our aim is to **keep it simple and keep it light**.
 
 The code is in initial development (alpha), and suggestion or contributions are welcome.
 
@@ -24,7 +24,7 @@ To be able to run the [tinytest](https://cran.r-project.org/web/packages/tinytes
 ## Basic usage
 
 ```R
-library(DBI)
+library(TDI)
 
 # Create a TDI connection object to access the API.
 con <- TDIConnection$connect("yahoo")
