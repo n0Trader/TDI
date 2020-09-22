@@ -7,7 +7,7 @@
 \alias{request,YahooAPI-method}
 \alias{validRange,YahooAPI-method}
 \alias{validInterval,YahooAPI-method}
-\alias{getSeries,YahooAPI-method}
+\alias{getSymbol,YahooAPI-method}
 \title{Yahoo Finance API}
 \usage{
 \S4method{initialize}{YahooAPI}(.Object, ...)
@@ -18,7 +18,7 @@
 
 \S4method{validInterval}{YahooAPI}(obj, interval = NULL)
 
-\S4method{getSeries}{YahooAPI}(obj, symbol, range, from, to, interval)
+\S4method{getSymbol}{YahooAPI}(obj, symbol, range, from, to, interval)
 }
 \description{
 Yahoo Finance API class inheriting from [TDIConnection-class].

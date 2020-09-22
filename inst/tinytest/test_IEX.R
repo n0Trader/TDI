@@ -7,7 +7,7 @@ expect_true(inherits(apiConnect(driver("iex")), "TDIConnection"))
 expect_true(inherits(apiConnect(driver("iex")), "iexAPI"))
 
 # Validate methods
-expect_true(hasMethod("getSeries", "iexAPI"))
+expect_true(hasMethod("getSymbol", "iexAPI"))
 
 # Test IEX connection object.
 con <- apiConnect(driver("iex"))

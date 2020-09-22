@@ -92,9 +92,9 @@ setMethod("reqJSON", "TDIConnection", function(obj, url, query = NULL) {
   } else return(resp)
 })
 
-#' @title Retrieve historical data time series.
+#' @title Retrieve symbol with historical prices.
 #' @description 
-#' Generic S4 method to retrieve historical data time series for the symbol.
+#' Generic S4 method to retrieve historical price data for the symbol.
 #' Sub-classes implements the method for a specific trading data API.
 #'
 #' @family TDIConnection generics
@@ -105,7 +105,8 @@ setMethod("reqJSON", "TDIConnection", function(obj, url, query = NULL) {
 #' @param to Optional end date of period.
 #' @param interval Optional interval to retrieve quotes.
 #' @param ... Other arguments.
+#' @return Object of class `TDIInstrument`.
 #' @export
-setGeneric("getSeries",
-  def = function(obj, symbol, range = NULL, from = NULL, to = NULL, interval = NULL, ...) standardGeneric("getSeries")
+setGeneric("getSymbol", 
+  def = function(obj, symbol, range = NULL, from = NULL, to = NULL, interval = NULL, ...) standardGeneric("getSymbol")
 )

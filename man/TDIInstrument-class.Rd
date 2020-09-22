@@ -10,6 +10,8 @@ Instrument class is a [TDIResult-class] for all types of (tradeable) market inst
 \section{Slots}{
 
 \describe{
+\item{\code{.currency}}{Nomination currency.}
+
 \item{\code{.type}}{Type classification.}
 }}
 

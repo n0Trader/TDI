@@ -35,7 +35,7 @@ setMethod("request", "fredAPI", function(obj, path, query) {
 #' @rdname fredAPI-class
 #' @importFrom xts xts
 #' @importFrom zoo na.locf
-setMethod("getSeries", "fredAPI", function(obj, symbol, range, from, to, interval) {
+setMethod("getSymbol", signature("fredAPI"), function(obj, symbol, range, from, to, interval) {
   stopifnot(all(is.character(symbol), nchar(symbol) > 0))
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
 

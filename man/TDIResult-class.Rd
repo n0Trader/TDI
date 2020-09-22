@@ -29,6 +29,9 @@ Other TDI classes:
 \code{\link{TDIIndicator-class}},
 \code{\link{TDIInstrument-class}},
 \code{\link{TDIObject-class}}
+
+Other TDIResult generics: 
+\code{\link{setSeries}()}
 }
 \concept{TDI classes}
 \concept{TDIResult generics}

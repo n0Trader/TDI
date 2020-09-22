@@ -23,3 +23,20 @@ setClass("TDIResult", contains = c("TDIObject"),
     ".series" = "ANY" # S3 class xts
   )
 )
+
+#' @title Set slot series.
+#' @family TDIResult generics
+#' @param obj An object of [TDIResult-class].
+#' @param df Data frame to be saved.
+#' @return Object of class `TDIResult`.
+#' @export
+setGeneric("setSeries", 
+  def = function(obj, df) standardGeneric("setSeries")
+)
+setMethod("setSeries", signature("TDIResult"), function(obj, df) {
+  stopifnot(is.data.frame(df))
+  if (nrow(df) > 0) {
+    obj@.series <- zoo::na.locf(xts::as.xts(df[,-1], order.by = df$Date))
+  }
+  return(obj)
+})

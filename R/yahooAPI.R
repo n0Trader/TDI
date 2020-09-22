@@ -40,7 +40,7 @@ setMethod("validInterval", "YahooAPI", function(obj, interval) {
 #' @rdname YahooAPI-class
 #' @importFrom xts xts
 #' @importFrom zoo na.locf
-setMethod("getSeries", "YahooAPI", function(obj, symbol, range, from, to, interval) {
+setMethod("getSymbol", signature("YahooAPI"), function(obj, symbol, range, from, to, interval) {
   stopifnot(all(is.character(symbol), nchar(symbol) > 0))
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
 
@@ -66,20 +66,27 @@ setMethod("getSeries", "YahooAPI", function(obj, symbol, range, from, to, interv
   # Execute the API request.
   res <- request(obj, path, params)
   if (is.null(res$chart$error)) {
-    # Convert the historical prices into a time-series.
+    # Convert the results into a new instrument object.
     # Note; other data to be considered for later.
-    res <- data.frame(
+    instr <- new(is.Instrument(), 
+      .sources = list(class(obj@.drv)),
+      .symbol = as.character(symbol),
+      .currency = res$chart$result$meta$currency,
+      .type = res$chart$result$meta$instrumentType
+    )
+    
+    # Add historical prices to the instrument.
+    instr <- setSeries(instr, data.frame(
       Date = convertUnix2Date(res$chart$result$timestamp[[1]]),
       Open = res$chart$result$indicators$quote[[1]]$open[[1]],
       High = res$chart$result$indicators$quote[[1]]$high[[1]],
       Low = res$chart$result$indicators$quote[[1]]$low[[1]],
       Close = res$chart$result$indicators$quote[[1]]$close[[1]],
       Volume = res$chart$result$indicators$quote[[1]]$volume[[1]]
-    )
-    if (nrow(res) == 0) { return(xts::xts())
-    } else { return(zoo::na.locf(xts::as.xts(res[,-1], order.by = res$Date))) }
+    ))
+    return(instr)
+    
   } else {
     warning(paste(res$chart$error$code, res$chart$error$description, sep = ": "))
-    return(NULL)
   }
 })

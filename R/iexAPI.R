@@ -48,7 +48,7 @@ setMethod("validInterval", "iexAPI", function(obj, interval) {
 #' @rdname iexAPI-class
 #' @importFrom xts xts
 #' @importFrom zoo na.locf
-setMethod("getSeries", "iexAPI", function(obj, symbol, range, from, to, interval) {
+setMethod("getSymbol", signature("iexAPI"), function(obj, symbol, range, from, to, interval) {
   stopifnot(all(is.character(symbol), nchar(symbol) > 0))
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
 
@@ -59,10 +59,17 @@ setMethod("getSeries", "iexAPI", function(obj, symbol, range, from, to, interval
   # Execute the API request.
   res <- request(obj, endpoint, query)
   if (is.data.frame(res)) {
+    # Convert the results into a new instrument object.
+    # Note; other data to be considered for later.
+    instr <- new(is.Instrument(), 
+      .sources = list(class(obj@.drv)),
+      .symbol = as.character(symbol)
+    )
+    
     df <- res[, c("date", "open", "high", "low", "close", "volume")]
     colnames(df) <- c("Date", "Open", "High", "Low", "Close", "Volume")
-    if (nrow(df) == 0) { return(xts::xts())
-    } else { return(zoo::na.locf(xts::as.xts(df[,-1], order.by = convertUnix2Date(df$Date)))) }
+    df$Date <- convertUnix2Date(df$Date)
+    return(setSeries(instr, df))
   } else return(NULL)
 })
 

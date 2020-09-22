@@ -21,7 +21,7 @@ Call the API endpoint with the relative URL path and query parameters.
 \seealso{
 Other TDIConnection generics: 
 \code{\link{TDIConnection-class}},
-\code{\link{getSeries}()},
+\code{\link{getSymbol}()},
 \code{\link{validInterval}()},
 \code{\link{validRange}()}
 }
