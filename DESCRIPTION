@@ -27,5 +27,6 @@ Collate:
     'iexAPI.R'
     'iexDriver.R'
     'utils.R'
+    'utilsOHLCV.R'
     'yahooAPI.R'
     'yahooDriver.R'
