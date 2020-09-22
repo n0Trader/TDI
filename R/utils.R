@@ -1,3 +1,8 @@
+# Helper to write messages in verbose mode.
+msg <- function(txt) {
+  if (getOption("verbose")) message(txt)
+}
+
 # Helpers to convert date formats.
 convertUnix2Date <- function(x = NULL) {
   if (is.null(x)) { return(NULL) 

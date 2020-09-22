@@ -1,5 +1,5 @@
 # Configuration parameters.
-message("Loading configuration settings.")
+msg("Loading configuration settings.")
 
 # IEX Cloud API connection parameters.
 iex_params <- function(name) {
