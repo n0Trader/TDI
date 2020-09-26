@@ -15,10 +15,10 @@ Indicator class is a [TDIResult-class] for economic data and other indicator(s).
 
 \seealso{
 Other TDI classes: 
+\code{\link{Instrument-class}},
 \code{\link{TDIConnection-class}},
 \code{\link{TDIConnector-class}},
 \code{\link{TDIDriver-class}},
-\code{\link{TDIInstrument-class}},
 \code{\link{TDIObject-class}},
 \code{\link{TDIResult-class}}
 }

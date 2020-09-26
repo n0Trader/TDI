@@ -18,7 +18,7 @@ setMethod("initialize", "iexAPI", function(.Object, ...) {
 })
 
 #' @rdname iexAPI-class
-#' @importFrom httr modify_url
+#' @import httr
 setMethod("request", "iexAPI", function(obj, path, query) {
   stopifnot(is.list(query))
   
@@ -46,9 +46,9 @@ setMethod("validInterval", "iexAPI", function(obj, interval) {
 })
 
 #' @rdname iexAPI-class
-#' @importFrom xts xts
-#' @importFrom zoo na.locf
-setMethod("getSymbol", signature("iexAPI"), function(obj, symbol, range, from, to, interval) {
+#' @import xts
+#' @import zoo
+setMethod("getSymbols", signature("iexAPI"), function(obj, symbol, range, from, to, interval) {
   stopifnot(all(is.character(symbol), nchar(symbol) > 0))
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
 
@@ -61,9 +61,9 @@ setMethod("getSymbol", signature("iexAPI"), function(obj, symbol, range, from, t
   if (is.data.frame(res)) {
     # Convert the results into a new instrument object.
     # Note; other data to be considered for later.
-    instr <- new(is.Instrument(), 
-      .sources = list(class(obj@.drv)),
-      .symbol = as.character(symbol)
+    instr <- Instrument( 
+      source = list(class(obj@.drv)),
+      symbol = as.character(symbol)
     )
     
     df <- res[, c("date", "open", "high", "low", "close", "volume")]

@@ -29,11 +29,11 @@ Main classes:
 Inspired by \link[DBI]{DBIObject}
 
 Other TDI classes: 
+\code{\link{Instrument-class}},
 \code{\link{TDIConnection-class}},
 \code{\link{TDIConnector-class}},
 \code{\link{TDIDriver-class}},
 \code{\link{TDIIndicator-class}},
-\code{\link{TDIInstrument-class}},
 \code{\link{TDIResult-class}}
 }
 \concept{TDI classes}

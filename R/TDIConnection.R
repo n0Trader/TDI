@@ -107,6 +107,6 @@ setMethod("reqJSON", "TDIConnection", function(obj, url, query = NULL) {
 #' @param ... Other arguments.
 #' @return Object of class `TDIInstrument`.
 #' @export
-setGeneric("getSymbol", 
-  def = function(obj, symbol, range = NULL, from = NULL, to = NULL, interval = NULL, ...) standardGeneric("getSymbol")
+setGeneric("getSymbols", 
+  def = function(obj, symbol, range = NULL, from = NULL, to = NULL, interval = NULL, ...) standardGeneric("getSymbols")
 )

@@ -38,10 +38,10 @@ getSymbols(con, "MSFT")
 }
 \seealso{
 Other TDI classes: 
+\code{\link{Instrument-class}},
 \code{\link{TDIConnection-class}},
 \code{\link{TDIDriver-class}},
 \code{\link{TDIIndicator-class}},
-\code{\link{TDIInstrument-class}},
 \code{\link{TDIObject-class}},
 \code{\link{TDIResult-class}}
 }

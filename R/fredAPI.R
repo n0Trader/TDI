@@ -18,12 +18,11 @@ setMethod("initialize", "fredAPI", function(.Object, ...) {
 })
 
 #' @rdname fredAPI-class
-#' @importFrom httr modify_url
+#' @import httr
 setMethod("request", "fredAPI", function(obj, path, query) {
   stopifnot(is.list(query))
   
   # Contruct final URL, merge query params and execute the request.
-  browser()
   url <- paste0(obj@.conn_args$baseURL, path = path)
   query <- c(list(file_type = "json",
     api_key = as.character(obj@.conn_args$api_key)
@@ -33,9 +32,9 @@ setMethod("request", "fredAPI", function(obj, path, query) {
 })
 
 #' @rdname fredAPI-class
-#' @importFrom xts xts
-#' @importFrom zoo na.locf
-setMethod("getSymbol", signature("fredAPI"), function(obj, symbol, range, from, to, interval) {
+#' @import xts
+#' @import zoo
+setMethod("getSymbols", signature("fredAPI"), function(obj, symbol, range, from, to, interval) {
   stopifnot(all(is.character(symbol), nchar(symbol) > 0))
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
 

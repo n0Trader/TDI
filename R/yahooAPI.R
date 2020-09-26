@@ -16,7 +16,7 @@ setMethod("initialize", "YahooAPI", function(.Object, ...) {
 })
 
 #' @rdname YahooAPI-class
-#' @importFrom httr modify_url
+#' @import httr
 setMethod("request", "YahooAPI", function(obj, path, query) {
   # Contruct final URL and execute the request.
   url <- httr::modify_url(obj@.conn_args$baseURL, path = path)
@@ -38,9 +38,9 @@ setMethod("validInterval", "YahooAPI", function(obj, interval) {
 })
 
 #' @rdname YahooAPI-class
-#' @importFrom xts xts
-#' @importFrom zoo na.locf
-setMethod("getSymbol", signature("YahooAPI"), function(obj, symbol, range, from, to, interval) {
+#' @import xts
+#' @import zoo
+setMethod("getSymbols", signature("YahooAPI"), function(obj, symbol, range, from, to, interval) {
   stopifnot(all(is.character(symbol), nchar(symbol) > 0))
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
 
@@ -68,11 +68,11 @@ setMethod("getSymbol", signature("YahooAPI"), function(obj, symbol, range, from,
   if (is.null(res$chart$error)) {
     # Convert the results into a new instrument object.
     # Note; other data to be considered for later.
-    instr <- new(is.Instrument(), 
-      .sources = list(class(obj@.drv)),
-      .symbol = as.character(symbol),
-      .currency = res$chart$result$meta$currency,
-      .type = res$chart$result$meta$instrumentType
+    instr <- Instrument( 
+      source = as.character(class(obj@.drv)),
+      symbol = as.character(symbol),
+      currency = res$chart$result$meta$currency,
+      type = res$chart$result$meta$instrumentType
     )
     
     # Add historical prices to the instrument.

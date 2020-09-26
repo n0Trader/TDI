@@ -16,21 +16,22 @@ and implements its shared generic methods.
 
 \item{\code{.symbol}}{Unique identification symbol.}
 
-\item{\code{.type}}{Type of result (related to class).}
-
 \item{\code{.series}}{Time-series of class xts.}
 }}
 
 \seealso{
 Other TDI classes: 
+\code{\link{Instrument-class}},
 \code{\link{TDIConnection-class}},
 \code{\link{TDIConnector-class}},
 \code{\link{TDIDriver-class}},
 \code{\link{TDIIndicator-class}},
-\code{\link{TDIInstrument-class}},
 \code{\link{TDIObject-class}}
 
 Other TDIResult generics: 
+\code{\link{addSeries}()},
+\code{\link{getSeries}()},
+\code{\link{getSymbol}()},
 \code{\link{setSeries}()}
 }
 \concept{TDI classes}

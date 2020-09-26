@@ -1,7 +1,7 @@
 Package: TDI
 Title: R Trading Data Interface
-Version: 0.0.3
-Date: 2020-09-16
+Version: 0.0.4
+Date: 2020-09-26
 Description: A generic interface to retrieve trading data from different sources.
 License: GPL-3
 URL: https://github.com/n0Trader/TDI
@@ -15,18 +15,18 @@ Suggests: tinytest
 RoxygenNote: 7.0.2
 Encoding: UTF-8
 Collate: 
+    'utils.R'
     'TDIObject.R'
+    'TDIResult.R'
+    'Instrument.R'
     'TDIDriver.R'
     'TDIConnection.R'
     'TDIConnector.R'
-    'TDIResult.R'
     'TDIIndicator.R'
-    'TDIInstrument.R'
     'fredAPI.R'
     'fredDriver.R'
     'iexAPI.R'
     'iexDriver.R'
-    'utils.R'
     'utilsOHLCV.R'
     'yahooAPI.R'
     'yahooDriver.R'

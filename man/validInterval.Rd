@@ -19,7 +19,7 @@ Generic validation method for API interval parameter.
 \seealso{
 Other TDIConnection generics: 
 \code{\link{TDIConnection-class}},
-\code{\link{getSymbol}()},
+\code{\link{getSymbols}()},
 \code{\link{request}()},
 \code{\link{validRange}()}
 }

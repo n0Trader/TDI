@@ -8,7 +8,7 @@ expect_warning(expect_true(inherits(apiConnect(driver("fred")), "TDIConnection")
 expect_warning(apiConnect(driver("fred")), "Federal Reserve Bank of St. Louis")
 
 # Validate methods
-expect_true(hasMethod("getSymbol", "fredAPI"))
+expect_true(hasMethod("getSymbols", "fredAPI"))
 
 # Test FRED connection object.
 con <- apiConnect(driver("fred"))

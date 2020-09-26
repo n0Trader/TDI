@@ -7,7 +7,7 @@
 \alias{request,iexAPI-method}
 \alias{validRange,iexAPI-method}
 \alias{validInterval,iexAPI-method}
-\alias{getSymbol,iexAPI-method}
+\alias{getSymbols,iexAPI-method}
 \title{IEX Cloud API}
 \usage{
 \S4method{initialize}{iexAPI}(.Object, ...)
@@ -18,7 +18,7 @@
 
 \S4method{validInterval}{iexAPI}(obj, interval = NULL)
 
-\S4method{getSymbol}{iexAPI}(obj, symbol, range, from, to, interval)
+\S4method{getSymbols}{iexAPI}(obj, symbol, range, from, to, interval)
 }
 \description{
 IEX Cloud API class inheriting from [TDIConnection-class].

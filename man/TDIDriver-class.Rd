@@ -17,10 +17,10 @@ Object(s) of classes inheriting from [TDIDriver-class] to access the API.
 }
 \seealso{
 Other TDI classes: 
+\code{\link{Instrument-class}},
 \code{\link{TDIConnection-class}},
 \code{\link{TDIConnector-class}},
 \code{\link{TDIIndicator-class}},
-\code{\link{TDIInstrument-class}},
 \code{\link{TDIObject-class}},
 \code{\link{TDIResult-class}}
 

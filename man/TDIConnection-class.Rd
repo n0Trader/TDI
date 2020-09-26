@@ -37,15 +37,15 @@ which keeps a connection pool to re-use connection(s).
 
 \seealso{
 Other TDI classes: 
+\code{\link{Instrument-class}},
 \code{\link{TDIConnector-class}},
 \code{\link{TDIDriver-class}},
 \code{\link{TDIIndicator-class}},
-\code{\link{TDIInstrument-class}},
 \code{\link{TDIObject-class}},
 \code{\link{TDIResult-class}}
 
 Other TDIConnection generics: 
-\code{\link{getSymbol}()},
+\code{\link{getSymbols}()},
 \code{\link{request}()},
 \code{\link{validInterval}()},
 \code{\link{validRange}()}
