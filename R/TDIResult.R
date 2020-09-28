@@ -83,11 +83,11 @@ setMethod("getSeries", signature("TDIResult"), function(obj) {
 #' @param x Time-series to add to series.
 #' @return Object `TDIResult` with updated series.
 #' @export
-setGeneric("addSeries", 
-  def = function(obj, x) standardGeneric("addSeries")
+setGeneric("addSerie", 
+  def = function(obj, x) standardGeneric("addSerie")
 )
-#' @rdname addSeries
-setMethod("addSeries", signature("TDIResult"), function(obj, x) {
+#' @rdname addSerie
+setMethod("addSerie", signature("TDIResult"), function(obj, x) {
   # Add/update input time-series.
   stopifnot(xts::is.xts(x))
   drop <- which(colnames(obj@.series) %in% colnames(x))

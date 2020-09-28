@@ -27,7 +27,7 @@ Set series for `TDIResult`
 \seealso{
 Other TDIResult generics: 
 \code{\link{TDIResult-class}},
-\code{\link{addSeries}()},
+\code{\link{addSerie}()},
 \code{\link{getSeries}()},
 \code{\link{getSymbol}()}
 }
