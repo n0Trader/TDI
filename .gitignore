@@ -1,4 +1,5 @@
 # Configuration files with secrets
+.Renviron
 config.R
 
 # R Studio user config

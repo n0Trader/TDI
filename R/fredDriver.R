@@ -25,21 +25,17 @@ setClass("fred", contains = "TDIDriver")
 #' @import methods
 #' @export
 setMethod("apiConnect", "fred", function(obj, ...) {
-  source(system.file("config", "config.R", package="TDI"), local = TRUE)
-  
-  if (exists("fred_params")) {
-    message("Connecting with Federal Reserve St. Louis API.")
-    warning("This product uses the FRED(R) API but is not endorsed or certified by the Federal Reserve Bank of St. Louis.")
-    con <- methods::new("fredAPI",
-      .drv = obj,
-      .conn_args = list(
-        baseURL = fred_params("base_url"),
-        api_key = fred_params("api_key")
-      ),
-      .endpoints = list(
-        series = "/series/observations"
-      )
+  message("Connecting with Federal Reserve St. Louis API.")
+  warning("This product uses the FRED(R) API but is not endorsed or certified by the Federal Reserve Bank of St. Louis.")
+  con <- methods::new("fredAPI",
+    .drv = obj,
+    .conn_args = list(
+      baseURL = Sys.getenv("fred_base_url"),
+      api_key = Sys.getenv("fred_api_key")
+    ),
+    .endpoints = list(
+      series = "/series/observations"
     )
-    invisible(con)
-  } else stop("Missing FRED configuration parameters.", call. = TRUE)
+  )
+  invisible(con)
 })

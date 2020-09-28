@@ -24,23 +24,19 @@ setClass("iex", contains = "TDIDriver")
 #' @include iexAPI.R
 #' @export
 setMethod("apiConnect", "iex", function(obj, ...) {
-  source(system.file("config", "config.R", package="TDI"), local = TRUE)
-
-  if (exists("iex_params")) {
-    message("Connecting with IEX Cloud API.")
-    con <- new("iexAPI",
-      .drv = obj,
-      .conn_args = list(
-        baseURL = iex_params("base_url"),
-        api_token = iex_params("api_token"),
-        api_version = iex_params("api_version"),
-        chart_range = "3m",
-        chart_interval = "1d"
-      ),
-      .endpoints = list(
-        series = "/stock/%s/chart"
-      )
+  message("Connecting with IEX Cloud API.")
+  con <- new("iexAPI",
+    .drv = obj,
+    .conn_args = list(
+      baseURL = Sys.getenv("iex_base_url"),
+      api_token = Sys.getenv("iex_token"),
+      api_version = Sys.getenv("iex_version"),
+      chart_range = "3m",
+      chart_interval = "1d"
+    ),
+    .endpoints = list(
+      series = "/stock/%s/chart"
     )
-    invisible(con)
-  } else stop("Missing IEX configuration parameters.", call. = TRUE)
+  )
+  invisible(con)
 })

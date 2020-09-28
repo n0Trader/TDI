@@ -1,0 +1,8 @@
+# IEX variables.
+iex_base_url = "https://cloud.iexapis.com"
+iex_token = "<add_your_token>"
+iex_version = "stable"
+
+# FRED variables.
+fred_base_url = "https://api.stlouisfed.org/fred"
+fred_api_key = "<add_your_api_key>"

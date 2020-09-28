@@ -18,7 +18,7 @@ devtools::install_github("n0trader/TDI")
 
 To install from Github you will need a [development environment](https://www.rstudio.com/ide/docs/packages/prerequisites).
 
-The packages comes with a sample configuration file (`config.Sample`) that can be copied to create the `config.R` with your own API settings (see `inst/config`).
+The packages comes with a sample environment profile (`.Renviron.sample`). The provided environment keys should be added to the project environment profile.
 
 ## Basic usage
 
