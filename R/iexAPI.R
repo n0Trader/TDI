@@ -62,8 +62,8 @@ setMethod("getChart", signature("iexAPI"), function(obj, symbol, range, from, to
     # Convert the results into a new instrument object.
     # Note; other data to be considered for later.
     instr <- Instrument( 
-      source = list(class(obj@.drv)),
-      symbol = as.character(symbol)
+      symbol = as.character(symbol),
+      source = class(obj@.drv)
     )
     
     df <- res[, c("date", "open", "high", "low", "close", "volume")]
