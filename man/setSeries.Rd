@@ -7,16 +7,16 @@
 \alias{setSeries,Instrument-method}
 \title{Set series for `TDIResult`}
 \usage{
-setSeries(obj, df)
+setSeries(obj, x)
 
-\S4method{setSeries}{TDIResult}(obj, df)
+\S4method{setSeries}{TDIResult}(obj, x)
 
-\S4method{setSeries}{Instrument}(obj, df)
+\S4method{setSeries}{Instrument}(obj, x)
 }
 \arguments{
 \item{obj}{An object of class `TDIResult`.}
 
-\item{df}{Data frame for slot series.}
+\item{x}{Data for slot series.}
 }
 \value{
 Object of class `TDIResult` with series.

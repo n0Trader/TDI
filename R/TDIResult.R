@@ -25,20 +25,21 @@ setClass("TDIResult", contains = c("TDIObject"),
 #' @docType methods
 #' @family TDIResult generics
 #' @param obj An object of class `TDIResult`.
-#' @param df Data frame for slot series.
+#' @param x Data for slot series.
 #' @return Object of class `TDIResult` with series.
 #' @import xts
 #' @import zoo
 #' @export
 setGeneric("setSeries", 
-  def = function(obj, df) standardGeneric("setSeries")
+  def = function(obj, x) standardGeneric("setSeries")
 )
 #' @rdname setSeries
-setMethod("setSeries", signature("TDIResult"), function(obj, df) {
-  stopifnot(is.data.frame(df))
-  if (nrow(df) > 0) {
-    obj@.series <- zoo::na.locf(xts::as.xts(df[,-1], order.by = df$Date))
-  }
+setMethod("setSeries", signature("TDIResult"), function(obj, x) {
+  if (is.data.frame(x)) {
+    obj@.series <- zoo::na.locf(xts::as.xts(x[,-1], order.by = x$Date))
+  } else if (xts::is.xts(x)) {
+    obj@.series <- zoo::na.locf(x)
+  } else stop("Invalid data structure.", call. = TRUE)
   invisible(obj)
 })
 

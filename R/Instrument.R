@@ -53,7 +53,7 @@ Instrument <- function(symbol, source, currency = NULL, type = NULL) {
 #' @import xts
 #' @import zoo
 #' @rdname setSeries
-setMethod("setSeries", signature("Instrument"), function(obj, df) {
+setMethod("setSeries", signature("Instrument"), function(obj, x) {
   obj <- callNextMethod()
   if (has.Cl(obj@.series)) {
     close <- Cl(obj@.series)
@@ -96,7 +96,7 @@ setMethod("getReturn", signature("Instrument"), function(obj) {
     warning("Return not calculated, missing data.")
     return(NULL)
   }
-  return(obj@.series$return)
+  return(obj@.series$Return)
 })
 
 #' @title Get instrument wealth index
@@ -115,5 +115,5 @@ setMethod("getWealthIndex", signature("Instrument"), function(obj) {
     warning("Wealth index not calculated, missing data.")
     return(NULL)
   }
-  return(cumprod(obj@.series$return + 1))
+  return(cumprod(obj@.series$Return + 1))
 })

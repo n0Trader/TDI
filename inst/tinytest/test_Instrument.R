@@ -10,8 +10,16 @@ expect_equal(ins@.type, "TYP")
 
 # Test the methods exist for the class.
 expect_true(hasMethod("setSeries", is.Instrument()))
+expect_true(hasMethod("addSerie", is.Instrument()))
 expect_true(hasMethod("getSymbol", is.Instrument()))
 expect_true(hasMethod("getSeries", is.Instrument()))
 expect_true(hasMethod("getSession", is.Instrument()))
 expect_true(hasMethod("getReturn", is.Instrument()))
 expect_true(hasMethod("getWealthIndex", is.Instrument()))
+
+# Test loading historical prices and read results.
+prices <- readRDS("./data/stock.rda")
+ins <- setSeries(ins, prices)
+expect_equal(nrow(getSeries(ins)), nrow(prices))
+expect_equal(nrow(getReturn(ins)), nrow(prices))
+expect_equal(nrow(getWealthIndex(ins)), nrow(prices))
