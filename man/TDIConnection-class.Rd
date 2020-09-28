@@ -4,19 +4,14 @@
 \name{TDIConnection-class}
 \alias{TDIConnection-class}
 \alias{initialize,TDIConnection-method}
-\alias{reqJSON}
 \title{TDIConnection class}
 \usage{
 \S4method{initialize}{TDIConnection}(.Object, ...)
-
-reqJSON(obj, url, query)
 }
 \arguments{
-\item{obj}{An object of [TDIConnection-class].}
+\item{.Object}{An object of class `TDIConnection`.}
 
-\item{url}{Final URL for the endpoint.}
-
-\item{query}{URL query arguments.}
+\item{...}{Other arguments.}
 }
 \description{
 Wraps an object of class [TDIDriver-class] and the connection parameters.
@@ -45,7 +40,7 @@ Other TDI classes:
 \code{\link{TDIResult-class}}
 
 Other TDIConnection generics: 
-\code{\link{getSymbols}()},
+\code{\link{getChart}()},
 \code{\link{request}()},
 \code{\link{validInterval}()},
 \code{\link{validRange}()}

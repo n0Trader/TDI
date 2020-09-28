@@ -7,10 +7,10 @@
 #' which keeps a connection pool to re-use connection(s).
 #' 
 #' @docType class
-#' @include TDIDriver.R
 #' @name TDIConnection-class
 #' @family TDI classes
 #' @family TDIConnection generics
+#' @include TDIDriver.R
 #' @export
 setClass("TDIConnection", contains = c("TDIObject"),
   slots = list(
@@ -24,16 +24,20 @@ setClass("TDIConnection", contains = c("TDIObject"),
 )
 
 #' @rdname TDIConnection-class
+#' @param .Object An object of class `TDIConnection`.
+#' @param ... Other arguments.
 setMethod("initialize", "TDIConnection", function(.Object, ...) {
   .Object <- callNextMethod() # initiate object from parameters
   invisible(.Object)
 })
 
 #' @title Execute API request
+#' @description 
 #' Call the API endpoint with the relative URL path and query parameters.
-#' @import httr
+#' @docType methods
 #' @family TDIConnection generics
-#' @param obj An object of [TDIConnection-class].
+#' @import httr
+#' @param obj An object of class `TDIConnection`.
 #' @param path Relative path for the endpoint.
 #' @param query URL query arguments.
 #' @export
@@ -42,9 +46,11 @@ setGeneric("request",
 )
 
 #' @title Validate the API range parameter
+#' @description 
 #' Generic validation method for API range parameter.
+#' @docType methods
 #' @family TDIConnection generics
-#' @param obj An object of [TDIConnection-class].
+#' @param obj An object of class `TDIConnection`.
 #' @param range Range query parameter.
 #' @export
 setGeneric("validRange",
@@ -52,9 +58,11 @@ setGeneric("validRange",
 )
 
 #' @title Validate the API interval parameter
+#' @description 
 #' Generic validation method for API interval parameter.
+#' @docType methods
 #' @family TDIConnection generics
-#' @param obj An object of [TDIConnection-class].
+#' @param obj An object of class `TDIConnection`.
 #' @param interval Interval query parameter.
 #' @export
 setGeneric("validInterval",
@@ -62,15 +70,17 @@ setGeneric("validInterval",
 )
 
 #' @title Execute API request with JSON
+#' @description 
 #' Generic helper method to execute JSON requests.
-#' @rdname TDIConnection-class
+#' @docType methods
 #' @import httr
-#' @param obj An object of [TDIConnection-class].
+#' @import jsonlite
+#' @param obj An object of class `TDIConnection`.
 #' @param url Final URL for the endpoint.
 #' @param query URL query arguments.
-#' @export
-setGeneric("reqJSON", def = function(obj, url, query) standardGeneric("reqJSON"))
-setMethod("reqJSON", "TDIConnection", function(obj, url, query = NULL) {
+setGeneric("request.JSON", def = function(obj, url, query) standardGeneric("request.JSON"))
+#' @rdname request.JSON
+setMethod("request.JSON", "TDIConnection", function(obj, url, query = NULL) {
   stopifnot(any(is.null(query), is.list(query)))
   
   # Call the URL and check the results.
@@ -87,7 +97,7 @@ setMethod("reqJSON", "TDIConnection", function(obj, url, query = NULL) {
   # Parse the JSON results and check the results.
   resp <- try(jsonlite::fromJSON(httr::content(resp, "text")), silent = TRUE)
   if (inherits(resp, "try-error")) {
-    warning(res[1])
+    warning(resp[1])
     return(NULL)
   } else return(resp)
 })
@@ -96,9 +106,9 @@ setMethod("reqJSON", "TDIConnection", function(obj, url, query = NULL) {
 #' @description 
 #' Generic S4 method to retrieve historical price data for the symbol.
 #' Sub-classes implements the method for a specific trading data API.
-#'
+#' @docType methods
 #' @family TDIConnection generics
-#' @param obj An object of [TDIConnection-class].
+#' @param obj An object of class `TDIConnection`.
 #' @param symbol Symbol to identify the instrument.
 #' @param range Optional period range.
 #' @param from Optional start date of period.
@@ -107,6 +117,6 @@ setMethod("reqJSON", "TDIConnection", function(obj, url, query = NULL) {
 #' @param ... Other arguments.
 #' @return Object of class `TDIInstrument`.
 #' @export
-setGeneric("getSymbols", 
-  def = function(obj, symbol, range = NULL, from = NULL, to = NULL, interval = NULL, ...) standardGeneric("getSymbols")
+setGeneric("getChart", 
+  def = function(obj, symbol, range = NULL, from = NULL, to = NULL, interval = NULL, ...) standardGeneric("getChart")
 )

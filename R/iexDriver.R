@@ -24,10 +24,8 @@ setClass("iex", contains = "TDIDriver")
 #' @include iexAPI.R
 #' @export
 setMethod("apiConnect", "iex", function(obj, ...) {
-  if (file.exists("./config.R")) {
-    source('./config.R', local = TRUE)
-  } else stop("No config.R found in: ", getwd(), ".",call. = TRUE)
-  
+  source(system.file("config", "config.R", package="TDI"), local = TRUE)
+
   if (exists("iex_params")) {
     message("Connecting with IEX Cloud API.")
     con <- new("iexAPI",

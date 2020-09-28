@@ -2,9 +2,7 @@
 #' @description
 #' Base class for all TDI drivers (e.g., Yahoo, IEX, etc).
 #' The virtual class `TDIDriver` is the generic class for API specific driver(s).
-#' 
-#' Each API implements an inherited [TDIDriver-class] to create the API driver object.
-#' Object(s) of classes inheriting from [TDIDriver-class] to access the API.
+#' Each API has a driver sub-class of `TDIDriver` class to initiate the API.
 #'
 #' @docType class
 #' @name TDIDriver-class
@@ -17,24 +15,28 @@ setClass("TDIDriver", contains = c("TDIObject", "VIRTUAL"))
 #' @title Create driver for the source API.
 #' @description 
 #' Generic helper method to create a driver object to access the source API.
+#' @import methods
+#' @param source Source code for the API.
 #' @export
 driver <- function(source) {
   stopifnot(nchar(source) > 0)
-  if (isClass(source)) { new(source)
+  if (methods::isClass(source)) { methods::new(source)
   } else stop(paste0("Driver class could not be found for ", source, "."), call. = TRUE)
 }
 
 #' @title Provide API connection
+#' @description 
 #' Retrieves information on objects of classes inheriting from [TDIObject-class].
-#' @param obj An object of [TDIDriver-class],
+#' @docType methods
+#' @param obj An object of class `TDIDriver`.
 #' @param ... Other arguments.
 #' @family TDIDriver generics
-#' @inherit TDItest::spec_get_info return
 setGeneric("apiConnect",
   def = function(obj, ...) standardGeneric("apiConnect")
 )
 
 #' @rdname TDIDriver-class
-setMethod("getInfo", "TDIDriver", function(obj, ...) {
+#' @param obj An object of class `TDIDriver`.
+setMethod("getInfo", "TDIDriver", function(obj) {
   return(class(obj))
 })

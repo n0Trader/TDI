@@ -18,8 +18,7 @@ devtools::install_github("n0trader/TDI")
 
 To install from Github you will need a [development environment](https://www.rstudio.com/ide/docs/packages/prerequisites).
 
-The packages comes with a sample configuration file (`config.Sample`) that can be copied to create the `config.R` with your API settings.
-To be able to run the [tinytest](https://cran.r-project.org/web/packages/tinytest/index.html) cases the configuration must also be available in the test working directory (e.g. copied or soft link).
+The packages comes with a sample configuration file (`config.Sample`) that can be copied to create the `config.R` with your own API settings (see `inst/config`).
 
 ## Basic usage
 

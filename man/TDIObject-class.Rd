@@ -11,22 +11,8 @@ is a virtual Class: No objects may be created from it.
 More generally, the TDI defines a small set of classes and generics to
 facilitate a common interface for trading data.
 }
-\details{
-Trading Data Interface (TDI)
-
-Implement TDI following concept from RDI.
-
-Main classes:
-- TDIObject, a common base class
-- TDIDriver, the instrument data source/driver
-- TDIResult, results returned by API(s)
-- TDIInstrument, represents generic instrument
-- TDIIndex, represents specific instrument
-- TDI<type>, specific instrument types
-- TDIExchange, represent the exchange
-}
 \seealso{
-Inspired by \link[DBI]{DBIObject}
+Inspired by \href{https://dbi.r-dbi.org/}{DBI}
 
 Other TDI classes: 
 \code{\link{Instrument-class}},

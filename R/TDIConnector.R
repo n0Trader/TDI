@@ -22,7 +22,7 @@
 #' # It's `connect()` method is to be used to establish a connection,
 #' # that faciliates the API request.
 #' con <- TDI::TDIConnector$connect("yahoo")
-#' getSymbols(con, "MSFT")
+#' getChart(con, "MSFT")
 #' 
 TDIConnector <- setRefClass("TDIConnector",
   fields = list(

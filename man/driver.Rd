@@ -6,6 +6,9 @@
 \usage{
 driver(source)
 }
+\arguments{
+\item{source}{Source code for the API.}
+}
 \description{
 Generic helper method to create a driver object to access the source API.
 }

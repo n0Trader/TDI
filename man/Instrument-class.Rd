@@ -3,13 +3,9 @@
 \docType{class}
 \name{Instrument-class}
 \alias{Instrument-class}
-\alias{setSeries,Instrument-method}
 \title{Instrument class}
-\usage{
-\S4method{setSeries}{Instrument}(obj, df)
-}
 \description{
-Instrument class is a [TDIResult-class] for all types of (tradeable) market instruments.
+Instrument is a sub-class of `TDIResult` for all types of (tradeable) market instruments.
 }
 \section{Slots}{
 

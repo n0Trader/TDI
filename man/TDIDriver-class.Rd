@@ -6,14 +6,15 @@
 \alias{getInfo,TDIDriver-method}
 \title{TDIDriver class}
 \usage{
-\S4method{getInfo}{TDIDriver}(obj, ...)
+\S4method{getInfo}{TDIDriver}(obj)
+}
+\arguments{
+\item{obj}{An object of class `TDIDriver`.}
 }
 \description{
 Base class for all TDI drivers (e.g., Yahoo, IEX, etc).
 The virtual class `TDIDriver` is the generic class for API specific driver(s).
-
-Each API implements an inherited [TDIDriver-class] to create the API driver object.
-Object(s) of classes inheriting from [TDIDriver-class] to access the API.
+Each API has a driver sub-class of `TDIDriver` class to initiate the API.
 }
 \seealso{
 Other TDI classes: 

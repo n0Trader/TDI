@@ -16,8 +16,8 @@ Instrument(symbol, source, currency = NULL, type = NULL)
 \item{type}{Type of instrument.}
 }
 \value{
-Object of class Instrument.
+Object of class `Instrument`.
 }
 \description{
-Helper constructor for object(s) of class Instrument.
+Helper constructor for object(s) of class `Instrument`.
 }

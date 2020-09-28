@@ -7,7 +7,7 @@ expect_true(inherits(apiConnect(driver("yahoo")), "YahooAPI"))
 expect_true(inherits(apiConnect(driver("yahoo")), "TDIConnection"))
 
 # Validate methods
-expect_true(hasMethod("getSymbols", "YahooAPI"))
+expect_true(hasMethod("getChart", "YahooAPI"))
 
 # Test Yahoo connection object.
 con <- apiConnect(driver("yahoo"))

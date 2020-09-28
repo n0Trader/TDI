@@ -2,11 +2,9 @@
 #' @description 
 #' This helper function checks if the object is of class Instrument.
 #' If the input `x` is empty it returns the class name.
-#' 
 #' @param x Object to check the class for.
 #' @return Boolean result for the class check or alternative the class name.
 #' @export
-#' @noRd
 is.Instrument <- function(x = NULL) {
   class = "Instrument"
   if (is.null(x)) { return(class) 
@@ -15,8 +13,7 @@ is.Instrument <- function(x = NULL) {
 
 #' @title Instrument class
 #' @description
-#' Instrument class is a [TDIResult-class] for all types of (tradeable) market instruments.
-#' 
+#' Instrument is a sub-class of `TDIResult` for all types of (tradeable) market instruments.
 #' @docType class
 #' @name Instrument-class
 #' @family TDI classes
@@ -33,13 +30,13 @@ setClass("Instrument", contains = c("TDIResult"),
 
 #' @title Instrument constructor
 #' @description 
-#' Helper constructor for object(s) of class Instrument.
+#' Helper constructor for object(s) of class `Instrument`.
+#' @include utils.R
 #' @param symbol Symbol to identify the instrument.
 #' @param source Source for instrument data.
 #' @param currency Denomination currency.
 #' @param type Type of instrument.
-#' @return Object of class Instrument.
-#' @include utils.R
+#' @return Object of class `Instrument`.
 #' @export
 Instrument <- function(symbol, source, currency = NULL, type = NULL) {
   stopifnot(is.String(symbol))
@@ -53,9 +50,9 @@ Instrument <- function(symbol, source, currency = NULL, type = NULL) {
   )
 }
 
-#' @rdname Instrument-class
 #' @import xts
 #' @import zoo
+#' @rdname setSeries
 setMethod("setSeries", signature("Instrument"), function(obj, df) {
   obj <- callNextMethod()
   if (has.Cl(obj@.series)) {
@@ -66,26 +63,34 @@ setMethod("setSeries", signature("Instrument"), function(obj, df) {
 })
 
 #' @title Get trading session
+#' @description 
+#' Return the tradung session data for the input date plus `n` periods.
+#' @docType methods
 #' @family Instrument generics
-#' @param obj An object of [Instrument-class].
+#' @param obj An object of class `Instrument`.
 #' @param date Input date-time.
 #' @param n Optional lag number of sessions.
-#' @return Session for date plus n.
+#' @return Requested session data.
 #' @export
 setGeneric("getSession", 
-  def = function(obj, ...) standardGeneric("getSession")
+  def = function(obj, date, n) standardGeneric("getSession")
 )
+#' @rdname getSession
 setMethod("getSession", signature("Instrument"), function(obj, date, n = 0) {
   return(obj@.series[obj@.series[date, which.i = TRUE] + n])
 })
 
 #' @title Get instrument return
-#' @param obj An object of [TDIResult-class].
+#' @description 
+#' Return the object *returns* calculated from the `Close` price(s).
+#' @docType methods
+#' @param obj An object of class `Instrument`.
 #' @return Instrument return series.
 #' @export
 setGeneric("getReturn", 
   def = function(obj) standardGeneric("getReturn")
 )
+#' @rdname getReturn
 setMethod("getReturn", signature("Instrument"), function(obj) {
   if (is.null(nrow(obj@.series))) {
     warning("Return not calculated, missing data.")
@@ -95,12 +100,16 @@ setMethod("getReturn", signature("Instrument"), function(obj) {
 })
 
 #' @title Get instrument wealth index
-#' @param obj An object of [TDIResult-class].
+#' @description 
+#' Return the object wealth index calculated from the returns.
+#' @docType methods
+#' @param obj An object of class `Instrument`.
 #' @return Instrument wealth index series.
 #' @export
 setGeneric("getWealthIndex", 
   def = function(obj) standardGeneric("getWealthIndex")
 )
+#' @rdname getWealthIndex
 setMethod("getWealthIndex", signature("Instrument"), function(obj) {
   if (is.null(nrow(obj@.series))) {
     warning("Wealth index not calculated, missing data.")

@@ -26,7 +26,7 @@ setMethod("request", "iexAPI", function(obj, path, query) {
   endpoint <- c(as.character(obj@.conn_args$api_version), path)
   url <- httr::modify_url(obj@.conn_args$baseURL, path = endpoint)
   query <- c(list(token = as.character(obj@.conn_args$api_token)), query)
-  return(reqJSON(obj, url, query))
+  return(request.JSON(obj, url, query))
 })
 
 #' @rdname iexAPI-class
@@ -48,7 +48,7 @@ setMethod("validInterval", "iexAPI", function(obj, interval) {
 #' @rdname iexAPI-class
 #' @import xts
 #' @import zoo
-setMethod("getSymbols", signature("iexAPI"), function(obj, symbol, range, from, to, interval) {
+setMethod("getChart", signature("iexAPI"), function(obj, symbol, range, from, to, interval) {
   stopifnot(all(is.character(symbol), nchar(symbol) > 0))
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
 

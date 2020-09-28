@@ -7,7 +7,6 @@
 #' @param x Matrix or time-series data with multiple columns.
 #' @return Open price(s).
 #' @export
-#' @noRd
 Op <- function(x) {
   open <- has.Op(x, which = TRUE)
   if (!identical(open, integer(0))) return(x[, open])
@@ -21,7 +20,6 @@ Op <- function(x) {
 #' @param which Boolean to ask for the column number.
 #' @return Boolean or column number.
 #' @export
-#' @noRd
 has.Op <- function(x, which = FALSE) {
   n <- grep("Open$", colnames(x), ignore.case = TRUE)
   return(if(which) n else !identical(n,integer(0)))
@@ -33,7 +31,6 @@ has.Op <- function(x, which = FALSE) {
 #' @param x Matrix or time-series data with multiple columns.
 #' @return High price(s).
 #' @export
-#' @noRd
 Hi <- function(x) {
   high <- has.Hi(x, which = TRUE)
   if (!identical(high, integer(0))) return(x[, high])
@@ -47,7 +44,6 @@ Hi <- function(x) {
 #' @param which Boolean to ask for the column number.
 #' @return Boolean or column number.
 #' @export
-#' @noRd
 has.Hi <- function(x, which = FALSE) {
   n <- grep("High$", colnames(x), ignore.case = TRUE)
   return(if(which) n else !identical(n,integer(0)))
@@ -59,7 +55,6 @@ has.Hi <- function(x, which = FALSE) {
 #' @param x Matrix or time-series data with multiple columns.
 #' @return Low price(s).
 #' @export
-#' @noRd
 Lo <- function(x) {
   low <- has.Lo(x, which = TRUE)
   if (!identical(low, integer(0))) return(x[, low])
@@ -73,7 +68,6 @@ Lo <- function(x) {
 #' @param which Boolean to ask for the column number.
 #' @return Boolean or column number.
 #' @export
-#' @noRd
 has.Lo <- function(x, which = FALSE) {
   n <- grep("Low$", colnames(x), ignore.case = TRUE)
   return(if(which) n else !identical(n,integer(0)))
@@ -85,7 +79,6 @@ has.Lo <- function(x, which = FALSE) {
 #' @param x Matrix or time-series data with multiple columns.
 #' @return Close price(s).
 #' @export
-#' @noRd
 Cl <- function(x) {
   close <- has.Cl(x, which = TRUE)
   if (!identical(close, integer(0))) return(x[, close])
@@ -99,7 +92,6 @@ Cl <- function(x) {
 #' @param which Boolean to ask for the column number.
 #' @return Boolean or column number.
 #' @export
-#' @noRd
 has.Cl <- function(x, which = FALSE) {
   n <- grep("Close$", colnames(x), ignore.case = TRUE)
   return(if(which) n else !identical(n,integer(0)))
@@ -111,7 +103,6 @@ has.Cl <- function(x, which = FALSE) {
 #' @param x Matrix or time-series data with multiple columns.
 #' @return Volume(s) traded.
 #' @export
-#' @noRd
 Vo <- function(x) {
   vol <- has.Vo(x, which = TRUE)
   if (!identical(vol, integer(0))) return(x[, vol])
@@ -125,7 +116,6 @@ Vo <- function(x) {
 #' @param which Boolean to ask for the column number.
 #' @return Boolean or column number.
 #' @export
-#' @noRd
 has.Vo <- function(x, which = FALSE) {
   n <- grep("Volume$", colnames(x), ignore.case = TRUE)
   return(if(which) n else !identical(n,integer(0)))
@@ -137,7 +127,6 @@ has.Vo <- function(x, which = FALSE) {
 #' @param x Matrix or time-series data with multiple columns.
 #' @return OHLC price(s).
 #' @export
-#' @noRd
 OHLC <- function(x) {
   if (has.OHLC(x)) return(x[, has.OHLC(x, which = TRUE)])
   stop('Subscript out of bounds: OHCL not found.')
@@ -151,7 +140,6 @@ OHLC <- function(x) {
 #' @param all Boolean to ask all at once.
 #' @return Boolean or column number(s).
 #' @export
-#' @noRd
 has.OHLC <- function(x, which = FALSE, all = TRUE) {
   if (which) { return(c(has.Op(x, TRUE), has.Hi(x, TRUE), has.Lo(x, TRUE), has.Cl(x, TRUE)))
   } else if (all) { return(all(has.Op(x), has.Hi(x), has.Lo(x), has.Cl(x)))

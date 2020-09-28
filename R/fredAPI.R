@@ -28,13 +28,13 @@ setMethod("request", "fredAPI", function(obj, path, query) {
     api_key = as.character(obj@.conn_args$api_key)
     ), query
   )
-  return(reqJSON(obj, url, query))
+  return(request.JSON(obj, url, query))
 })
 
 #' @rdname fredAPI-class
 #' @import xts
 #' @import zoo
-setMethod("getSymbols", signature("fredAPI"), function(obj, symbol, range, from, to, interval) {
+setMethod("getChart", signature("fredAPI"), function(obj, symbol, range, from, to, interval) {
   stopifnot(all(is.character(symbol), nchar(symbol) > 0))
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
 

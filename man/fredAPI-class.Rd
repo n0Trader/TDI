@@ -5,14 +5,14 @@
 \alias{fredAPI-class}
 \alias{initialize,fredAPI-method}
 \alias{request,fredAPI-method}
-\alias{getSymbols,fredAPI-method}
+\alias{getChart,fredAPI-method}
 \title{FRED economic date API}
 \usage{
 \S4method{initialize}{fredAPI}(.Object, ...)
 
 \S4method{request}{fredAPI}(obj, path, query)
 
-\S4method{getSymbols}{fredAPI}(obj, symbol, range, from, to, interval)
+\S4method{getChart}{fredAPI}(obj, symbol, range, from, to, interval)
 }
 \description{
 FRED economic data API class inheriting from [TDIConnection-class].

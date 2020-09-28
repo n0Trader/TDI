@@ -12,7 +12,7 @@ and implements its shared generic methods.
 \section{Slots}{
 
 \describe{
-\item{\code{.source}}{Named list of sources for the data.}
+\item{\code{.sources}}{Named list of sources for the data.}
 
 \item{\code{.symbol}}{Unique identification symbol.}
 

@@ -20,7 +20,7 @@ setMethod("initialize", "YahooAPI", function(.Object, ...) {
 setMethod("request", "YahooAPI", function(obj, path, query) {
   # Contruct final URL and execute the request.
   url <- httr::modify_url(obj@.conn_args$baseURL, path = path)
-  return(reqJSON(obj, url, query))
+  return(request.JSON(obj, url, query))
 })
 
 #' @rdname YahooAPI-class
@@ -40,7 +40,7 @@ setMethod("validInterval", "YahooAPI", function(obj, interval) {
 #' @rdname YahooAPI-class
 #' @import xts
 #' @import zoo
-setMethod("getSymbols", signature("YahooAPI"), function(obj, symbol, range, from, to, interval) {
+setMethod("getChart", signature("YahooAPI"), function(obj, symbol, range, from, to, interval) {
   stopifnot(all(is.character(symbol), nchar(symbol) > 0))
   message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
 
