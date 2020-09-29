@@ -6,7 +6,7 @@
 \alias{getSession,Instrument-method}
 \title{Get trading session}
 \usage{
-getSession(obj, date, n)
+getSession(obj, date, n = 0)
 
 \S4method{getSession}{Instrument}(obj, date, n = 0)
 }

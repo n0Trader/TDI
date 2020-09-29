@@ -23,3 +23,10 @@ ins <- setSeries(ins, prices)
 expect_equal(nrow(getSeries(ins)), nrow(prices))
 expect_equal(nrow(getReturn(ins)), nrow(prices))
 expect_equal(nrow(getWealthIndex(ins)), nrow(prices))
+
+# Test method getSession
+last <- zoo::index(xts::last(prices))
+expect_equal(zoo::index(getSession(ins, last)), last)
+expect_equal(zoo::index(getSession(ins, last, 0)), last)
+expect_equal(getSession(ins, last, 1), NULL)
+expect_equal(getSession(ins, "1970-01-01"), NULL)

@@ -73,11 +73,13 @@ setMethod("setSeries", signature("Instrument"), function(obj, x) {
 #' @return Requested session data.
 #' @export
 setGeneric("getSession", 
-  def = function(obj, date, n) standardGeneric("getSession")
+  def = function(obj, date, n = 0) standardGeneric("getSession")
 )
 #' @rdname getSession
-setMethod("getSession", signature("Instrument"), function(obj, date, n = 0) {
-  return(obj@.series[obj@.series[date, which.i = TRUE] + n])
+setMethod("getSession", signature("Instrument"), function(obj, date, n) {
+  i <- obj@.series[date, which.i = TRUE] + n
+  if ((i > nrow(obj@.series)) || (identical(i, numeric(0)))) return(NULL)
+  else return(obj@.series[i])
 })
 
 #' @title Get instrument return
