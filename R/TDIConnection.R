@@ -95,7 +95,10 @@ setMethod("request.JSON", "TDIConnection", function(obj, url, query = NULL) {
   }
   
   # Parse the JSON results and check the results.
-  resp <- try(jsonlite::fromJSON(httr::content(resp, "text")), silent = TRUE)
+  resp <- try(jsonlite::fromJSON(
+    httr::content(resp, "text", encoding = "UTF-8")), 
+    silent = TRUE
+  )
   if (inherits(resp, "try-error")) {
     warning(resp[1])
     return(NULL)

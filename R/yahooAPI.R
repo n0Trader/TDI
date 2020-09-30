@@ -65,6 +65,12 @@ setMethod("getChart", signature("YahooAPI"), function(obj, symbol, range, from, 
 
   # Execute the API request.
   res <- request(obj, path, params)
+  if (!hasName(res, "chart")) {
+    warning("Unexpected response from Yahoo Finance API.")
+    return(NULL)
+  }
+
+  # Check the response and handle the results.
   if (is.null(res$chart$error)) {
     # Convert the results into a new instrument object.
     # Note; other data to be considered for later.
@@ -87,6 +93,7 @@ setMethod("getChart", signature("YahooAPI"), function(obj, symbol, range, from, 
     return(instr)
     
   } else {
-    warning(paste(res$chart$error$code, res$chart$error$description, sep = ": "))
+    warning(paste(res$chart$error$description, symbol, sep = ": "))
+    return(NULL)
   }
 })
