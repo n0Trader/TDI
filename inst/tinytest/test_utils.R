@@ -3,6 +3,12 @@
 # Test union class(es) for S4 slots.
 expect_true(isClass("_Char"))
 
+# Test message option.
+options("verbose" = TRUE)
+expect_message(TDI:::msg("HI!"))
+options("verbose" = FALSE)
+expect_silent(TDI:::msg("HI!"))
+
 # Test converting dates to Unix format.
 expect_error(TDI:::convertDate2Unix(""), "format")
 expect_equal(TDI:::convertDate2Unix(NULL), NULL)

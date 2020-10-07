@@ -18,7 +18,7 @@ convertUnix2Date <- function(x = NULL) {
 #' Helpers to convert Unix date format.
 #' @noRd
 convertDate2Unix <- function(d, format="%Y-%m-%d") {
-  if (is.numeric(d)) d <- as.Date(d, origin="1970-01-01")
+  # if (is.numeric(d)) d <- as.Date(d, origin="1970-01-01")
   if (is.null(d)) { return(NULL)
   } else { as.numeric(as.POSIXct(d, format)) }
 }
