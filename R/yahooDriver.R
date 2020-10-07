@@ -1,15 +1,3 @@
-#' @title Yahoo Finance API driver
-#' @description 
-#' Helper function to establish a connection with Yahoo Finance API.
-#' @rdname YahooDrv-class
-#' @export
-YahooDriver <- function() {
-  if (nargs() > 0) {
-    warning("All arguments to the Yahoo driver are ignored.", call. = FALSE)
-  }
-  TDIConnector$connect("yahoo")
-}
-
 #' @title Yahoo Finance API driver class and methods.
 #' @description 
 #' Driver class to implement Yahoo Finance API access, simply called `yahoo`.

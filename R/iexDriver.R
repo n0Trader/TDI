@@ -1,15 +1,3 @@
-#' @title IEX Cloud API driver
-#' @description 
-#' Helper function to establish a connection with IEX Cloud API.
-#' @rdname iexDrv-class
-#' @export
-IEXDriver <- function() {
-  if (nargs() > 0) {
-    warning("All arguments to the IEX driver are ignored.", call. = FALSE)
-  }
-  TDIConnector$connect("iex")
-}
-
 #' @title IEX Cloud API driver class and methods.
 #' @description 
 #' Driver class to implement IEX Cloud API access, simply called `iex`.
