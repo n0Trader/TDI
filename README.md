@@ -1,11 +1,11 @@
 # TDI - Trading Data Interface
-Generic interface to retrieve trading data, inspired by **[DBI](https://dbi.r-dbi.org/)**, and implemented with S4 OO. The purpose is to support the eco-system of trading application(s) and quantitative analysis with a package which is solely developed to collect trading data from multiple sources (API's) through a reliable standardized interface.
+Generic interface to retrieve trading data, inspired by **[DBI](https://dbi.r-dbi.org/)**, and implemented with **[R6](https://r6.r-lib.org)** object-oriented classes. The purpose is to support the eco-system of trading application(s) and quantitative analysis with a package which is solely developed to collect trading data from multiple sources (API's) through a reliable standardized interface.
 
 The package offers a first draft implementations for the Yahoo Finance API, IEX Cloud API and FRED Economic data API. For now the generic **Trading Data Interface** and its first implementations are developed into the TDI package. When growing the intention is to split the generic interface and the API implementations into different packages.
 
 In the philosophy of Tinyverse - **"[Light weight is the right weight](http://www.tinyverse.org/)"** - our aim is to **keep it simple and keep it light**.
 
-The code is in initial development (alpha), and suggestion or contributions are welcome.
+The current version retrieves historical prices (e.g. quotes) and economical data series. Suggestion or contributions are welcome to further develop the package to retrieve additional quantitative data.
 
 ## Installation
 

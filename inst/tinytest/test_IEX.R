@@ -3,25 +3,25 @@ expect_true(inherits(driver("iex"), "TDIDriver"))
 expect_true(inherits(driver("iex"), "iex"))
 
 # Test IEX connection constructor.
-expect_true(inherits(apiConnect(driver("iex")), "TDIConnection"))
-expect_true(inherits(apiConnect(driver("iex")), "iexAPI"))
-
-# Validate methods
-expect_true(hasMethod("getChart", "iexAPI"))
+drv <- driver("iex")
+expect_true(inherits(drv$connect(), "iexAPI"))
+expect_true(inherits(drv$connect(), "TDIConnection"))
 
 # Test IEX connection object.
-con <- apiConnect(driver("iex"))
-expect_true(inherits(con@.drv, "iex"))
-expect_true(grepl("iexapis", con@.conn_args$baseURL))
-expect_true(is.vector(con@.conn_args$api_token))
-expect_true(is.vector(con@.endpoints$series))
+con <- drv$connect()
+expect_true(inherits(con$driver, "iex"))
+expect_true(grepl("iexapis", con$conn_args$baseURL))
+expect_true(hasName(con$conn_args, "api_token"))
+expect_true(hasName(con$conn_args, "api_version"))
+expect_true(hasName(con$endpoints, "chart"))
 
 # Test parameter range validation
-expect_equal(validRange(con, "5d"), "5d")
-expect_equal(validRange(con, "0d"), "3m")
-expect_true(is.null(validRange(con)))
+expect_equal(con$validValue(range = "5d"), "5d")
+expect_equal(con$validValue(range = "0d"), "3m")
 
 # Test parameter interval validation
-expect_equal(validInterval(con, "1mo"), "1mo")
-expect_equal(validInterval(con, "0d"), "1d")
-expect_equal(validInterval(con), "1d")
+expect_equal(con$validValue(interval = "1mo"), "1mo")
+expect_equal(con$validValue(interval = "0d"), "1d")
+
+# Test getChart method.
+expect_silent(con$getChart("AAPL", range = "1d"))

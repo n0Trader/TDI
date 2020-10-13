@@ -3,24 +3,24 @@ expect_true(inherits(driver("yahoo"), "TDIDriver"))
 expect_true(inherits(driver("yahoo"), "yahoo"))
 
 # Test Yahoo connection constructor.
-expect_true(inherits(apiConnect(driver("yahoo")), "YahooAPI"))
-expect_true(inherits(apiConnect(driver("yahoo")), "TDIConnection"))
-
-# Validate methods
-expect_true(hasMethod("getChart", "YahooAPI"))
+drv <- driver("yahoo")
+expect_true(inherits(drv$connect(), "YahooAPI"))
+expect_true(inherits(drv$connect(), "TDIConnection"))
 
 # Test Yahoo connection object.
-con <- apiConnect(driver("yahoo"))
-expect_true(inherits(con@.drv, "yahoo"))
-expect_true(grepl("finance.yahoo.com", con@.conn_args$baseURL))
-expect_true(is.vector(con@.endpoints$series))
+con <- drv$connect()
+expect_true(inherits(con$driver, "yahoo"))
+expect_true(grepl("finance.yahoo.com", con$conn_args$baseURL))
+expect_true(hasName(con$endpoints, "chart"))
 
-# Test parameter range validation
-expect_equal(validRange(con, "1d"), "1d")
-expect_equal(validRange(con, "0d"), "5y")
-expect_equal(validRange(con), "5y")
+# Test parameter range validation.
+expect_equal(con$validValue(range = "1d"), "1d")
+expect_equal(con$validValue(range = "0d"), "1d")
+expect_equal(con$validValue(range = "5y"), "5y")
 
-# Test parameter interval validation
-expect_equal(validInterval(con, "1mo"), "1mo")
-expect_equal(validInterval(con, "0d"), "1d")
-expect_equal(validInterval(con), "1d")
+# Test parameter interval validation.
+expect_equal(con$validValue(interval = "1mo"), "1mo")
+expect_equal(con$validValue(interval = "0d"), "1d")
+
+# Test getChart method.
+expect_silent(con$getChart("AAPL"))

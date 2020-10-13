@@ -1,9 +1,9 @@
-#' @title Check if the object is an instrument.
+#' @title Check if the object is of class Instrument
 #' @description 
-#' This helper function checks if the object is of class Instrument.
+#' Helper to check the object class.
 #' If the input `x` is empty it returns the class name.
-#' @param x Object to check the class for.
-#' @return Boolean result for the class check or alternative the class name.
+#' @param x Object to check.
+#' @return Boolean result or alternative the class name.
 #' @export
 is.Instrument <- function(x = NULL) {
   class = "Instrument"
@@ -11,111 +11,88 @@ is.Instrument <- function(x = NULL) {
   } else return(inherits(x, class))
 }
 
-#' @title Instrument class
-#' @description
-#' Instrument is a sub-class of `TDIResult` for all types of (tradeable) market instruments.
-#' @docType class
-#' @name Instrument-class
-#' @family TDI classes
-#' @include TDIResult.R
+#' @title Instrument (R6 class constructor)
+#' @description 
+#' Instrument is a R6 class for all types of (tradeable) market instrument(s).
+#' @import R6
 #' @export
-setClass("Instrument", contains = c("TDIResult"),
-  slots = list(
-    #' @slot .currency Nomination currency.
-    ".currency" = "_Char", 
-    #' @slot .type Type classification.
-    ".type" = "_Char" 
+Instrument <- R6::R6Class(is.Instrument(), inherit = TDIResult,
+  cloneable = FALSE, class = TRUE, # enabled S3 classes
+
+  # Extend the TDI result fields.
+  public = list(
+    #' @field type Indicator type classification.
+    type = as.character(),
+    #' @field currency Nomination currency.
+    currency = as.character(),
+    
+    #' @description 
+    #' Constructor for object(s) of class `Indicator`.
+    #' @param source API source for the data.
+    #' @param symbol Unique identification symbol.
+    #' @param type Indicator type classification.
+    #' @param currency Nomination currency.
+    #' @return An object of class `Indicator`.
+    initialize = function(source, symbol, type = NULL, currency = NULL) {
+      stopifnot(is.String(source))
+      stopifnot(is.String(symbol))
+      stopifnot(any(is.null(type), is.String(type)))
+      stopifnot(any(is.null(currency), is.String(currency)))
+      
+      # Initialize the object.
+      self$sources <- list(source)
+      self$symbol <- symbol
+      self$type <- type
+      self$currency <- currency
+      invisible(self)
+    },
+    
+    #' @description 
+    #' Set series and calculate the return from the close price.
+    #' @param x Xts time-series with (historical) data.
+    #' @return An object of class `TDIResult`.
+    setSeries = function(x) {
+      super$setSeries(x)
+      
+      # Calculate the return (only once).
+      if (has.Cl(self$series) && !("Return" %in% colnames(self$series))) {
+        close <- Cl(self$series)
+        self$series$Return <- zoo::na.fill((close - xts::lag.xts(close))/xts::lag.xts(close), 0)
+      }  
+      invisible(self)
+    },
+    
+    #' @description 
+    #' Retrieve the trading session data for the input date plus `n` periods.
+    #' @param date Input date-time.
+    #' @param n Optional lag number of sessions.
+    #' @return Requested session data.
+    getSession = function(date, n = 0) {
+      i <- self$series[date, which.i = TRUE] + n
+      if ((i > nrow(self$series)) || (identical(i, numeric(0)))) return(NULL)
+      else return(self$series[i])
+    },
+    
+    #' @description 
+    #' Return the *returns* calculated from the `Close` price(s).
+    #' @return Instrument returns time-series.
+    getReturn = function() {
+      if (is.null(nrow(self$series))) {
+        warning("Return not calculated due to missing data.")
+        return(NULL)
+      }
+      return(self$series$Return)
+    },
+    
+    #' @description 
+    #' Return the *wealth index* calculated from the returns.
+    #' @return Instrument returns time-series.
+    getWealthIndex = function() {
+      if (is.null(nrow(self$series))) {
+        warning("Wealth index not calculated due to missing data.")
+        return(NULL)
+      }
+      return(cumprod(self$series$Return + 1))
+    }
   )
 )
-
-#' @title Instrument constructor
-#' @description 
-#' Helper constructor for object(s) of class `Instrument`.
-#' @include utils.R
-#' @param symbol Symbol to identify the instrument.
-#' @param source Source for instrument data.
-#' @param currency Denomination currency.
-#' @param type Type of instrument.
-#' @return Object of class `Instrument`.
-#' @export
-Instrument <- function(symbol, source, currency = NULL, type = NULL) {
-  stopifnot(is.String(symbol))
-  stopifnot(is.String(source))
-  
-  methods::new(is.Instrument(),
-    .sources = list(source),
-    .symbol = symbol,
-    .currency = currency,
-    .type = type
-  )
-}
-
-#' @import xts
-#' @import zoo
-#' @rdname setSeries
-setMethod("setSeries", signature("Instrument"), function(obj, x) {
-  obj <- callNextMethod()
-  if (has.Cl(obj@.series)) {
-    close <- Cl(obj@.series)
-    obj@.series$Return <- zoo::na.fill((close - xts::lag.xts(close))/xts::lag.xts(close), 0)
-  }  
-  invisible(obj)
-})
-
-#' @title Get trading session
-#' @description 
-#' Return the tradung session data for the input date plus `n` periods.
-#' @docType methods
-#' @family Instrument generics
-#' @param obj An object of class `Instrument`.
-#' @param date Input date-time.
-#' @param n Optional lag number of sessions.
-#' @return Requested session data.
-#' @export
-setGeneric("getSession", 
-  def = function(obj, date, n = 0) standardGeneric("getSession")
-)
-#' @rdname getSession
-setMethod("getSession", signature("Instrument"), function(obj, date, n) {
-  i <- obj@.series[date, which.i = TRUE] + n
-  if ((i > nrow(obj@.series)) || (identical(i, numeric(0)))) return(NULL)
-  else return(obj@.series[i])
-})
-
-#' @title Get instrument return
-#' @description 
-#' Return the object *returns* calculated from the `Close` price(s).
-#' @docType methods
-#' @param obj An object of class `Instrument`.
-#' @return Instrument return series.
-#' @export
-setGeneric("getReturn", 
-  def = function(obj) standardGeneric("getReturn")
-)
-#' @rdname getReturn
-setMethod("getReturn", signature("Instrument"), function(obj) {
-  if (is.null(nrow(obj@.series))) {
-    warning("Return not calculated, missing data.")
-    return(NULL)
-  }
-  return(obj@.series$Return)
-})
-
-#' @title Get instrument wealth index
-#' @description 
-#' Return the object wealth index calculated from the returns.
-#' @docType methods
-#' @param obj An object of class `Instrument`.
-#' @return Instrument wealth index series.
-#' @export
-setGeneric("getWealthIndex", 
-  def = function(obj) standardGeneric("getWealthIndex")
-)
-#' @rdname getWealthIndex
-setMethod("getWealthIndex", signature("Instrument"), function(obj) {
-  if (is.null(nrow(obj@.series))) {
-    warning("Wealth index not calculated, missing data.")
-    return(NULL)
-  }
-  return(cumprod(obj@.series$Return + 1))
-})

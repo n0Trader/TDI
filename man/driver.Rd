@@ -2,12 +2,12 @@
 % Please edit documentation in R/TDIDriver.R
 \name{driver}
 \alias{driver}
-\title{Create driver for the source API.}
+\title{Create driver for the source API}
 \usage{
 driver(source)
 }
 \arguments{
-\item{source}{Source code for the API.}
+\item{source}{Source code to identify the API.}
 }
 \description{
 Generic helper method to create a driver object to access the source API.

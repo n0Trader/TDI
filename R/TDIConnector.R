@@ -1,44 +1,48 @@
 #' @title TDIConnector
 #' @description 
-#' The `TDIConnector` manages `TDIConnection`(s).
-#' It's purpose is to establish connection(s) to acccess API(s) for trading data.
-#' Each API has its own driver that is identified by the `source` (class).
-#' 
-#' The `connect()` method returns a connection to be used for API access,
-#' which is an object of class `TDIConnection`. 
-#' Based upon the `source` (driver class) a driver object of class [TDIDriver-class] is loaded. 
-#' The driver initialized a connection object of class [TDIConnection-class].
+#' TDIConnector is an instantiation of class `TDIConnector` to manage connection(s).
+#' It's purpose is to establish connection(s) to acccess API(s) for qualitative data.
+#' @details
+#' The `TDIConnector` connects with an API through its driver identified by `source` (class).
+#' It's `connect()` method establishes the API access using the `TDIDriver`,
+#' and returns that connection as an object of class `TDIConnection`. 
 #' 
 #' The class implements the **singleton pattern** to re-use connections. 
 #' Note that the class is immediately instantiated.
-#' 
-#' @docType class
-#' @name TDIConnector-class
-#' @family TDI classes
-#' @include TDIDriver.R
+#' @import R6
 #' @export
 #' @examples
 #' # TDI library creates an singleton object of class `TDIConnector`.
 #' # It's `connect()` method is to be used to establish a connection,
 #' # that faciliates the API request.
 #' con <- TDI::TDIConnector$connect("yahoo")
-#' getChart(con, "MSFT")
-#' 
-TDIConnector <- setRefClass("TDIConnector",
-  fields = list(
-    #' @field .connections List with connection pool.
-    .connections = "list"
-  ),
-  methods = list(
+#' msft <- con$getChart("MSFT")
+TDIConnector <- R6::R6Class("TDIConnector",
+  cloneable = FALSE, class = TRUE, # enabled S3 classes
+
+  public = list(
+    initialize = function() { invisible(self) },
+    
+    #' @description
+    #' Setup and provide an API connection.
+    #' @param source API driver class name.
+    #' @return An object of class `TDIConnection`.
     connect = function(source) {
-      stopifnot(nchar(source) > 0)
-      if (is.null(.connections[[source]])) {
+      stopifnot(is.String(source))
+
+      if (is.null(private$.Connections[[source]])) {
         # Create new driver to establish the API connection.
         # The API connection is stored in the connection(s) pool.
         drv <- driver(source)
-        .connections[[source]] <<- apiConnect(drv)
+        stopifnot(is.TDIDriver(drv))
+        private$.Connections[[source]] <- drv$connect()
       }
-      return(.connections[[source]])
+      return(private$.Connections[[source]])
     }
+  ),
+  
+  private = list(
+    # Connection pool.
+    .Connections = list()
   )
 )$new()

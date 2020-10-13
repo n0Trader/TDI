@@ -1,77 +1,49 @@
-#' @title IEX Cloud API
+#' @title IEX Cloud API (R6 constructor class)
 #' @description 
-#' IEX Cloud API class inheriting from [TDIConnection-class].
+#' IEX Cloud API class inheriting from `TDIConnection`.
 #' This class implements the IEX Cloud API requests.
-#' 
-#' @docType class
-#' @name iexAPI-class
-#' @keywords internal
 #' @seealso API documentation on \strong{\href{https://iexcloud.io/docs/api}{IEX Cloud API website}}.
-#' @include TDIConnection.R
+#' @import R6
 #' @export
-setClass("iexAPI", contains = "TDIConnection")
+iexAPI <- R6::R6Class("iexAPI", inherit = TDIConnection,
+  cloneable = FALSE, class = TRUE, # enabled S3 classes
 
-#' @rdname iexAPI-class
-setMethod("initialize", "iexAPI", function(.Object, ...) {
-  .Object <- callNextMethod() # initiate object from parameters
-  invisible(.Object)
-})
-
-#' @rdname iexAPI-class
-#' @import httr
-setMethod("request", "iexAPI", function(obj, path, query) {
-  stopifnot(is.list(query))
-  
-  # Contruct final URL, merge query params and execute the request.
-  endpoint <- c(as.character(obj@.conn_args$api_version), path)
-  url <- httr::modify_url(obj@.conn_args$baseURL, path = endpoint)
-  query <- c(list(token = as.character(obj@.conn_args$api_token)), query)
-  return(request.JSON(obj, url, query))
-})
-
-#' @rdname iexAPI-class
-setMethod("validRange", "iexAPI", function(obj, range) {
-  if (is.null(range)) {
-    return(NULL)
-  } else if (isTRUE(range %in% c("5y", "2y", "1y", "ytd", "6m", "3m", "1m", "5d"))) { 
-    return(range)
-  } else return(obj@.conn_args$chart_range)
-})
-
-#' @rdname iexAPI-class
-setMethod("validInterval", "iexAPI", function(obj, interval) {
-  if (isTRUE(interval %in% c("1d", "1w", "1mo"))) { 
-    return(interval)
-  } else return(obj@.conn_args$chart_interval)
-})
-
-#' @rdname iexAPI-class
-#' @import xts
-#' @import zoo
-setMethod("getChart", signature("iexAPI"), function(obj, symbol, range, from, to, interval) {
-  stopifnot(all(is.character(symbol), nchar(symbol) > 0))
-  message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
-
-  # Set endpoint with query parameters.
-  endpoint <- paste(sprintf(obj@.endpoints$series, symbol), validRange(obj,range), sep = "/")
-  query <- list(chartByDay = TRUE)
-  
-  # Execute the API request.
-  res <- request(obj, endpoint, query)
-  if (is.data.frame(res)) {
-    # Convert the results into a new instrument object.
-    # Note; other data to be considered for later.
-    instr <- Instrument( 
-      symbol = as.character(symbol),
-      source = class(obj@.drv)
-    )
-    
-    df <- res[, c("date", "open", "high", "low", "close", "volume")]
-    colnames(df) <- c("Date", "Open", "High", "Low", "Close", "Volume")
-    df$Date <- convertUnix2Date(df$Date)
-    return(setSeries(instr, df))
-  } else return(NULL)
-})
+  # Implement API driver endpoints.
+  public = list(
+    #' @description 
+    #' Retrieve historical prices for the symbol.
+    #' @param ... see \code{\link{TDIConnection}}
+    #' @return An object of class `Instrument` with historical prices.
+    getChart = function(...) {
+      args <- super$getChart(...)
+      
+      # Execute the Json API request with URL request string.
+      query <- list(chartByDay = TRUE, token = as.character(self$conn_args$api_token))
+      path <- list(version = self$conn_args$api_version, 
+        symbol = args$symbol, 
+        range = self$validValue(range = args$range)
+      )
+      res <- self$jsonRequest(
+        self$requestString(endpoint = "chart", path = path, query = query)
+      )
+      
+      # Check the response and handle the results.
+      if (is.data.frame(res)) {
+        # Convert the results into a new instrument object.
+        # Note; other data to be considered for later.
+        instr <- Instrument$new(
+          symbol = as.character(args$symbol),
+          source = as.character(class(self$driver)[1])
+        )
+        
+        df <- res[, c("date", "open", "high", "low", "close", "volume")]
+        colnames(df) <- c("Date", "Open", "High", "Low", "Close", "Volume")
+        df$Date <- convertUnix2Date(df$Date)
+        return(instr$setSeries(df))
+      } else return(NULL)
+    }
+  )
+)
 
 #' Set the range from the last date.
 #' The purpose is to only retrieve missing dates.

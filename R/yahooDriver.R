@@ -1,28 +1,39 @@
-#' @title Yahoo Finance API driver class and methods.
+#' @title Yahoo driver (R6 class constructor)
 #' @description 
 #' Driver class to implement Yahoo Finance API access, simply called `yahoo`.
-#' @docType class
-#' @rdname YahooDrv-class
-#' @keywords internal
-#' @include TDIDriver.R
+#' @import R6
 #' @export
-setClass("yahoo", contains = "TDIDriver")
-
-#' @rdname YahooDrv-class
-#' @include yahooAPI.R
-#' @export
-setMethod("apiConnect", "yahoo", function(obj, ...) {
-  message("Connecting with Yahoo Finance API.")
-  con <- new("YahooAPI",
-    .drv = obj,
-    .conn_args = list(
-      baseURL = "https://query1.finance.yahoo.com",
-      chart_range = "5y",
-      chart_interval = "1d"
-    ),
-    .endpoints = list(
-      series = "/v8/finance/chart"
-    )
+yahoo <- R6::R6Class("yahoo", inherit = TDIDriver,
+  cloneable = FALSE, class = TRUE, # enabled S3 classes
+  lock_class = TRUE, # lock the interface
+  portable = TRUE, # enable inheritance across packages
+  
+  # Abstract API driver methods (with error messages).
+  public = list(
+    #' @description 
+    #' Setup API connection.
+    #' @return An object of type `TDIConnection`.
+    connect = function() {
+      message("Connecting with Yahoo Finance API.")
+      con <- YahooAPI$new(driver = self,
+        # Arguments required to access the API.
+        conn_args = list(
+          baseURL = "https://query1.finance.yahoo.com",
+          chart_range = "5y",
+          chart_interval = "1d"
+        ),
+        # Routes to endpoints.
+        endpoints = list(
+          chart = "/v8/finance/chart/%s"
+        ),
+        # Valid parameter values (default = [1]).
+        values = list(
+          range = c("1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max"),
+          interval = c("1d", "1w", "1mo")
+        )
+      )
+      
+      invisible(con)
+    }
   )
-  invisible(con)
-})
+)

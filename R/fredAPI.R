@@ -1,46 +1,32 @@
-#' @title FRED economic date API
+#' @title FRED economic date API (R6 constructor class)
 #' @description 
-#' FRED economic data API class inheriting from [TDIConnection-class].
+#' FRED economic data API class inheriting from `TDIConnection`.
 #' This class implements the FRED API requests.
-#' 
-#' @docType class
-#' @name fredAPI-class
-#' @keywords internal
 #' @seealso API documentation on \strong{\href{https://research.stlouisfed.org/docs/api/}{St. Louis Fed web services website}}.
-#' @include TDIConnection.R
+#' @import R6
 #' @export
-setClass("fredAPI", contains = "TDIConnection")
+fredAPI <- R6::R6Class("fredAPI", inherit = TDIConnection,
+  cloneable = FALSE, class = TRUE, # enabled S3 classes
 
-#' @rdname fredAPI-class
-setMethod("initialize", "fredAPI", function(.Object, ...) {
-  .Object <- callNextMethod() # initiate object from parameters
-  invisible(.Object)
-})
-
-#' @rdname fredAPI-class
-#' @import httr
-setMethod("request", "fredAPI", function(obj, path, query) {
-  stopifnot(is.list(query))
-  
-  # Contruct final URL, merge query params and execute the request.
-  url <- paste0(obj@.conn_args$baseURL, path = path)
-  query <- c(list(file_type = "json",
-    api_key = as.character(obj@.conn_args$api_key)
-    ), query
+  # Implement API driver endpoints.
+  public = list(
+    #' @description 
+    #' Retrieve historical prices for the symbol.
+    #' @param ... see \code{\link{TDIConnection}}
+    #' @return An object of class `Indicator` with historical prices.
+    getChart = function(...) {
+      args <- super$getChart(...)
+      
+      # Execute the Json API request with URL request string.
+      query <- list(file_type = "json", 
+        series_id = args$symbol, 
+        api_key = as.character(self$conn_args$api_key)
+      )
+      res <- self$jsonRequest(
+        self$requestString(endpoint = "chart", query)
+      )
+      
+      return(res)
+    }
   )
-  return(request.JSON(obj, url, query))
-})
-
-#' @rdname fredAPI-class
-#' @import xts
-#' @import zoo
-setMethod("getChart", signature("fredAPI"), function(obj, symbol, range, from, to, interval) {
-  stopifnot(all(is.character(symbol), nchar(symbol) > 0))
-  message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
-
-  # Set endpoint path and execute the request.
-  endpoint <- as.character(obj@.endpoints$series)
-  query <- list(series_id = symbol)
-  res <- request(obj, endpoint, query)
-  return(res)
-})
+)

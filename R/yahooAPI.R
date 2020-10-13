@@ -1,99 +1,76 @@
 #' @title Yahoo Finance API
 #' @description 
-#' Yahoo Finance API class inheriting from [TDIConnection-class].
+#' Yahoo Finance API class inheriting from `TDIConnection`.
 #' This class implements the Yahoo Finance API requests.
-#' 
-#' @name YahooAPI-class
-#' @keywords internal
-#' @include TDIConnection.R
+#' @import R6
 #' @export
-setClass("YahooAPI", contains = "TDIConnection")
+YahooAPI <- R6::R6Class("YahooAPI", inherit = TDIConnection,
+  cloneable = FALSE, class = TRUE, # enabled S3 classes
 
-#' @rdname YahooAPI-class
-setMethod("initialize", "YahooAPI", function(.Object, ...) {
-  .Object <- callNextMethod() # initiate object from parameters
-  invisible(.Object)
-})
+  # Implement API driver endpoints.
+  public = list(
+    #' @description 
+    #' Retrieve historical prices for the symbol.
+    #' @param ... see \code{\link{TDIConnection}}
+    #' @return An object of class `Instrument` with historical prices.
+    getChart = function(...) {
+      args <- super$getChart(...)
 
-#' @rdname YahooAPI-class
-#' @import httr
-setMethod("request", "YahooAPI", function(obj, path, query) {
-  # Contruct final URL and execute the request.
-  url <- httr::modify_url(obj@.conn_args$baseURL, path = path)
-  return(request.JSON(obj, url, query))
-})
-
-#' @rdname YahooAPI-class
-setMethod("validRange", "YahooAPI", function(obj, range) {
-  if (isTRUE(range %in% c("1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max"))) { 
-    return(range)
-  } else return(obj@.conn_args$chart_range)
-})
-
-#' @rdname YahooAPI-class
-setMethod("validInterval", "YahooAPI", function(obj, interval) {
-  if (isTRUE(interval %in% c("1d", "1w", "1mo"))) { 
-    return(interval)
-  } else return(obj@.conn_args$chart_interval)
-})
-
-#' @rdname YahooAPI-class
-#' @import xts
-#' @import zoo
-setMethod("getChart", signature("YahooAPI"), function(obj, symbol, range, from, to, interval) {
-  stopifnot(all(is.character(symbol), nchar(symbol) > 0))
-  message("Downloading: ", symbol, " (source: ", class(obj@.drv), ").")
-
-  # Set endpoint path and query parameters.
-  path <- paste(obj@.endpoints$series, symbol, sep = "/")
-  if (!is.null(from)) {
-    # Query parameters with series period by dates.
-    params <- list(
-      "period1" = convertDate2Unix(from),
-      "period2" = ifelse(is.null(to), convertDate2Unix(Sys.Date()), convertDate2Unix(to)),
-      "interval" = validInterval(obj, interval),
-      "includeTimestamps" = TRUE
-    )
-  } else {
-    # Query parameters with series range.
-    params <- list(
-      "range" = validRange(obj, range),
-      "interval" = validInterval(obj, interval),
-      "includeTimestamps" = TRUE
-    )
-  }
-
-  # Execute the API request.
-  res <- request(obj, path, params)
-  if (!utils::hasName(res, "chart")) {
-    warning("Unexpected response from Yahoo Finance API.")
-    return(NULL)
-  }
-
-  # Check the response and handle the results.
-  if (is.null(res$chart$error)) {
-    # Convert the results into a new instrument object.
-    # Note; other data to be considered for later.
-    instr <- Instrument( 
-      source = as.character(class(obj@.drv)),
-      symbol = as.character(symbol),
-      currency = res$chart$result$meta$currency,
-      type = res$chart$result$meta$instrumentType
-    )
-    
-    # Add historical prices to the instrument.
-    instr <- setSeries(instr, data.frame(
-      Date = convertUnix2Date(res$chart$result$timestamp[[1]]),
-      Open = res$chart$result$indicators$quote[[1]]$open[[1]],
-      High = res$chart$result$indicators$quote[[1]]$high[[1]],
-      Low = res$chart$result$indicators$quote[[1]]$low[[1]],
-      Close = res$chart$result$indicators$quote[[1]]$close[[1]],
-      Volume = res$chart$result$indicators$quote[[1]]$volume[[1]]
-    ))
-    return(instr)
-    
-  } else {
-    warning(paste(res$chart$error$description, symbol, sep = ": "))
-    return(NULL)
-  }
-})
+      # Check if the API query is by period or by range.      
+      if (!is.null(args$from)) {
+        # Query parameters with series period by dates.
+        params <- list(
+          "period1" = convertDate2Unix(args$from),
+          "period2" = convertDate2Unix(defaultToday(args$to)),
+          "interval" = self$validValue(interval = args$interval),
+          "includeTimestamps" = TRUE
+        )
+      } else {
+        # Query parameters with series range.
+        params <- list(
+          "range" = self$validValue(range = args$range),
+          "interval" = self$validValue(interval = args$interval),
+          "includeTimestamps" = TRUE
+        )
+      }
+      
+      # Execute the Json API request with URL request string.
+      res <- self$jsonRequest(
+        self$requestString(endpoint = "chart", path = list(args$symbol), params)
+      )
+      
+      if (!utils::hasName(res, "chart")) {
+        warning("Unexpected response from Yahoo Finance API.")
+        return(NULL)
+      }
+      
+      # Check the response and handle the results.
+      if (is.null(res$chart$error)) {
+        # Convert the results into a new instrument object.
+        # Note; other data to be considered for later.
+        instr <- Instrument$new(
+          source = as.character(class(self$driver)[1]),
+          symbol = as.character(args$symbol),
+          currency = res$chart$result$meta$currency,
+          type = res$chart$result$meta$instrumentType
+        )
+        
+        # Add historical prices to the instrument.
+        instr <- instr$setSeries(data.frame(
+          Date = convertUnix2Date(res$chart$result$timestamp[[1]]),
+          Open = res$chart$result$indicators$quote[[1]]$open[[1]],
+          High = res$chart$result$indicators$quote[[1]]$high[[1]],
+          Low = res$chart$result$indicators$quote[[1]]$low[[1]],
+          Close = res$chart$result$indicators$quote[[1]]$close[[1]],
+          Volume = res$chart$result$indicators$quote[[1]]$volume[[1]]
+        ))
+        return(instr)
+        
+      } else {
+        warning(paste(res$chart$error$description, symbol, sep = ": "))
+        return(NULL)
+      }
+      
+    }
+  )
+)

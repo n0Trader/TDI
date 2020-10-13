@@ -23,6 +23,13 @@ convertDate2Unix <- function(d, format="%Y-%m-%d") {
   } else { as.numeric(as.POSIXct(d, format)) }
 }
 
+#' Helpers to set today as default date.
+#' @noRd
+defaultToday <- function(d) {
+  if (is.null(d)) return(Sys.Date())
+  return(d)
+}
+
 #' Helper to check for valid string.
 #' @noRd
 is.String <- function(x) {
