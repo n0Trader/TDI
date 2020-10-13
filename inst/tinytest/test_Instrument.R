@@ -10,7 +10,6 @@ expect_equal(ins@.type, "TYP")
 
 # Test the methods exist for the class.
 expect_true(hasMethod("setSeries", is.Instrument()))
-expect_true(hasMethod("addSerie", is.Instrument()))
 expect_true(hasMethod("getSymbol", is.Instrument()))
 expect_true(hasMethod("getSeries", is.Instrument()))
 expect_true(hasMethod("getSession", is.Instrument()))

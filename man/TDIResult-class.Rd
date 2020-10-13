@@ -29,7 +29,6 @@ Other TDI classes:
 \code{\link{TDIObject-class}}
 
 Other TDIResult generics: 
-\code{\link{addSerie}()},
 \code{\link{getSeries}()},
 \code{\link{getSymbol}()},
 \code{\link{setSeries}()}

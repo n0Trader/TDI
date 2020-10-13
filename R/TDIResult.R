@@ -35,7 +35,24 @@ setGeneric("setSeries",
 )
 #' @rdname setSeries
 setMethod("setSeries", signature("TDIResult"), function(obj, x) {
-  if (is.data.frame(x)) {
+  # Check if there is existing data.
+  if (length(obj@.series) > 0) {
+    stopifnot(xts::is.xts(x))
+    
+    # Mark duplicates to be dropped.
+    drop <- which(colnames(obj@.series) %in% colnames(x))
+    if (length(drop) == length(colnames(obj@.series))) {
+      # Drop all means we can replace X with Y.
+      obj@.series <- x
+    } else if (length(drop) > 0) {
+      # Merge y with x minus dropped column(s).
+      obj@.series <- cbind(obj@.series[, -drop], x)
+    } else {
+      # No duplicates to drop.
+      obj@.series <- cbind(obj@.series, x)
+    }
+    
+  } else if (is.data.frame(x)) {
     obj@.series <- zoo::na.locf(xts::as.xts(x[,-1], order.by = x$Date))
   } else if (xts::is.xts(x)) {
     obj@.series <- zoo::na.locf(x)
@@ -73,28 +90,4 @@ setGeneric("getSeries",
 #' @rdname getSeries
 setMethod("getSeries", signature("TDIResult"), function(obj) {
   return(obj@.series)
-})
-
-#' @title Add column(s) to series for `TDIResult`
-#' @description 
-#' Add additional columns to slot series for object of class `TDIResult`.
-#' @docType methods
-#' @family TDIResult generics
-#' @param obj An object of class `TDIResult`.
-#' @param x Time-series to add to series.
-#' @return Object `TDIResult` with updated series.
-#' @export
-setGeneric("addSerie", 
-  def = function(obj, x) standardGeneric("addSerie")
-)
-#' @rdname addSerie
-setMethod("addSerie", signature("TDIResult"), function(obj, x) {
-  # Add/update input time-series.
-  stopifnot(xts::is.xts(x))
-  drop <- which(colnames(obj@.series) %in% colnames(x))
-  if (length(drop) > 0) { # prevent duplicate rows
-    obj@.series <- obj@.series[, -drop]
-  }
-  obj@.series <- cbind(obj@.series, x)
-  invisible(obj)
 })
