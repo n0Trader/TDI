@@ -136,7 +136,7 @@ TDIConnection <- R6::R6Class("TDIConnection", inherit = baseTDI,
     #' @return A list with the calling arguments.
     getChart = function(symbol, range = NULL, from = NULL, to = NULL, interval = NULL) { 
       stopifnot(is.String(symbol))
-      msg(paste0("Downloading: ", symbol, " (source: ", class(self$driver)[1], ")."))
+      msg_verbose(paste0("Downloading: ", symbol, " (source: ", class(self$driver)[1], ")."))
       return(list(symbol = symbol, range = range, from = from, to = to, interval = interval))
     }
     

@@ -4,8 +4,8 @@ setClassUnion("_Char", c("character", "NULL"))
 
 #' Helper to write messages in verbose mode.
 #' @noRd
-msg <- function(txt) {
-  if (getOption("verbose")) message(txt)
+msg_verbose <- function(txt) {
+  if (getOption("n0trader.verbose")) message(txt)
 }
 
 #' Helpers to convert Unix date format.

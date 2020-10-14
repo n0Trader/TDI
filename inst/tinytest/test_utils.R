@@ -4,10 +4,10 @@
 expect_true(isClass("_Char"))
 
 # Test message option.
-options("verbose" = TRUE)
-expect_message(TDI:::msg("HI!"))
-options("verbose" = FALSE)
-expect_silent(TDI:::msg("HI!"))
+options("n0trader.verbose" = TRUE)
+expect_message(TDI:::msg_verbose("HI!"))
+options("n0trader.verbose" = FALSE)
+expect_silent(TDI:::msg_verbose("HI!"))
 
 # Test converting dates to Unix format.
 expect_error(TDI:::convertDate2Unix(""), "format")
