@@ -26,6 +26,6 @@ The package comes with a sample environment profile (`/inst/TDI/Renviron.sample`
 library(TDI)
 
 # Create a TDI connection object to access the API.
-con <- TDIConnection$connect("yahoo")
-getSymbol(con, "MSFT")
+con <- TDIConnector$connect("yahoo")
+con$getChart("MSFT")
 ```
