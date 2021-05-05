@@ -14,7 +14,8 @@ Imports:
     xts(>= 0.12-0),
     zoo,
     httr,
-    jsonlite
+    jsonlite,
+    plumber
 Suggests: 
     tinytest,
     testthat
@@ -28,6 +29,7 @@ Collate:
     'TDIInstrument.R'
     'TDIKeyData.R'
     'TDIResult.R'
+    'plumber.R'
     'fredAPI.R'
     'fredDriver.R'
     'iexAPI.R'

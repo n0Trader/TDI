@@ -29,3 +29,11 @@ library(TDI)
 con <- TDIConnector$connect("yahoo")
 con$getChart("MSFT")
 ```
+
+## Plumber API
+
+TDI supports a REST API using [Plumber](https://www.rplumber.io/).
+
+## Yahoo Finance API
+
+[Yahoo Finance](https://finance.yahoo.com/) is a rich source of free financial data. 

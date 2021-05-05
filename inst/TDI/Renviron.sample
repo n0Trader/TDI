@@ -1,3 +1,7 @@
+# TDI variables.
+TDI_host = "0.0.0.0"
+TDI_port = 8585
+
 # IEX variables.
 iex_base_url = "https://cloud.iexapis.com"
 iex_token = "<add_your_token>"
