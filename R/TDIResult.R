@@ -10,8 +10,8 @@ TDIResult <- R6::R6Class("TDIResult", inherit = baseTDI,
   
   # Implement TDI result generic methods.
   public = list(
-    #' @field sources Named list of sources for the data.
-    sources = list(),
+    #' @field sources Identifier for data source.
+    sources = as.character(),
     #' @field symbol Unique identification symbol.
     symbol = as.character(),
     #' @field series Xts time-series with (historical) data.

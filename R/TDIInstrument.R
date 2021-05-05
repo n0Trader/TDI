@@ -6,46 +6,47 @@
 #' @return Boolean result or alternative the class name.
 #' @export
 is.Instrument <- function(x = NULL) {
-  class = "Instrument"
+  class = "TDIInstrument"
   if (is.null(x)) { return(class) 
   } else return(inherits(x, class))
 }
 
 #' @title Instrument (R6 class constructor)
 #' @description 
-#' Instrument is a R6 class for all types of (tradeable) market instrument(s).
+#' Instrument is an abstract class for (tradeable) market instrument(s).
+#' The class provides generic methods and defines the instrument data structure.
+#' @details
+#' The instrument class and its generic methods are to be used by calling packages.
+#' The class is abstract and should be implemented for each API.
 #' @import R6
 #' @export
-Instrument <- R6::R6Class(is.Instrument(), inherit = TDIResult,
+TDIInstrument <- R6::R6Class(is.Instrument(), inherit = TDIResult,
   cloneable = FALSE, class = TRUE, # enabled S3 classes
 
   # Extend the TDI result fields.
   public = list(
-    #' @field type Indicator type classification.
+    #' @field type Instrument type classification.
     type = as.character(),
-    #' @field currency Nomination currency.
+    #' @field name Name for the instrument.
+    name = as.character(),
+    #' @field exchange Exchange for the instrument.
+    exchange = as.character(),
+    #' @field sector Business sector.
+    sector = as.character(),
+    #' @field industry Business industry.
+    industry = as.character(),
+    #' @field currency Denomination currency.
     currency = as.character(),
-    
-    #' @description 
-    #' Constructor for object(s) of class `Indicator`.
-    #' @param source API source for the data.
-    #' @param symbol Unique identification symbol.
-    #' @param type Indicator type classification.
-    #' @param currency Nomination currency.
-    #' @return An object of class `Indicator`.
-    initialize = function(source, symbol, type = NULL, currency = NULL) {
-      stopifnot(is.String(source))
-      stopifnot(is.String(symbol))
-      stopifnot(any(is.null(type), is.String(type)))
-      stopifnot(any(is.null(currency), is.String(currency)))
-      
-      # Initialize the object.
-      self$sources <- list(source)
-      self$symbol <- symbol
-      self$type <- type
-      self$currency <- currency
-      invisible(self)
-    },
+    #' @field country Country of registration.
+    country = as.character(),
+    #' @field city City of registration.
+    city = as.character(),
+    #' @field description Instrument description.
+    description = as.character(),
+    #' @field website Website URL.
+    website = as.character(),
+    #' @field keyData Key data object.
+    keyData = NULL,
     
     #' @description 
     #' Set series and calculate the return from the close price.
@@ -96,3 +97,4 @@ Instrument <- R6::R6Class(is.Instrument(), inherit = TDIResult,
     }
   )
 )
+

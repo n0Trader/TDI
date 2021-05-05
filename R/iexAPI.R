@@ -30,8 +30,7 @@ iexAPI <- R6::R6Class("iexAPI", inherit = TDIConnection,
       # Check the response and handle the results.
       if (is.data.frame(res)) {
         # Convert the results into a new instrument object.
-        # Note; other data to be considered for later.
-        instr <- Instrument$new(
+        instr <- iexInstrument$new(
           symbol = as.character(args$symbol),
           source = as.character(class(self$driver)[1])
         )

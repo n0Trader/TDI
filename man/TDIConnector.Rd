@@ -4,7 +4,9 @@
 \name{TDIConnector}
 \alias{TDIConnector}
 \title{TDIConnector}
-\format{An object of class \code{TDIConnector} (inherits from \code{R6}) of length 3.}
+\format{
+An object of class \code{TDIConnector} (inherits from \code{R6}) of length 3.
+}
 \usage{
 TDIConnector
 }

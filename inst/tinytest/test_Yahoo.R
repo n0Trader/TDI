@@ -4,7 +4,7 @@ expect_true(inherits(driver("yahoo"), "yahoo"))
 
 # Test Yahoo connection constructor.
 drv <- driver("yahoo")
-expect_true(inherits(drv$connect(), "YahooAPI"))
+expect_true(inherits(drv$connect(), "yahooAPI"))
 expect_true(inherits(drv$connect(), "TDIConnection"))
 
 # Test Yahoo connection object.
@@ -24,3 +24,4 @@ expect_equal(con$validValue(interval = "0d"), "1d")
 
 # Test getChart method.
 expect_silent(con$getChart("AAPL"))
+expect_silent(con$getInstrument("MSFT"))

@@ -12,7 +12,7 @@ Generic base class for TDI result(s) sub-classes (e.g. Instrument, Index).
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{sources}}{Named list of sources for the data.}
+\item{\code{sources}}{Identifier for data source.}
 
 \item{\code{symbol}}{Unique identification symbol.}
 
@@ -29,12 +29,14 @@ Generic base class for TDI result(s) sub-classes (e.g. Instrument, Index).
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
+\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="baseTDI" data-id="fields">}\href{../../TDI/html/baseTDI.html#method-fields}{\code{TDI::baseTDI$fields()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="baseTDI" data-id="initialize">}\href{../../TDI/html/baseTDI.html#method-initialize}{\code{TDI::baseTDI$initialize()}}\out{</span>}
 }
 \out{</details>}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-setSeries"></a>}}
+\if{latex}{\out{\hypertarget{method-setSeries}{}}}
 \subsection{Method \code{setSeries()}}{
 Set series or add additional column(s) to the existing data.
 In case the input is a data-frame it is converted to `xts`.

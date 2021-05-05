@@ -13,7 +13,7 @@ fredAPI <- R6::R6Class("fredAPI", inherit = TDIConnection,
     #' @description 
     #' Retrieve historical prices for the symbol.
     #' @param ... see \code{\link{TDIConnection}}
-    #' @return An object of class `Indicator` with historical prices.
+    #' @return An object of class `Instrument` with historical prices.
     getChart = function(...) {
       args <- super$getChart(...)
       

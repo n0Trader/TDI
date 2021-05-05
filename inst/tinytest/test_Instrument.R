@@ -1,12 +1,18 @@
-# Test Instrument constructor.
-expect_true(inherits(Instrument$new(symbol = "ABC", source = "XYZ"), is.Instrument()))
-ins <- Instrument$new(symbol = "ABC", source = "XYZ", currency = "EUR", type = "TYP")
+# Test Instrument base class.
+testInstrument <- R6::R6Class("testInstrument", inherit = TDIInstrument,
+  cloneable = FALSE, class = TRUE, # enabled S3 classes
+  
+  # Implementation with object initialization.
+  public = list(
+    initialize = function() {
+      invisible(self)
+    }
+  )
+)
+
+ins <- testInstrument$new()
 expect_true(inherits(ins, "TDIResult"))
 expect_true(inherits(ins, is.Instrument()))
-expect_equal(ins$symbol, "ABC")
-expect_equal(ins$sources, list("XYZ"))
-expect_equal(ins$currency, "EUR")
-expect_equal(ins$type, "TYP")
 
 # Test loading historical prices and read results.
 prices <- readRDS("./data/stock.rda")

@@ -35,17 +35,20 @@ Each API has a driver of class `TDIDriver` that can setup the API connection (of
 \item \href{#method-validValue}{\code{TDIConnection$validValue()}}
 \item \href{#method-requestString}{\code{TDIConnection$requestString()}}
 \item \href{#method-jsonRequest}{\code{TDIConnection$jsonRequest()}}
+\item \href{#method-getInstrument}{\code{TDIConnection$getInstrument()}}
 \item \href{#method-getChart}{\code{TDIConnection$getChart()}}
 }
 }
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
+\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="baseTDI" data-id="fields">}\href{../../TDI/html/baseTDI.html#method-fields}{\code{TDI::baseTDI$fields()}}\out{</span>}
 }
 \out{</details>}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 Initialize the API connection for the sub-class.
 This class is abstract and cannot be instantiated.
@@ -72,6 +75,7 @@ An object of class `TDIConnection`.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-validValue"></a>}}
+\if{latex}{\out{\hypertarget{method-validValue}{}}}
 \subsection{Method \code{validValue()}}{
 Validate the parameter value against API allowed values.
 Return the first value if the parameter value is invalid.
@@ -92,6 +96,7 @@ Valid parameter value.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-requestString"></a>}}
+\if{latex}{\out{\hypertarget{method-requestString}{}}}
 \subsection{Method \code{requestString()}}{
 Construct request URL string for the API call.
 \subsection{Usage}{
@@ -101,11 +106,11 @@ Construct request URL string for the API call.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{endpoint}}{Endpoint for the API request.}
+\item{\code{endpoint}}{Endpoint name for the API request.}
 
 \item{\code{path}}{List with path parameters.}
 
-\item{\code{query}}{Request query parameters.}
+\item{\code{query}}{Optional request query parameters.}
 }
 \if{html}{\out{</div>}}
 }
@@ -115,6 +120,7 @@ URL string for the API request.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-jsonRequest"></a>}}
+\if{latex}{\out{\hypertarget{method-jsonRequest}{}}}
 \subsection{Method \code{jsonRequest()}}{
 Execute API Json request.
 \subsection{Usage}{
@@ -133,7 +139,28 @@ Response content in Json format.
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getInstrument"></a>}}
+\if{latex}{\out{\hypertarget{method-getInstrument}{}}}
+\subsection{Method \code{getInstrument()}}{
+Interface method to be implemented by sub-class.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TDIConnection$getInstrument(symbol)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{symbol}}{Symbol to identify the instrument.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A list with the calling arguments.
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getChart"></a>}}
+\if{latex}{\out{\hypertarget{method-getChart}{}}}
 \subsection{Method \code{getChart()}}{
 Interface method to be implemented by sub-class.
 \subsection{Usage}{

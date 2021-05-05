@@ -18,22 +18,25 @@ Imports:
 Suggests: 
     tinytest,
     testthat
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 Encoding: UTF-8
 Collate: 
-    'utils.R'
     'TDIBase.R'
-    'TDIResult.R'
-    'Instrument.R'
-    'Indicator.R'
     'TDIDriver.R'
     'TDIConnection.R'
     'TDIConnector.R'
+    'TDIInstrument.R'
+    'TDIKeyData.R'
+    'TDIResult.R'
     'fredAPI.R'
     'fredDriver.R'
     'iexAPI.R'
     'iexDriver.R'
-    'utilsOHLCV.R'
+    'iexInstrument.R'
     'yahooAPI.R'
     'yahooDriver.R'
+    'yahooInstrument.R'
+    'yahooKeyData.R'
+    'utils.R'
+    'utilsOHLCV.R'
     'zzz.R'

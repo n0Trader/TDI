@@ -6,8 +6,7 @@
 iex <- R6::R6Class("iex", inherit = TDIDriver,
   cloneable = FALSE, class = TRUE, # enabled S3 classes
   lock_class = TRUE, # lock the interface
-  portable = TRUE, # enable inheritance across packages
-  
+
   # Abstract API driver methods (with error messages).
   public = list(
     #' @description 

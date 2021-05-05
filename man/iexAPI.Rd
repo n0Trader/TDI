@@ -20,8 +20,10 @@ API documentation on \strong{\href{https://iexcloud.io/docs/api}{IEX Cloud API w
 }
 }
 \if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
+\out{<details ><summary>Inherited methods</summary>}
 \itemize{
+\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="baseTDI" data-id="fields">}\href{../../TDI/html/baseTDI.html#method-fields}{\code{TDI::baseTDI$fields()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="getInstrument">}\href{../../TDI/html/TDIConnection.html#method-getInstrument}{\code{TDI::TDIConnection$getInstrument()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="initialize">}\href{../../TDI/html/TDIConnection.html#method-initialize}{\code{TDI::TDIConnection$initialize()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="jsonRequest">}\href{../../TDI/html/TDIConnection.html#method-jsonRequest}{\code{TDI::TDIConnection$jsonRequest()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="requestString">}\href{../../TDI/html/TDIConnection.html#method-requestString}{\code{TDI::TDIConnection$requestString()}}\out{</span>}
@@ -31,6 +33,7 @@ API documentation on \strong{\href{https://iexcloud.io/docs/api}{IEX Cloud API w
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getChart"></a>}}
+\if{latex}{\out{\hypertarget{method-getChart}{}}}
 \subsection{Method \code{getChart()}}{
 Retrieve historical prices for the symbol.
 \subsection{Usage}{

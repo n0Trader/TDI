@@ -23,11 +23,13 @@ Each API has a driver sub-class of `TDIDriver` class to initiate the API.
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
+\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="baseTDI" data-id="fields">}\href{../../TDI/html/baseTDI.html#method-fields}{\code{TDI::baseTDI$fields()}}\out{</span>}
 }
 \out{</details>}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 Initialize driver object and validate the sub-class implementation.
 \subsection{Usage}{

@@ -6,8 +6,7 @@
 yahoo <- R6::R6Class("yahoo", inherit = TDIDriver,
   cloneable = FALSE, class = TRUE, # enabled S3 classes
   lock_class = TRUE, # lock the interface
-  portable = TRUE, # enable inheritance across packages
-  
+
   # Abstract API driver methods (with error messages).
   public = list(
     #' @description 
@@ -15,15 +14,17 @@ yahoo <- R6::R6Class("yahoo", inherit = TDIDriver,
     #' @return An object of type `TDIConnection`.
     connect = function() {
       message("Connecting with Yahoo Finance API.")
-      con <- YahooAPI$new(driver = self,
+      con <- yahooAPI$new(driver = self,
         # Arguments required to access the API.
         conn_args = list(
-          baseURL = "https://query1.finance.yahoo.com",
+          baseURL = "https://query2.finance.yahoo.com",
           chart_range = "5y",
           chart_interval = "1d"
         ),
         # Routes to endpoints.
         endpoints = list(
+          details = "/v10/finance/quoteSummary/%s?modules=summaryProfile,defaultKeyStatistics,financialData",
+          financial = "/v10/finance/quoteSummary/%s?modules=",
           chart = "/v8/finance/chart/%s"
         ),
         # Valid parameter values (default = [1]).

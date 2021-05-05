@@ -1,22 +1,90 @@
 #' @title Yahoo Finance API
-#' @description 
+#' @description
 #' Yahoo Finance API class inheriting from `TDIConnection`.
 #' This class implements the Yahoo Finance API requests.
+#' @details
+#' Yahoo Finance API provides a wide range of data that can be accessed via the below URL.
+#' The data returned is specified by the requested modules in the query string.
+#'
+#' https://query2.finance.yahoo.com/v10/finance/quoteSummary/MSFT?modules=assetProfile%2CsummaryProfile
+#'
+#' Available modules:
+#' - 'assetProfile',
+#' - 'summaryProfile',
+#' - 'summaryDetail',
+#' - 'esgScores',
+#' - 'price',
+#' - 'incomeStatementHistory',
+#' - 'incomeStatementHistoryQuarterly',
+#' - 'balanceSheetHistory',
+#' - 'balanceSheetHistoryQuarterly',
+#' - 'cashflowStatementHistory',
+#' - 'cashflowStatementHistoryQuarterly',
+#' - 'defaultKeyStatistics',
+#' - 'financialData',
+#' - 'calendarEvents',
+#' - 'secFilings',
+#' - 'recommendationTrend',
+#' - 'upgradeDowngradeHistory',
+#' - 'institutionOwnership',
+#' - 'fundOwnership',
+#' - 'majorDirectHolders',
+#' - 'majorHoldersBreakdown',
+#' - 'insiderTransactions',
+#' - 'insiderHolders',
+#' - 'netSharePurchaseActivity',
+#' - 'earnings',
+#' - 'earningsHistory',
+#' - 'earningsTrend',
+#' - 'industryTrend',
+#' - 'indexTrend',
+#' - 'sectorTrend'
+#'
 #' @import R6
 #' @export
-YahooAPI <- R6::R6Class("YahooAPI", inherit = TDIConnection,
+yahooAPI <- R6::R6Class("yahooAPI", inherit = TDIConnection,
   cloneable = FALSE, class = TRUE, # enabled S3 classes
 
-  # Implement API driver endpoints.
+  # Implement API endpoints.
   public = list(
-    #' @description 
+    #' @description
+    #' Retrieve instrument details for the symbol.
+    #' @param ... see \code{\link{TDIConnection}}
+    #' @return An object of class `Instrument` with details.
+    getInstrument = function(...) {
+      # Super returns a list with the function arguments.
+      args <- super$getInstrument(...)
+
+      # Execute the Json API request with URL request string.
+      res <- self$jsonRequest(
+        self$requestString(endpoint = "details", path = list(args$symbol))
+      )
+
+      if (!utils::hasName(res, "quoteSummary")) {
+        warning("Unexpected response from Yahoo Finance API.")
+        return(NULL)
+      } else if (is.null(res$quoteSummary$error)) {
+        # Convert the results into a new instrument object.
+        return(yahooInstrument$new(
+          source = as.character(class(self$driver)[1]),
+          symbol = as.character(args$symbol),
+          json = res$quoteSummary$result
+        ))
+
+      } else {
+        warning(paste(res$quoteSummary$error$description, symbol, sep = ": "))
+        return(NULL)
+      }
+    },
+
+    #' @description
     #' Retrieve historical prices for the symbol.
     #' @param ... see \code{\link{TDIConnection}}
     #' @return An object of class `Instrument` with historical prices.
     getChart = function(...) {
       args <- super$getChart(...)
 
-      # Check if the API query is by period or by range.      
+      # Check if the API query is by period or by range.
       if (!is.null(args$from)) {
         # Query parameters with series period by dates.
         params <- list(
@@ -33,29 +101,28 @@ YahooAPI <- R6::R6Class("YahooAPI", inherit = TDIConnection,
           "includeTimestamps" = TRUE
         )
       }
-      
+
       # Execute the Json API request with URL request string.
       res <- self$jsonRequest(
         self$requestString(endpoint = "chart", path = list(args$symbol), params)
       )
-      
+
       if (!utils::hasName(res, "chart")) {
         warning("Unexpected response from Yahoo Finance API.")
         return(NULL)
       }
-      
+
       # Check the response and handle the results.
       if (is.null(res$chart$error)) {
         # Convert the results into a new instrument object.
-        # Note; other data to be considered for later.
-        instr <- Instrument$new(
+        instr <- yahooInstrument$new(
           source = as.character(class(self$driver)[1]),
-          symbol = as.character(args$symbol),
-          currency = res$chart$result$meta$currency,
-          type = res$chart$result$meta$instrumentType
+          symbol = as.character(args$symbol)
         )
-        
+
         # Add historical prices to the instrument.
+        instr$currency = res$chart$result$meta$currency
+        instr$type = res$chart$result$meta$instrumentType
         instr <- instr$setSeries(data.frame(
           Date = convertUnix2Date(res$chart$result$timestamp[[1]]),
           Open = res$chart$result$indicators$quote[[1]]$open[[1]],
@@ -65,12 +132,12 @@ YahooAPI <- R6::R6Class("YahooAPI", inherit = TDIConnection,
           Volume = res$chart$result$indicators$quote[[1]]$volume[[1]]
         ))
         return(instr)
-        
+
       } else {
         warning(paste(res$chart$error$description, symbol, sep = ": "))
         return(NULL)
       }
-      
+
     }
   )
 )

@@ -79,9 +79,9 @@ TDIConnection <- R6::R6Class("TDIConnection", inherit = baseTDI,
     
     #' @description 
     #' Construct request URL string for the API call.
-    #' @param endpoint Endpoint for the API request.
+    #' @param endpoint Endpoint name for the API request.
     #' @param path List with path parameters.
-    #' @param query Request query parameters.
+    #' @param query Optional request query parameters.
     #' @return URL string for the API request.
     requestString = function(endpoint, path, query = NULL) {
       stopifnot(endpoint %in% names(self$endpoints))
@@ -124,6 +124,16 @@ TDIConnection <- R6::R6Class("TDIConnection", inherit = baseTDI,
         warning(resp[1])
         return(NULL)
       } else return(resp)
+    },
+    
+    #' @description
+    #' Interface method to be implemented by sub-class.
+    #' @param symbol Symbol to identify the instrument.
+    #' @return A list with the calling arguments.
+    getInstrument = function(symbol) { 
+      stopifnot(is.String(symbol))
+      msg_verbose(paste0("Instrument: ", symbol, " (source: ", class(self$driver)[1], ")."))
+      return(list(symbol = symbol))
     },
     
     #' @description 
