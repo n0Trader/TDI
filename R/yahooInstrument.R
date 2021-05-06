@@ -20,7 +20,7 @@ yahooInstrument <- R6::R6Class("yahooInstrument", inherit = TDIInstrument,
       stopifnot(is.String(symbol))
       
       # Set instrument fields.
-      self$sources <- source
+      self$source <- source
       self$symbol <- symbol
       
       if (!missing(json)) {
@@ -32,6 +32,7 @@ yahooInstrument <- R6::R6Class("yahooInstrument", inherit = TDIInstrument,
         self$website <- json$summaryProfile$website
         self$currency <- json$defaultKeyStatistics$financialCurrency
         self$keyData <- yahooKeyData$new(json)
+        lapply(json$cashflowStatementHistoryQuarterly, print)
       }
       invisible(self)
     }

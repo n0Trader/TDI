@@ -20,6 +20,8 @@ This class is a simple data mapper.
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIResult" data-id="fields">}\href{../../TDI/html/TDIResult.html#method-fields}{\code{TDI::TDIResult$fields()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIResult" data-id="isValid">}\href{../../TDI/html/TDIResult.html#method-isValid}{\code{TDI::TDIResult$isValid()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIResult" data-id="validate">}\href{../../TDI/html/TDIResult.html#method-validate}{\code{TDI::TDIResult$validate()}}\out{</span>}
 }
 \out{</details>}
 }

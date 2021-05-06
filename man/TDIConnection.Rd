@@ -37,12 +37,12 @@ Each API has a driver of class `TDIDriver` that can setup the API connection (of
 \item \href{#method-jsonRequest}{\code{TDIConnection$jsonRequest()}}
 \item \href{#method-getInstrument}{\code{TDIConnection$getInstrument()}}
 \item \href{#method-getChart}{\code{TDIConnection$getChart()}}
+\item \href{#method-getCashFlow}{\code{TDIConnection$getCashFlow()}}
 }
 }
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="baseTDI" data-id="fields">}\href{../../TDI/html/baseTDI.html#method-fields}{\code{TDI::baseTDI$fields()}}\out{</span>}
 }
 \out{</details>}
 }
@@ -185,6 +185,26 @@ Interface method to be implemented by sub-class.
 \item{\code{to}}{Optional end date of period.}
 
 \item{\code{interval}}{}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A list with the calling arguments.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getCashFlow"></a>}}
+\if{latex}{\out{\hypertarget{method-getCashFlow}{}}}
+\subsection{Method \code{getCashFlow()}}{
+Interface method to be implemented by sub-class.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TDIConnection$getCashFlow(symbol)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{symbol}}{Symbol to identify the instrument.}
 }
 \if{html}{\out{</div>}}
 }

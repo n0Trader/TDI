@@ -6,24 +6,21 @@
 \description{
 Generic base class for TDI result(s) sub-classes (e.g. TDIInstrument).
 }
+\details{
+The TDI result(s) base class provides generic methods for results.
+Validation methods allow for a quick check of API implementation classes.
+These are recommended to be included in the tests for each API.
+The validation check assumes that properties with NA are optional.
+}
 \section{Super class}{
 \code{\link[TDI:baseTDI]{TDI::baseTDI}} -> \code{TDIResult}
-}
-\section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{sources}}{Identifier for data source.}
-
-\item{\code{symbol}}{Unique identification symbol.}
-
-\item{\code{series}}{Xts time-series with (historical) data.}
-}
-\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-fields}{\code{TDIResult$fields()}}
+\item \href{#method-validate}{\code{TDIResult$validate()}}
+\item \href{#method-isValid}{\code{TDIResult$isValid()}}
 }
 }
 \if{html}{
@@ -44,6 +41,34 @@ Return the properties of the object as a list.
 
 \subsection{Returns}{
 List of object properties.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-validate"></a>}}
+\if{latex}{\out{\hypertarget{method-validate}{}}}
+\subsection{Method \code{validate()}}{
+Validate the properties of the object.
+It is assumed that all NA properties are optional.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TDIResult$validate()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+Vector with validation result.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+Check if the object properties are valid.
+A simple validation to check API implementation.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TDIResult$isValid()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+Boolean as validation result.
 }
 }
 }

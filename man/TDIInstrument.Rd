@@ -17,6 +17,10 @@ The class is abstract and should be implemented for each API.
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
+\item{\code{source}}{Identifier for the data source.}
+
+\item{\code{symbol}}{Unique identification symbol.}
+
 \item{\code{type}}{Instrument type classification.}
 
 \item{\code{name}}{Name for the instrument.}
@@ -38,6 +42,8 @@ The class is abstract and should be implemented for each API.
 \item{\code{website}}{Website URL.}
 
 \item{\code{keyData}}{Key data object.}
+
+\item{\code{series}}{Xts time-series with (historical) data.}
 }
 \if{html}{\out{</div>}}
 }
@@ -55,6 +61,8 @@ The class is abstract and should be implemented for each API.
 \itemize{
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="baseTDI" data-id="initialize">}\href{../../TDI/html/baseTDI.html#method-initialize}{\code{TDI::baseTDI$initialize()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIResult" data-id="fields">}\href{../../TDI/html/TDIResult.html#method-fields}{\code{TDI::TDIResult$fields()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIResult" data-id="isValid">}\href{../../TDI/html/TDIResult.html#method-isValid}{\code{TDI::TDIResult$isValid()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIResult" data-id="validate">}\href{../../TDI/html/TDIResult.html#method-validate}{\code{TDI::TDIResult$validate()}}\out{</span>}
 }
 \out{</details>}
 }

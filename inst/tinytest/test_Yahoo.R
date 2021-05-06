@@ -22,6 +22,6 @@ expect_equal(con$validValue(range = "5y"), "5y")
 expect_equal(con$validValue(interval = "1mo"), "1mo")
 expect_equal(con$validValue(interval = "0d"), "1d")
 
-# Test getChart method.
+# Test API calls.
 expect_silent(con$getChart("AAPL"))
-expect_silent(con$getInstrument("MSFT"))
+expect_silent(con$getInstrument("MSFT")$isValid())

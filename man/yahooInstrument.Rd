@@ -17,9 +17,11 @@ This class is a simple data mapper.
 }
 }
 \if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
+\out{<details ><summary>Inherited methods</summary>}
 \itemize{
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIResult" data-id="fields">}\href{../../TDI/html/TDIResult.html#method-fields}{\code{TDI::TDIResult$fields()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIResult" data-id="isValid">}\href{../../TDI/html/TDIResult.html#method-isValid}{\code{TDI::TDIResult$isValid()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIResult" data-id="validate">}\href{../../TDI/html/TDIResult.html#method-validate}{\code{TDI::TDIResult$validate()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIInstrument" data-id="getReturn">}\href{../../TDI/html/TDIInstrument.html#method-getReturn}{\code{TDI::TDIInstrument$getReturn()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIInstrument" data-id="getSession">}\href{../../TDI/html/TDIInstrument.html#method-getSession}{\code{TDI::TDIInstrument$getSession()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIInstrument" data-id="getWealthIndex">}\href{../../TDI/html/TDIInstrument.html#method-getWealthIndex}{\code{TDI::TDIInstrument$getWealthIndex()}}\out{</span>}

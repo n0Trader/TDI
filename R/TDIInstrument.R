@@ -25,29 +25,35 @@ TDIInstrument <- R6::R6Class(is.Instrument(), inherit = TDIResult,
 
   # Extend the TDI result fields.
   public = list(
+    #' @field source Identifier for the data source.
+    source = NULL,
+    #' @field symbol Unique identification symbol.
+    symbol = NULL,
     #' @field type Instrument type classification.
-    type = as.character(),
+    type = NULL,
     #' @field name Name for the instrument.
-    name = as.character(),
+    name = NULL,
     #' @field exchange Exchange for the instrument.
-    exchange = as.character(),
+    exchange = NULL,
     #' @field sector Business sector.
-    sector = as.character(),
+    sector = NULL,
     #' @field industry Business industry.
-    industry = as.character(),
+    industry = NULL,
     #' @field currency Denomination currency.
-    currency = as.character(),
+    currency = NULL,
     #' @field country Country of registration.
-    country = as.character(),
+    country = NULL,
     #' @field city City of registration.
-    city = as.character(),
+    city = NULL,
     #' @field description Instrument description.
-    description = as.character(),
+    description = NULL,
     #' @field website Website URL.
-    website = as.character(),
+    website = NULL,
     #' @field keyData Key data object.
     keyData = NA,
-
+    #' @field series Xts time-series with (historical) data.
+    series = NA,
+    
     #' @description 
     #' Set series or add additional column(s) to the existing data.
     #' In case the input is a data-frame it is converted to `xts`.

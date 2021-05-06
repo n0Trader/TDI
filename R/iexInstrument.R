@@ -20,7 +20,7 @@ iexInstrument <- R6::R6Class("iexInstrument", inherit = TDIInstrument,
       stopifnot(is.String(symbol))
       
       # Set instrument fields.
-      self$sources <- source
+      self$source <- source
       self$symbol <- symbol
       invisible(self)
     }

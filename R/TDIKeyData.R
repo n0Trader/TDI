@@ -13,22 +13,22 @@ TDIKeyData <- R6::R6Class("TDIKeyData", inherit = TDIResult,
   # Define data structure.
   public = list(
     #' @field sharesOutstanding Total number of shares.
-    sharesOutstanding = as.numeric(),
+    sharesOutstanding = NULL,
     #' @field price Current price.
-    price = as.numeric(),
+    price = NULL,
     #' @field marketCap Shares total market capitalization.
-    marketCap = as.numeric(),
+    marketCap = NULL,
     #' @field ebitda EBITDA.
-    ebitda = as.numeric(),
+    ebitda = NULL,
     #' @field trailingEPS Trailing earnings per share.
-    trailingEPS = as.numeric(),
+    trailingEPS = NULL,
     #' @field forwardEPS Forward earnings per share.
-    forwardEPS = as.numeric(),
+    forwardEPS = NULL,
     #' @field trailingPE Trailing price/earnings.
-    trailingPE = as.numeric(),
+    trailingPE = NULL,
     #' @field forwardPE Forward price/earnings.
-    forwardPE = as.numeric(),
+    forwardPE = NULL,
     #' @field PEG Price/earnings to growth ratio.
-    PEG = as.numeric()
+    PEG = NA
   )
 )
