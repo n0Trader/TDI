@@ -13,7 +13,6 @@ Inspired by \href{https://dbi.r-dbi.org/}{DBI}
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{baseTDI$new()}}
-\item \href{#method-fields}{\code{baseTDI$fields()}}
 }
 }
 \if{html}{\out{<hr>}}
@@ -25,18 +24,5 @@ Abstract class initialization generates an error.
 \if{html}{\out{<div class="r">}}\preformatted{baseTDI$new()}\if{html}{\out{</div>}}
 }
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-fields"></a>}}
-\if{latex}{\out{\hypertarget{method-fields}{}}}
-\subsection{Method \code{fields()}}{
-Return the properties of this object as a list.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{baseTDI$fields()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-List of object properties.
-}
 }
 }

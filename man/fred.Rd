@@ -18,7 +18,6 @@ Driver class to implement FRED API access, simply called `fred`.
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="baseTDI" data-id="fields">}\href{../../TDI/html/baseTDI.html#method-fields}{\code{TDI::baseTDI$fields()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIDriver" data-id="initialize">}\href{../../TDI/html/TDIDriver.html#method-initialize}{\code{TDI::TDIDriver$initialize()}}\out{</span>}
 }
 \out{</details>}

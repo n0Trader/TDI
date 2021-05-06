@@ -19,7 +19,7 @@ This class is a simple data mapper.
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="baseTDI" data-id="fields">}\href{../../TDI/html/baseTDI.html#method-fields}{\code{TDI::baseTDI$fields()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIResult" data-id="fields">}\href{../../TDI/html/TDIResult.html#method-fields}{\code{TDI::TDIResult$fields()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIInstrument" data-id="getReturn">}\href{../../TDI/html/TDIInstrument.html#method-getReturn}{\code{TDI::TDIInstrument$getReturn()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIInstrument" data-id="getSession">}\href{../../TDI/html/TDIInstrument.html#method-getSession}{\code{TDI::TDIInstrument$getSession()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIInstrument" data-id="getWealthIndex">}\href{../../TDI/html/TDIInstrument.html#method-getWealthIndex}{\code{TDI::TDIInstrument$getWealthIndex()}}\out{</span>}

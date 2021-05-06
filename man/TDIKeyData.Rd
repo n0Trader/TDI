@@ -9,8 +9,8 @@ The class is a data structure for instrument key data,
 and should be implemented in the API implementation.
 Using R6 classes for data structures enforce standardization.
 }
-\section{Super class}{
-\code{\link[TDI:baseTDI]{TDI::baseTDI}} -> \code{TDIKeyData}
+\section{Super classes}{
+\code{\link[TDI:baseTDI]{TDI::baseTDI}} -> \code{\link[TDI:TDIResult]{TDI::TDIResult}} -> \code{TDIKeyData}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}

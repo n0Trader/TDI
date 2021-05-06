@@ -25,21 +25,6 @@ baseTDI <- R6::R6Class(is.baseTDI(),
     #' Abstract class initialization generates an error.
     initialize = function() {
       stop("This base class is abstract and can't be initialized.")
-    },
-    
-    #' @description
-    #' Return the properties of this object as a list.
-    #' @return List of object properties.
-    fields = function() {
-      f <- sapply(self, function(x) {
-        # Skip function(s) and environment(s).
-        if (is.function(x)) { return()
-        } else if (is.environment(x)) { 
-          if (is.baseTDI(x)) return(list(x$fields()))
-          else return()
-        } else { return(x) }
-      }, USE.NAMES = TRUE)
-      return(as.list(do.call(c, f)))
     }
   )
 )

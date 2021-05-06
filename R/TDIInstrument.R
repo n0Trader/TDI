@@ -46,20 +46,43 @@ TDIInstrument <- R6::R6Class(is.Instrument(), inherit = TDIResult,
     #' @field website Website URL.
     website = as.character(),
     #' @field keyData Key data object.
-    keyData = NULL,
-    
+    keyData = NA,
+
     #' @description 
-    #' Set series and calculate the return from the close price.
+    #' Set series or add additional column(s) to the existing data.
+    #' In case the input is a data-frame it is converted to `xts`.
     #' @param x Xts time-series with (historical) data.
     #' @return An object of class `TDIResult`.
     setSeries = function(x) {
-      super$setSeries(x)
+      # Check if there is existing data.
+      if (!is.na(self$series)) {
+        stopifnot(xts::is.xts(x))
+        
+        # Mark duplicates to be dropped.
+        drop <- which(colnames(self$series) %in% colnames(x))
+        if (length(drop) == length(colnames(self$series))) {
+          # Drop all means we can replace X with Y.
+          self$series <- x
+        } else if (length(drop) > 0) {
+          # Merge y with x minus dropped column(s).
+          self$series <- cbind(self$series[, -drop], x)
+        } else {
+          # No duplicates to drop.
+          self$series <- cbind(self$series, x)
+        }
+        
+      } else if (is.data.frame(x)) {
+        self$series <- zoo::na.locf(xts::as.xts(x[,-1], order.by = x$Date))
+      } else if (xts::is.xts(x)) {
+        self$series <- zoo::na.locf(x)
+      } else stop("Invalid data structure.", call. = TRUE)
       
       # Calculate the return (only once).
       if (has.Cl(self$series) && !("Return" %in% colnames(self$series))) {
         close <- Cl(self$series)
         self$series$Return <- zoo::na.fill((close - xts::lag.xts(close))/xts::lag.xts(close), 0)
       }  
+      
       invisible(self)
     },
     

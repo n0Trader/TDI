@@ -52,13 +52,13 @@ Available modules:
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-getInstrument}{\code{yahooAPI$getInstrument()}}
+\item \href{#method-getCashFlow}{\code{yahooAPI$getCashFlow()}}
 \item \href{#method-getChart}{\code{yahooAPI$getChart()}}
 }
 }
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="baseTDI" data-id="fields">}\href{../../TDI/html/baseTDI.html#method-fields}{\code{TDI::baseTDI$fields()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="initialize">}\href{../../TDI/html/TDIConnection.html#method-initialize}{\code{TDI::TDIConnection$initialize()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="jsonRequest">}\href{../../TDI/html/TDIConnection.html#method-jsonRequest}{\code{TDI::TDIConnection$jsonRequest()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="requestString">}\href{../../TDI/html/TDIConnection.html#method-requestString}{\code{TDI::TDIConnection$requestString()}}\out{</span>}
@@ -73,6 +73,26 @@ Available modules:
 Retrieve instrument details for the symbol.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{yahooAPI$getInstrument(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{see \code{\link{TDIConnection}}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An object of class `Instrument` with details.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getCashFlow"></a>}}
+\if{latex}{\out{\hypertarget{method-getCashFlow}{}}}
+\subsection{Method \code{getCashFlow()}}{
+Retrieve cash flow data for the symbol.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{yahooAPI$getCashFlow(...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

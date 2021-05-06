@@ -8,7 +8,7 @@ Yahoo Finance API implementation to retrieve instrument key data.
 This class is a simple data mapper.
 }
 \section{Super classes}{
-\code{\link[TDI:baseTDI]{TDI::baseTDI}} -> \code{\link[TDI:TDIKeyData]{TDI::TDIKeyData}} -> \code{yahooKeyData}
+\code{\link[TDI:baseTDI]{TDI::baseTDI}} -> \code{\link[TDI:TDIResult]{TDI::TDIResult}} -> \code{\link[TDI:TDIKeyData]{TDI::TDIKeyData}} -> \code{yahooKeyData}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -19,7 +19,7 @@ This class is a simple data mapper.
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="baseTDI" data-id="fields">}\href{../../TDI/html/baseTDI.html#method-fields}{\code{TDI::baseTDI$fields()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIResult" data-id="fields">}\href{../../TDI/html/TDIResult.html#method-fields}{\code{TDI::TDIResult$fields()}}\out{</span>}
 }
 \out{</details>}
 }

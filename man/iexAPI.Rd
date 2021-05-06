@@ -22,7 +22,7 @@ API documentation on \strong{\href{https://iexcloud.io/docs/api}{IEX Cloud API w
 \if{html}{
 \out{<details ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="baseTDI" data-id="fields">}\href{../../TDI/html/baseTDI.html#method-fields}{\code{TDI::baseTDI$fields()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="getCashFlow">}\href{../../TDI/html/TDIConnection.html#method-getCashFlow}{\code{TDI::TDIConnection$getCashFlow()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="getInstrument">}\href{../../TDI/html/TDIConnection.html#method-getInstrument}{\code{TDI::TDIConnection$getInstrument()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="initialize">}\href{../../TDI/html/TDIConnection.html#method-initialize}{\code{TDI::TDIConnection$initialize()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="jsonRequest">}\href{../../TDI/html/TDIConnection.html#method-jsonRequest}{\code{TDI::TDIConnection$jsonRequest()}}\out{</span>}

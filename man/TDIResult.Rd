@@ -4,7 +4,7 @@
 \alias{TDIResult}
 \title{TDIResult (R6 class constructor)}
 \description{
-Generic base class for TDI result(s) sub-classes (e.g. Instrument, Index).
+Generic base class for TDI result(s) sub-classes (e.g. TDIInstrument).
 }
 \section{Super class}{
 \code{\link[TDI:baseTDI]{TDI::baseTDI}} -> \code{TDIResult}
@@ -23,36 +23,27 @@ Generic base class for TDI result(s) sub-classes (e.g. Instrument, Index).
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-setSeries}{\code{TDIResult$setSeries()}}
+\item \href{#method-fields}{\code{TDIResult$fields()}}
 }
 }
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="baseTDI" data-id="fields">}\href{../../TDI/html/baseTDI.html#method-fields}{\code{TDI::baseTDI$fields()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="baseTDI" data-id="initialize">}\href{../../TDI/html/baseTDI.html#method-initialize}{\code{TDI::baseTDI$initialize()}}\out{</span>}
 }
 \out{</details>}
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setSeries"></a>}}
-\if{latex}{\out{\hypertarget{method-setSeries}{}}}
-\subsection{Method \code{setSeries()}}{
-Set series or add additional column(s) to the existing data.
-In case the input is a data-frame it is converted to `xts`.
+\if{html}{\out{<a id="method-fields"></a>}}
+\if{latex}{\out{\hypertarget{method-fields}{}}}
+\subsection{Method \code{fields()}}{
+Return the properties of the object as a list.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TDIResult$setSeries(x)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TDIResult$fields()}\if{html}{\out{</div>}}
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{Xts time-series with (historical) data.}
-}
-\if{html}{\out{</div>}}
-}
 \subsection{Returns}{
-An object of class `TDIResult`.
+List of object properties.
 }
 }
 }

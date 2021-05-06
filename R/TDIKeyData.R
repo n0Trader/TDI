@@ -6,7 +6,7 @@
 #' Using R6 classes for data structures enforce standardization.
 #' @import R6
 #' @export
-TDIKeyData <- R6::R6Class("TDIKeyData", inherit = baseTDI,
+TDIKeyData <- R6::R6Class("TDIKeyData", inherit = TDIResult,
   cloneable = FALSE, class = TRUE, # enabled S3 classes
   portable = TRUE, # enable inheritance across packages
   

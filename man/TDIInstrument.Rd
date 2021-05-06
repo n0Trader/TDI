@@ -53,8 +53,8 @@ The class is abstract and should be implemented for each API.
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="baseTDI" data-id="fields">}\href{../../TDI/html/baseTDI.html#method-fields}{\code{TDI::baseTDI$fields()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="baseTDI" data-id="initialize">}\href{../../TDI/html/baseTDI.html#method-initialize}{\code{TDI::baseTDI$initialize()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIResult" data-id="fields">}\href{../../TDI/html/TDIResult.html#method-fields}{\code{TDI::TDIResult$fields()}}\out{</span>}
 }
 \out{</details>}
 }
@@ -62,7 +62,8 @@ The class is abstract and should be implemented for each API.
 \if{html}{\out{<a id="method-setSeries"></a>}}
 \if{latex}{\out{\hypertarget{method-setSeries}{}}}
 \subsection{Method \code{setSeries()}}{
-Set series and calculate the return from the close price.
+Set series or add additional column(s) to the existing data.
+In case the input is a data-frame it is converted to `xts`.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TDIInstrument$setSeries(x)}\if{html}{\out{</div>}}
 }
