@@ -39,8 +39,6 @@ TDIInstrument <- R6::R6Class(is.Instrument(), inherit = TDIResult,
     sector = NULL,
     #' @field industry Business industry.
     industry = NULL,
-    #' @field currency Denomination currency.
-    currency = NULL,
     #' @field country Country of registration.
     country = NULL,
     #' @field city City of registration.
@@ -51,6 +49,10 @@ TDIInstrument <- R6::R6Class(is.Instrument(), inherit = TDIResult,
     website = NULL,
     #' @field keyData Key data object.
     keyData = NA,
+    #' @field annualCashFlow Annual cash flow data.
+    annualCashFlow = NA,
+    #' @field quarterlyCashFlow Quarterly cash flow data.
+    quarterlyCashFlow = NA,
     #' @field series Xts time-series with (historical) data.
     series = NA,
     

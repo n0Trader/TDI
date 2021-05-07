@@ -136,7 +136,7 @@ TDIConnection <- R6::R6Class("TDIConnection", inherit = baseTDI,
       return(list(symbol = symbol))
     },
     
-    #' @description 
+    #' @description
     #' Interface method to be implemented by sub-class.
     #' @param symbol Symbol to identify the instrument.
     #' @param range Optional period range.
@@ -148,8 +148,17 @@ TDIConnection <- R6::R6Class("TDIConnection", inherit = baseTDI,
       stopifnot(is.String(symbol))
       msg_verbose(paste0("Downloading: ", symbol, " (source: ", class(self$driver)[1], ")."))
       return(list(symbol = symbol, range = range, from = from, to = to, interval = interval))
-    }
+    },
     
+    #' @description
+    #' Interface method to be implemented by sub-class.
+    #' @param symbol Symbol to identify the instrument.
+    #' @return A list with the calling arguments.
+    getCashFlow = function(symbol) { 
+      stopifnot(is.String(symbol))
+      msg_verbose(paste0("Downloading cash flow data: ", symbol, " (source: ", class(self$driver)[1], ")."))
+      return(list(symbol = symbol))
+    }
   )
 )
 

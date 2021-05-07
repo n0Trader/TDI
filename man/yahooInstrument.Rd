@@ -35,7 +35,7 @@ This class is a simple data mapper.
 \subsection{Method \code{new()}}{
 Instrument object initialization for Yahoo Finance API.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{yahooInstrument$new(source, symbol, json)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{yahooInstrument$new(source, symbol, data)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -45,7 +45,7 @@ Instrument object initialization for Yahoo Finance API.
 
 \item{\code{symbol}}{Symbol as instrument identification.}
 
-\item{\code{json}}{Json string returned by the API.}
+\item{\code{data}}{Data set returned by the API.}
 }
 \if{html}{\out{</div>}}
 }

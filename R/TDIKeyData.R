@@ -14,6 +14,8 @@ TDIKeyData <- R6::R6Class("TDIKeyData", inherit = TDIResult,
   public = list(
     #' @field sharesOutstanding Total number of shares.
     sharesOutstanding = NULL,
+    #' @field currency Denomination currency.
+    currency = NULL,
     #' @field price Current price.
     price = NULL,
     #' @field marketCap Shares total market capitalization.

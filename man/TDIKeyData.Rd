@@ -17,6 +17,8 @@ Using R6 classes for data structures enforce standardization.
 \describe{
 \item{\code{sharesOutstanding}}{Total number of shares.}
 
+\item{\code{currency}}{Denomination currency.}
+
 \item{\code{price}}{Current price.}
 
 \item{\code{marketCap}}{Shares total market capitalization.}

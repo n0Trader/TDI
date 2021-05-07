@@ -31,8 +31,6 @@ The class is abstract and should be implemented for each API.
 
 \item{\code{industry}}{Business industry.}
 
-\item{\code{currency}}{Denomination currency.}
-
 \item{\code{country}}{Country of registration.}
 
 \item{\code{city}}{City of registration.}
@@ -42,6 +40,10 @@ The class is abstract and should be implemented for each API.
 \item{\code{website}}{Website URL.}
 
 \item{\code{keyData}}{Key data object.}
+
+\item{\code{annualCashFlow}}{Annual cash flow data.}
+
+\item{\code{quarterlyCashFlow}}{Quarterly cash flow data.}
 
 \item{\code{series}}{Xts time-series with (historical) data.}
 }

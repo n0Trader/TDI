@@ -55,3 +55,19 @@ function(symbol, source, range = "1y") {
   ins <- con$getChart(toupper(symbol), range = range)
   return(as.data.frame(ins$series))
 }
+
+#' Instrument cash flow data.
+#' @description 
+#' Return the instrument cash flow data.
+#' 
+#* @param symbol Instrument symbol.
+#* @param source Data source.
+#* @return Instrument cash flow data.
+#* 
+#* @serializer unboxedJSON
+#* @get /cashflow
+function(symbol, source, range = "1y") {
+  con <- TDIConnector$connect(tolower(source))
+  ins <- con$getCashFlow(toupper(symbol))
+  return(ins$fields())
+}

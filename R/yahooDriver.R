@@ -23,8 +23,8 @@ yahoo <- R6::R6Class("yahoo", inherit = TDIDriver,
         ),
         # Routes to endpoints.
         endpoints = list(
-          details = "/v10/finance/quoteSummary/%s?modules=summaryProfile,defaultKeyStatistics,financialData",
-          financial = "/v10/finance/quoteSummary/%s?modules=",
+          details = "/v10/finance/quoteSummary/%s?modules=summaryProfile,price,defaultKeyStatistics,financialData",
+          cashflow = "/v10/finance/quoteSummary/%s?modules=summaryProfile,price,cashflowStatementHistory,cashflowStatementHistoryQuarterly",
           chart = "/v8/finance/chart/%s"
         ),
         # Valid parameter values (default = [1]).

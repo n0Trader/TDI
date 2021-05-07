@@ -25,3 +25,4 @@ expect_equal(con$validValue(interval = "0d"), "1d")
 # Test API calls.
 expect_silent(con$getChart("AAPL"))
 expect_silent(con$getInstrument("MSFT")$isValid())
+expect_silent(con$getCashFlow("TSLA")$isValid())

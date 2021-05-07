@@ -13,9 +13,9 @@ yahooInstrument <- R6::R6Class("yahooInstrument", inherit = TDIInstrument,
     #' Instrument object initialization for Yahoo Finance API. 
     #' @param source API source for the data.
     #' @param symbol Symbol as instrument identification.
-    #' @param json Json string returned by the API.
+    #' @param data Data set returned by the API.
     #' @return An object of class `Instrument`.
-    initialize = function(source, symbol, json) {
+    initialize = function(source, symbol, data) {
       stopifnot(is.String(source))
       stopifnot(is.String(symbol))
       
@@ -23,16 +23,29 @@ yahooInstrument <- R6::R6Class("yahooInstrument", inherit = TDIInstrument,
       self$source <- source
       self$symbol <- symbol
       
-      if (!missing(json)) {
-        self$sector <- json$summaryProfile$sector
-        self$industry <- json$summaryProfile$industry
-        self$country <- json$summaryProfile$country
-        self$city <- json$summaryProfile$city
-        self$description <- json$summaryProfile$longBusinessSummary
-        self$website <- json$summaryProfile$website
-        self$currency <- json$defaultKeyStatistics$financialCurrency
-        self$keyData <- yahooKeyData$new(json)
-        lapply(json$cashflowStatementHistoryQuarterly, print)
+      if (!missing(data)) {
+        self$sector <- data$summaryProfile$sector
+        self$industry <- data$summaryProfile$industry
+        self$country <- data$summaryProfile$country
+        self$city <- data$summaryProfile$city
+        self$description <- data$summaryProfile$longBusinessSummary
+        self$website <- data$summaryProfile$website
+        self$exchange <- data$price$exchangeName
+        self$name <- data$price$longName
+        self$type <- data$price$quoteType
+        if (utils::hasName(data, "defaultKeyStatistics")) {
+          self$keyData <- yahooKeyData$new(data)
+        }
+        if (utils::hasName(data, "cashflowStatementHistory")) {
+          self$annualCashFlow <- apply(data$cashflowStatementHistory$cashflowStatements[[1]], 1, function(x) {
+            return(yahooCashFlow$new(x))
+          })
+        }
+        if (utils::hasName(data, "cashflowStatementHistoryQuarterly")) {
+          self$quarterlyCashFlow <- apply(data$cashflowStatementHistoryQuarterly$cashflowStatements[[1]], 1, function(x) {
+            return(yahooCashFlow$new(x))
+          })
+        }
       }
       invisible(self)
     }
