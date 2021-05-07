@@ -36,9 +36,16 @@ The validation check assumes that properties with NA are optional.
 \subsection{Method \code{fields()}}{
 Return the properties of the object as a list.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TDIResult$fields()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TDIResult$fields(prop)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{prop}}{Optional property in recursive call.}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 List of object properties.
 }
@@ -50,9 +57,16 @@ List of object properties.
 Validate the properties of the object.
 It is assumed that all NA properties are optional.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TDIResult$validate()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TDIResult$validate(prop)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{prop}}{Optional property in recursive call.}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 Vector with validation result.
 }
