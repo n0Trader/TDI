@@ -16,4 +16,4 @@ expect_true(hasName(con$conn_args, "api_key"))
 expect_true(hasName(con$endpoints, "chart"))
 
 # Test getChart method.
-expect_silent(con$getChart("GDP"))
+expect_warning(con$getChart("GDP"), "stlouisfed")

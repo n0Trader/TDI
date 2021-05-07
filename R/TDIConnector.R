@@ -11,12 +11,13 @@
 #' Note that the class is immediately instantiated.
 #' @import R6
 #' @export
+#' @usage TDIConnector(source = "yahoo")
 #' @examples
 #' # TDI library creates an singleton object of class `TDIConnector`.
 #' # It's `connect()` method is to be used to establish a connection,
-#' # that faciliates the API request.
-#' con <- TDI::TDIConnector$connect("yahoo")
-#' msft <- con$getChart("MSFT")
+#' # that facilitates the API request.
+#' con <- TDI::TDIConnector$connect(source = "yahoo")
+#' msft <- con$getChart(symbol = "MSFT")
 TDIConnector <- R6::R6Class("TDIConnector",
   cloneable = FALSE, class = TRUE, # enabled S3 classes
 

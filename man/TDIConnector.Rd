@@ -8,7 +8,7 @@
 An object of class \code{TDIConnector} (inherits from \code{R6}) of length 3.
 }
 \usage{
-TDIConnector
+TDIConnector(source = "yahoo")
 }
 \arguments{
 \item{source}{API driver class name.}
@@ -33,8 +33,8 @@ Note that the class is immediately instantiated.
 \examples{
 # TDI library creates an singleton object of class `TDIConnector`.
 # It's `connect()` method is to be used to establish a connection,
-# that faciliates the API request.
-con <- TDI::TDIConnector$connect("yahoo")
-msft <- con$getChart("MSFT")
+# that facilitates the API request.
+con <- TDI::TDIConnector$connect(source = "yahoo")
+msft <- con$getChart(symbol = "MSFT")
 }
 \keyword{datasets}

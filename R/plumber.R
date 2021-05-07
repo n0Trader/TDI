@@ -5,16 +5,16 @@
   return(conditionMessage(e))
 }
 
-#' Echo that we are online.
-#' @description 
-#' Return a message that the API is online.
-#' 
+#* @title Echo that we are online
+#* @description 
+#* Return a message that the API is online.
+#* 
 #* @get /echo
 function() {
   list(msg = "The API is online.")
 }
 
-#' R version information.
+#' @title R version information.
 #' @description 
 #' Return a message with R version information.
 #' 
@@ -23,7 +23,7 @@ function() {
   list(msg = R.Version())
 }
 
-#' Instrument summary data.
+#' @title Instrument summary data
 #' @description 
 #' Return the instrument summary data.
 #' 
@@ -39,7 +39,7 @@ function(symbol, source) {
   return(ins$fields())
 }
 
-#' Instrument chart data.
+#' @title Instrument chart data
 #' @description 
 #' Return the instrument chart data.
 #' 
@@ -56,7 +56,7 @@ function(symbol, source, range = "1y") {
   return(as.data.frame(ins$series))
 }
 
-#' Instrument cash flow data.
+#' @title Instrument cash flow data
 #' @description 
 #' Return the instrument cash flow data.
 #' 
