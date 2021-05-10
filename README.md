@@ -5,7 +5,9 @@ The package offers a first draft implementations for the Yahoo Finance API, IEX 
 
 In the philosophy of Tinyverse - **"[Light weight is the right weight](http://www.tinyverse.org/)"** - our aim is to **keep it simple and keep it light**.
 
-The current version retrieves historical prices (e.g. quotes) and economical data series. Suggestion or contributions are welcome to further develop the package to retrieve additional quantitative data.
+The current version retrieves historical prices (e.g. quotes) and economical data series. In addition is capable to perform technical analysis on the historical data (e.g. via the TTR package). 
+
+Suggestion or contributions are welcome to further develop the package to retrieve additional quantitative data.
 
 ## Installation
 

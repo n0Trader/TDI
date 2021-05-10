@@ -5,32 +5,31 @@
   return(conditionMessage(e))
 }
 
-#* @title Echo that we are online
-#* @description 
 #* Return a message that the API is online.
-#* 
 #* @get /echo
 function() {
-  list(msg = "The API is online.")
+  return("The API is online.")
 }
 
-#' @title R version information.
-#' @description 
-#' Return a message with R version information.
-#' 
+#* Return a message with R version information.
 #* @get /info
 function() {
   list(msg = R.Version())
 }
 
-#' @title Instrument summary data
-#' @description 
-#' Return the instrument summary data.
-#' 
+#* For future use to manage session data.
+#* @filter connection
+function(req, source = NULL) {
+  message("TDI request: ", req$PATH_INFO, req$QUERY_STRING)
+  plumber::forward()
+}
+
+#* GET instrument summary data from specified source.
+#*
 #* @param symbol Instrument symbol.
 #* @param source Data source.
 #* @return Instrument summary data.
-#* 
+#*
 #* @serializer unboxedJSON
 #* @get /instrument
 function(symbol, source) {
@@ -39,15 +38,13 @@ function(symbol, source) {
   return(ins$fields())
 }
 
-#' @title Instrument chart data
-#' @description 
-#' Return the instrument chart data.
-#' 
+#* GET instrument chart data from specified source.
+#*
 #* @param symbol Instrument symbol.
-#* @param source Data source.
+#* @param source Data source to query.
 #* @param range Optional range of historical data.
 #* @return Instrument chart data.
-#* 
+#*
 #* @serializer json
 #* @get /chart
 function(symbol, source, range = "1y") {
@@ -56,17 +53,15 @@ function(symbol, source, range = "1y") {
   return(as.data.frame(ins$series))
 }
 
-#' @title Instrument cash flow data
-#' @description 
-#' Return the instrument cash flow data.
-#' 
+#* GET instrument cash flow data from specified source.
+#*
 #* @param symbol Instrument symbol.
-#* @param source Data source.
+#* @param source Data source to query.
 #* @return Instrument cash flow data.
-#* 
+#*
 #* @serializer unboxedJSON
 #* @get /cashflow
-function(symbol, source, range = "1y") {
+function(symbol, source) {
   con <- TDIConnector$connect(tolower(source))
   ins <- con$getCashFlow(toupper(symbol))
   return(ins$fields())
