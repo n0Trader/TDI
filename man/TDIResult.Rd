@@ -36,7 +36,7 @@ The validation check assumes that properties with NA are optional.
 \subsection{Method \code{fields()}}{
 Return the properties of the object as a list.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TDIResult$fields(prop)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TDIResult$fields(prop = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

@@ -17,18 +17,19 @@ TDIConnector(source = "yahoo")
 An object of class `TDIConnection`.
 }
 \description{
-TDIConnector is an instantiation of class `TDIConnector` to manage connection(s).
-It's purpose is to establish connection(s) to acccess API(s) for qualitative data.
+TDIConnector instantiates class `TDIConnector` to manage connection(s).
+It's purpose is to establish connection(s) to access API(s) for qualitative data.
 
 Setup and provide an API connection.
 }
 \details{
 The `TDIConnector` connects with an API through its driver identified by `source` (class).
-It's `connect()` method establishes the API access using the `TDIDriver`,
-and returns that connection as an object of class `TDIConnection`. 
+It's `connect()` method establishes the API access via the `TDIDriver`,
+and returns that connection as an object of class `TDIConnection`.
 
-The class implements the **singleton pattern** to re-use connections. 
-Note that the class is immediately instantiated.
+The class implements the **singleton pattern** to re-use *open* connections.
+This is achieved by directly instantiating the class.
+APIs can use this to pre-load settings.
 }
 \examples{
 # TDI library creates an singleton object of class `TDIConnector`.
