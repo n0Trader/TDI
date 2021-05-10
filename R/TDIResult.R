@@ -1,7 +1,7 @@
 #' @title TDIResult (R6 class constructor)
-#' @description 
+#' @description
 #' Generic base class for TDI result(s) sub-classes (e.g. TDIInstrument).
-#' @details 
+#' @details
 #' The TDI result(s) base class provides generic methods for results.
 #' Validation methods allow for a quick check of API implementation classes.
 #' These are recommended to be included in the tests for each API.
@@ -12,14 +12,14 @@
 TDIResult <- R6::R6Class("TDIResult", inherit = baseTDI,
   cloneable = FALSE, class = TRUE, # enabled S3 classes
   portable = TRUE, # enable inheritance across packages
-  
+
   # Implement TDI result generic methods.
   public = list(
     #' @description
     #' Return the properties of the object as a list.
     #' @param prop Optional property in recursive call.
     #' @return List of object properties.
-    fields = function(prop) {
+    fields = function(prop = NULL) {
       if (missing(prop)) {
         # Recursive through properties and skip functions.
         fields <- list()
@@ -30,24 +30,24 @@ TDIResult <- R6::R6Class("TDIResult", inherit = baseTDI,
           }
         }
         return(rev(fields))
-        
+
       } else if (is.environment(prop)) {
         # Recursive call TDI base objects and skip other environments.
         if (is.baseTDI(prop)) {
           return(prop$fields())
         } else return()
-        
+
       } else if (is.list(prop)) {
         res <- list()
         for (i in 1:length(prop)) {
           res[[i]] <- self$fields(prop[[i]])
         }
         return(res)
-        
+
       } else if (is.na(prop)) { return(NULL)
       } else return(prop)
     },
-    
+
     #' @description
     #' Validate the properties of the object.
     #' It is assumed that all NA properties are optional.
@@ -60,13 +60,13 @@ TDIResult <- R6::R6Class("TDIResult", inherit = baseTDI,
           } else return(self$validate(x))
         }, USE.NAMES = TRUE, simplify = TRUE)
         return(unlist(do.call(c, f)))
-        
+
       } else if (is.environment(prop)) {
         # Recursive call TDI base objects and skip other environments.
         if (is.baseTDI(prop)) {
           return(prop$validate())
         } else return()
-        
+
       } else if (is.list(prop)) {
         res <- list()
         for (i in 1:length(prop)) {
@@ -85,12 +85,12 @@ TDIResult <- R6::R6Class("TDIResult", inherit = baseTDI,
     #' @return Boolean as validation result.
     isValid = function() {
       result <- self$validate()
-      if (!isTRUE(all(result))) { 
+      if (!isTRUE(all(result))) {
         invalid <- result[!result]
         warning("Failed validation: ", paste(names(invalid), invalid, sep = ":", collapse = ", "), ".")
       }
       return(isTRUE(all(result)))
     }
-    
+
   )
 )

@@ -18,10 +18,12 @@ Imports:
     plumber
 Suggests: 
     tinytest,
-    testthat
+    testthat,
+    TTR
 RoxygenNote: 7.1.1
 Encoding: UTF-8
 Collate: 
+    'TAIndicator.R'
     'TDIBase.R'
     'TDIDriver.R'
     'TDIConnection.R'
@@ -42,5 +44,6 @@ Collate:
     'yahooInstrument.R'
     'yahooKeyData.R'
     'utils.R'
-    'utilsOHLCV.R'
+    'utils.OHLCV.R'
+    'utils.xts.R'
     'zzz.R'

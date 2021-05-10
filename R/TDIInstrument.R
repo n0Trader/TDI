@@ -1,5 +1,5 @@
 #' @title Check if the object is of class Instrument
-#' @description 
+#' @description
 #' Helper to check the object class.
 #' If the input `x` is empty it returns the class name.
 #' @param x Object to check.
@@ -7,12 +7,12 @@
 #' @export
 is.Instrument <- function(x = NULL) {
   class = "TDIInstrument"
-  if (is.null(x)) { return(class) 
+  if (is.null(x)) { return(class)
   } else return(inherits(x, class))
 }
 
 #' @title Instrument (R6 class constructor)
-#' @description 
+#' @description
 #' Instrument is an abstract class for (tradeable) market instrument(s).
 #' The class provides generic methods and defines the instrument data structure.
 #' @details
@@ -53,48 +53,34 @@ TDIInstrument <- R6::R6Class(is.Instrument(), inherit = TDIResult,
     annualCashFlow = NA,
     #' @field quarterlyCashFlow Quarterly cash flow data.
     quarterlyCashFlow = NA,
-    #' @field series Xts time-series with (historical) data.
+    #' @field series Xts time series with (historical) data.
     series = NA,
-    
-    #' @description 
+
+    #' @description
     #' Set series or add additional column(s) to the existing data.
     #' In case the input is a data-frame it is converted to `xts`.
-    #' @param x Xts time-series with (historical) data.
-    #' @return An object of class `TDIResult`.
+    #' @param x Xts time series with (historical) data.
+    #' @return The object itself.
     setSeries = function(x) {
       # Check if there is existing data.
-      if (!is.na(self$series)) {
-        stopifnot(xts::is.xts(x))
-        
-        # Mark duplicates to be dropped.
-        drop <- which(colnames(self$series) %in% colnames(x))
-        if (length(drop) == length(colnames(self$series))) {
-          # Drop all means we can replace X with Y.
-          self$series <- x
-        } else if (length(drop) > 0) {
-          # Merge y with x minus dropped column(s).
-          self$series <- cbind(self$series[, -drop], x)
-        } else {
-          # No duplicates to drop.
-          self$series <- cbind(self$series, x)
-        }
-        
+      if (length(self$series) > 1) {
+        self$series <- TDI::colsbind.xts(self$series, x)
       } else if (is.data.frame(x)) {
         self$series <- zoo::na.locf(xts::as.xts(x[,-1], order.by = x$Date))
       } else if (xts::is.xts(x)) {
         self$series <- zoo::na.locf(x)
       } else stop("Invalid data structure.", call. = TRUE)
-      
+
       # Calculate the return (only once).
       if (has.Cl(self$series) && !("Return" %in% colnames(self$series))) {
         close <- Cl(self$series)
         self$series$Return <- zoo::na.fill((close - xts::lag.xts(close))/xts::lag.xts(close), 0)
-      }  
-      
+      }
+
       invisible(self)
     },
-    
-    #' @description 
+
+    #' @description
     #' Retrieve the trading session data for the input date plus `n` periods.
     #' @param date Input date-time.
     #' @param n Optional lag number of sessions.
@@ -104,10 +90,10 @@ TDIInstrument <- R6::R6Class(is.Instrument(), inherit = TDIResult,
       if ((i > nrow(self$series)) || (identical(i, numeric(0)))) return(NULL)
       else return(self$series[i])
     },
-    
-    #' @description 
+
+    #' @description
     #' Return the *returns* calculated from the `Close` price(s).
-    #' @return Instrument returns time-series.
+    #' @return Instrument returns time series.
     getReturn = function() {
       if (is.null(nrow(self$series))) {
         warning("Return not calculated due to missing data.")
@@ -115,17 +101,38 @@ TDIInstrument <- R6::R6Class(is.Instrument(), inherit = TDIResult,
       }
       return(self$series$Return)
     },
-    
-    #' @description 
+
+    #' @description
     #' Return the *wealth index* calculated from the returns.
-    #' @return Instrument returns time-series.
+    #' @return Instrument returns time series.
     getWealthIndex = function() {
       if (is.null(nrow(self$series))) {
         warning("Wealth index not calculated due to missing data.")
         return(NULL)
       }
       return(cumprod(self$series$Return + 1))
+    },
+
+    #' @description
+    #' Execute the specified technical analysis calculations.
+    #' @param TAs List of TA calculations.
+    #' @return The object itself.
+    TechnicalAnalysis = function(TAs = NULL) {
+      if (is.null(nrow(self$series))) {
+        warning("Technical analysis not calculated due to missing data.")
+      } else if (is.list(TAs)) {
+        for (ta in TAs) {
+          stopifnot(is.TAIndicator(ta))
+          res <- ta$calculate(self$series)
+          self$setSeries(res)
+        }
+      } else {
+        warning("Technical analysis input is not a list.")
+      }
+
+      invisible(self)
     }
+
   )
 )
 

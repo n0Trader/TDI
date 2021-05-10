@@ -1,0 +1,12 @@
+# Test the TAIndicator class
+expect_true(R6::is.R6Class(TAIndicator))
+expect_error(TAIndicator$new(), "label")
+expect_error(TAIndicator$new(label = "L"), "method")
+expect_error(TAIndicator$new(label = "L", method = "m"), "columns")
+expect_error(TAIndicator$new(label = "L", method = "m", columns = list()), "function")
+expect_error(TAIndicator$new(label = "L", method = "mean", columns = list()), "missing parameters")
+
+ind <- TAIndicator$new(
+  label = "L", method = "mean", columns = list("x" = "A")
+)
+expect_true(inherits(ind, is.TAIndicator()))

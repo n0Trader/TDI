@@ -45,7 +45,7 @@ The class is abstract and should be implemented for each API.
 
 \item{\code{quarterlyCashFlow}}{Quarterly cash flow data.}
 
-\item{\code{series}}{Xts time-series with (historical) data.}
+\item{\code{series}}{Xts time series with (historical) data.}
 }
 \if{html}{\out{</div>}}
 }
@@ -56,6 +56,7 @@ The class is abstract and should be implemented for each API.
 \item \href{#method-getSession}{\code{TDIInstrument$getSession()}}
 \item \href{#method-getReturn}{\code{TDIInstrument$getReturn()}}
 \item \href{#method-getWealthIndex}{\code{TDIInstrument$getWealthIndex()}}
+\item \href{#method-TechnicalAnalysis}{\code{TDIInstrument$TechnicalAnalysis()}}
 }
 }
 \if{html}{
@@ -81,12 +82,12 @@ In case the input is a data-frame it is converted to `xts`.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{x}}{Xts time-series with (historical) data.}
+\item{\code{x}}{Xts time series with (historical) data.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-An object of class `TDIResult`.
+The object itself.
 }
 }
 \if{html}{\out{<hr>}}
@@ -121,7 +122,7 @@ Return the *returns* calculated from the `Close` price(s).
 }
 
 \subsection{Returns}{
-Instrument returns time-series.
+Instrument returns time series.
 }
 }
 \if{html}{\out{<hr>}}
@@ -134,7 +135,27 @@ Return the *wealth index* calculated from the returns.
 }
 
 \subsection{Returns}{
-Instrument returns time-series.
+Instrument returns time series.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TechnicalAnalysis"></a>}}
+\if{latex}{\out{\hypertarget{method-TechnicalAnalysis}{}}}
+\subsection{Method \code{TechnicalAnalysis()}}{
+Execute the specified technical analysis calculations.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TDIInstrument$TechnicalAnalysis(TAs = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{TAs}}{List of TA calculations.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The object itself.
 }
 }
 }
