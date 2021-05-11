@@ -4,28 +4,36 @@
 \alias{taFactory}
 \title{Technical analysis indicator factory}
 \usage{
-taFactory(label, method, columns, args = NULL)
+taFactory(ind)
 }
 \arguments{
-\item{label}{Label for the indicator.}
-
-\item{method}{Method to calculate the indicator.}
-
-\item{columns}{Input data column(s).}
-
-\item{args}{Input parameters for the indicator.}
+\item{ind}{Indicator definition.}
 }
 \value{
 An object of class `TAIndicator`.
 }
 \description{
 Constructor to instantiate object(s) of class `TAIndicator`.
-It calls the object class constructor with provided parameters.
+It maps the indicator definition to the class properties.
 }
 \examples{
-# Call the factory with technical indicator setup.
-ta <- taFactory(label = "ADX", method = "TTR::ADX",
-  columns = list(HLC = c("High", "Low", "Close")),
-  args = list(n = 10, maType = "EMA")
-)
+# Call the factory with SMA setup.
+json <- '{
+  "label": "SMA",
+  "method": "TTR::SMA",
+  "columns": [{"x": ["Close"]}]
+}'
+ind <- jsonlite::fromJSON(json)
+ta <- taFactory(ind)
+
+# Call the factory with ATR setup.
+json <- '{
+  "label": "ATR",
+  "method": "TTR::ATR",
+  "columns": [{"HLC": ["High", "Low", "Close"]}],
+  "args": [{"n": 14, "maType": "EMA"}]
+}'
+ind <- jsonlite::fromJSON(json)
+ta <- taFactory(ind)
+
 }

@@ -115,19 +115,16 @@ TDIInstrument <- R6::R6Class(is.Instrument(), inherit = TDIResult,
 
     #' @description
     #' Execute the specified technical analysis calculations.
-    #' @param TAs List of TA calculations.
+    #' @param ta Technical analysis indicator object.
     #' @return The object itself.
-    TechnicalAnalysis = function(TAs = NULL) {
+    TechnicalAnalysis = function(ta = NULL) {
       if (is.null(nrow(self$series))) {
         warning("Technical analysis not calculated due to missing data.")
-      } else if (is.list(TAs)) {
-        for (ta in TAs) {
-          stopifnot(is.TAIndicator(ta))
-          res <- ta$calculate(self$series)
-          self$setSeries(res)
-        }
+      } else if (is.TAIndicator(ta)) {
+        res <- ta$calculate(self$series)
+        self$setSeries(res)
       } else {
-        warning("Technical analysis input is not a list.")
+        warning("Technical analysis indicator not valid.")
       }
 
       invisible(self)

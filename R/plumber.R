@@ -53,6 +53,26 @@ function(symbol, source, range = "1y") {
   return(as.data.frame(ins$series))
 }
 
+#* POST instrument technical analysis.
+#*
+#* @param symbol Instrument symbol.
+#* @param source Data source to query.
+#* @param range Optional range of historical data.
+#* @return Instrument technical analysis data.
+#*
+#* @serializer json
+#* @post /chart
+function(req, symbol, source, range = "1y") {
+  con <- TDIConnector$connect(tolower(source))
+  ins <- con$getChart(toupper(symbol), range = range)
+  ind <- jsonlite::fromJSON(req$body)
+  apply(ind, 1, function(x) {
+    ta <- TDI::taFactory(x)
+    ins <- ins$TechnicalAnalysis(ta)
+  })
+  return(as.data.frame(ins$series))
+}
+
 #* GET instrument cash flow data from specified source.
 #*
 #* @param symbol Instrument symbol.

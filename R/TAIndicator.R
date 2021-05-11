@@ -14,25 +14,40 @@ is.TAIndicator <- function(x = NULL) {
 #' @title Technical analysis indicator factory
 #' @description
 #' Constructor to instantiate object(s) of class `TAIndicator`.
-#' It calls the object class constructor with provided parameters.
-#' @param label Label for the indicator.
-#' @param method Method to calculate the indicator.
-#' @param columns Input data column(s).
-#' @param args Input parameters for the indicator.
+#' It maps the indicator definition to the class properties.
+#' @param ind Indicator definition.
 #' @return An object of class `TAIndicator`.
 #' @examples
-#' # Call the factory with technical indicator setup.
-#' ta <- taFactory(label = "ADX", method = "TTR::ADX",
-#'   columns = list(HLC = c("High", "Low", "Close")),
-#'   args = list(n = 10, maType = "EMA")
-#' )
+#' # Call the factory with SMA setup.
+#' json <- '{
+#'   "label": "SMA",
+#'   "method": "TTR::SMA",
+#'   "columns": [{"x": ["Close"]}]
+#' }'
+#' ind <- jsonlite::fromJSON(json)
+#' ta <- taFactory(ind)
+#'
+#' # Call the factory with ATR setup.
+#' json <- '{
+#'   "label": "ATR",
+#'   "method": "TTR::ATR",
+#'   "columns": [{"HLC": ["High", "Low", "Close"]}],
+#'   "args": [{"n": 14, "maType": "EMA"}]
+#' }'
+#' ind <- jsonlite::fromJSON(json)
+#' ta <- taFactory(ind)
+#'
 #' @export
-taFactory <- function(label, method, columns, args = NULL) {
-  # Call the indicator constructor.
-  params <- c(label = label, method = method)
-  if (is.list(columns)) params <- c(params, columns = list(columns))
-  if (is.list(args)) params <- c(params, args = list(args))
-  do.call(taIndicator$new, params)
+taFactory <- function(ind) {
+  # Call the constructor.
+  params <- list()
+  params["label"] <- as.character(ind$label)
+  params["method"] <- as.character(ind$method)
+  params["columns"] <- list(ind$columns)
+  if (utils::hasName(ind, "args")) {
+    params["args"] <- list(ind$args)
+  }
+  do.call(TAIndicator$new, params)
 }
 
 #' @title Technical analysis indicator (R6 class constructor)

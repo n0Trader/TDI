@@ -144,13 +144,13 @@ Instrument returns time series.
 \subsection{Method \code{TechnicalAnalysis()}}{
 Execute the specified technical analysis calculations.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TDIInstrument$TechnicalAnalysis(TAs = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TDIInstrument$TechnicalAnalysis(ta = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{TAs}}{List of TA calculations.}
+\item{\code{ta}}{Technical analysis indicator object.}
 }
 \if{html}{\out{</div>}}
 }
