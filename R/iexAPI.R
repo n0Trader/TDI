@@ -23,9 +23,11 @@ iexAPI <- R6::R6Class("iexAPI", inherit = TDIConnection,
           symbol = args$symbol,
           range = private$validateParam(range = args$range)
         )
-        res <- private$jsonRequest(
-          private$requestString(endpoint = "chart", path = path, query = query)
-        )
+        res <- private$requestString(
+          endpoint = "chart",
+          path = path,
+          query = query
+        ) %>% private$jsonRequest()
 
         if (is.data.frame(res)) {
           # Convert the results into a new instrument object.

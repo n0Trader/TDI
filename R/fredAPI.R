@@ -22,9 +22,10 @@ fredAPI <- R6::R6Class("fredAPI", inherit = TDIConnection,
           series_id = args$symbol,
           api_key = as.character(self$conn_args$api_key)
         )
-        res <- private$jsonRequest(
-          private$requestString(endpoint = "chart", query)
-        )
+        res <- private$requestString(
+          endpoint = "chart",
+          query = query
+        ) %>% private$jsonRequest()
 
         return(res)
 

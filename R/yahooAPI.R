@@ -56,11 +56,10 @@ yahooAPI <- R6::R6Class("yahooAPI", inherit = TDIConnection,
 
       # Try to execute the Json API request.
       tryCatch({
-        res <- private$jsonRequest(
-          private$requestString(
+        res <- private$requestString(
             endpoint = "details",
             path = list(args$symbol)
-        ))
+        ) %>% private$jsonRequest()
 
         # Call the handler for the result
         return(private$quoteSummaryHandler(args, res))
@@ -81,11 +80,10 @@ yahooAPI <- R6::R6Class("yahooAPI", inherit = TDIConnection,
 
       # Try to execute the Json API request.
       tryCatch({
-        res <- private$jsonRequest(
-          private$requestString(
+        res <- private$requestString(
             endpoint = "cashflow",
             path = list(args$symbol)
-        ))
+        ) %>% private$jsonRequest()
 
         # Call the handler for the result
         return(private$quoteSummaryHandler(args, res))
@@ -121,41 +119,40 @@ yahooAPI <- R6::R6Class("yahooAPI", inherit = TDIConnection,
         )
       }
 
-      # Execute the Json API request with URL request string.
-      res <- private$jsonRequest(
-        private$requestString(endpoint = "chart", path = list(args$symbol), params)
-      )
+      # Try to execute the Json API request.
+      tryCatch({
+        res <- private$requestString(
+          endpoint = "chart", path = list(args$symbol), params
+        ) %>% private$jsonRequest()
 
-      if (!utils::hasName(res, "chart")) {
-        warning("Unexpected response from Yahoo Finance API.")
-        return(NULL)
-      }
+        private$validateResponse(res, "chart")
+        if (is.null(res$chart$error)) {
+          # Convert the results into a new instrument object.
+          instr <- yahooInstrument$new(
+            source = as.character(class(self$driver)[1]),
+            symbol = as.character(args$symbol)
+          )
 
-      # Check the response and handle the results.
-      if (is.null(res$chart$error)) {
-        # Convert the results into a new instrument object.
-        instr <- yahooInstrument$new(
-          source = as.character(class(self$driver)[1]),
-          symbol = as.character(args$symbol)
-        )
+          # Add historical prices to the instrument.
+          instr$type = res$chart$result$meta$instrumentType
+          instr <- instr$setSeries(data.frame(
+            Date = convertUnix2Date(res$chart$result$timestamp[[1]]),
+            Open = res$chart$result$indicators$quote[[1]]$open[[1]],
+            High = res$chart$result$indicators$quote[[1]]$high[[1]],
+            Low = res$chart$result$indicators$quote[[1]]$low[[1]],
+            Close = res$chart$result$indicators$quote[[1]]$close[[1]],
+            Volume = res$chart$result$indicators$quote[[1]]$volume[[1]]
+          ))
+          return(instr)
 
-        # Add historical prices to the instrument.
-        instr$type = res$chart$result$meta$instrumentType
-        instr <- instr$setSeries(data.frame(
-          Date = convertUnix2Date(res$chart$result$timestamp[[1]]),
-          Open = res$chart$result$indicators$quote[[1]]$open[[1]],
-          High = res$chart$result$indicators$quote[[1]]$high[[1]],
-          Low = res$chart$result$indicators$quote[[1]]$low[[1]],
-          Close = res$chart$result$indicators$quote[[1]]$close[[1]],
-          Volume = res$chart$result$indicators$quote[[1]]$volume[[1]]
-        ))
-        return(instr)
+        } else {
+          stop(paste(res$quoteSummary$error$description, symbol, sep = ": "))
+        }
 
-      } else {
-        warning(paste(res$chart$error$description, symbol, sep = ": "))
-        return(NULL)
-      }
-
+      }, error = function(e) {
+        msg <- conditionMessage(e)
+        warning(msg, call. = TRUE)
+      })
     }
   ),
 
