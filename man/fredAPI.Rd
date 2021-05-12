@@ -4,8 +4,7 @@
 \alias{fredAPI}
 \title{FRED economic date API (R6 constructor class)}
 \description{
-FRED economic data API class inheriting from `TDIConnection`.
-This class implements the FRED API requests.
+FRED economic data API inherits `TDIConnection` to implement the FRED API requests.
 }
 \seealso{
 API documentation on \strong{\href{https://research.stlouisfed.org/docs/api/}{St. Louis Fed web services website}}.
@@ -20,14 +19,11 @@ API documentation on \strong{\href{https://research.stlouisfed.org/docs/api/}{St
 }
 }
 \if{html}{
-\out{<details ><summary>Inherited methods</summary>}
+\out{<details open ><summary>Inherited methods</summary>}
 \itemize{
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="getCashFlow">}\href{../../TDI/html/TDIConnection.html#method-getCashFlow}{\code{TDI::TDIConnection$getCashFlow()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="getInstrument">}\href{../../TDI/html/TDIConnection.html#method-getInstrument}{\code{TDI::TDIConnection$getInstrument()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="initialize">}\href{../../TDI/html/TDIConnection.html#method-initialize}{\code{TDI::TDIConnection$initialize()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="jsonRequest">}\href{../../TDI/html/TDIConnection.html#method-jsonRequest}{\code{TDI::TDIConnection$jsonRequest()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="requestString">}\href{../../TDI/html/TDIConnection.html#method-requestString}{\code{TDI::TDIConnection$requestString()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="validValue">}\href{../../TDI/html/TDIConnection.html#method-validValue}{\code{TDI::TDIConnection$validValue()}}\out{</span>}
 }
 \out{</details>}
 }

@@ -1,7 +1,6 @@
 #' @title Yahoo Finance API
 #' @description
-#' Yahoo Finance API class inheriting from `TDIConnection`.
-#' This class implements the Yahoo Finance API requests.
+#' Yahoo Finance API class inherits `TDIConnection` to implement API requests.
 #' @details
 #' Yahoo Finance API provides a wide range of data that can be accessed via the below URL.
 #' The data returned is specified by the requested modules in the query string.
@@ -55,13 +54,21 @@ yahooAPI <- R6::R6Class("yahooAPI", inherit = TDIConnection,
       # Super returns a list with the function arguments.
       args <- super$getInstrument(...)
 
-      # Execute the Json API request with URL request string.
-      res <- self$jsonRequest(
-        self$requestString(endpoint = "details", path = list(args$symbol))
-      )
+      # Try to execute the Json API request.
+      tryCatch({
+        res <- private$jsonRequest(
+          private$requestString(
+            endpoint = "details",
+            path = list(args$symbol)
+        ))
 
-      # Call handler to return the res
-      return(private$quoteSummaryHandler(args, res))
+        # Call the handler for the result
+        return(private$quoteSummaryHandler(args, res))
+
+      }, error = function(e) {
+        msg <- conditionMessage(e)
+        warning(msg, call. = TRUE)
+      })
     },
 
     #' @description
@@ -71,16 +78,24 @@ yahooAPI <- R6::R6Class("yahooAPI", inherit = TDIConnection,
     getCashFlow = function(...) {
       # Super returns a list with the function arguments.
       args <- super$getCashFlow(...)
-      
-      # Execute the Json API request with URL request string.
-      res <- self$jsonRequest(
-        self$requestString(endpoint = "cashflow", path = list(args$symbol))
-      )
 
-      # Call handler to return the res
-      return(private$quoteSummaryHandler(args, res))
+      # Try to execute the Json API request.
+      tryCatch({
+        res <- private$jsonRequest(
+          private$requestString(
+            endpoint = "cashflow",
+            path = list(args$symbol)
+        ))
+
+        # Call the handler for the result
+        return(private$quoteSummaryHandler(args, res))
+
+      }, error = function(e) {
+        msg <- conditionMessage(e)
+        warning(msg, call. = TRUE)
+      })
     },
-    
+
     #' @description
     #' Retrieve historical prices for the symbol.
     #' @param ... see \code{\link{TDIConnection}}
@@ -94,21 +109,21 @@ yahooAPI <- R6::R6Class("yahooAPI", inherit = TDIConnection,
         params <- list(
           "period1" = convertDate2Unix(args$from),
           "period2" = convertDate2Unix(defaultToday(args$to)),
-          "interval" = self$validValue(interval = args$interval),
+          "interval" = private$validateParam(interval = args$interval),
           "includeTimestamps" = TRUE
         )
       } else {
         # Query parameters with series range.
         params <- list(
-          "range" = self$validValue(range = args$range),
-          "interval" = self$validValue(interval = args$interval),
+          "range" = private$validateParam(range = args$range),
+          "interval" = private$validateParam(interval = args$interval),
           "includeTimestamps" = TRUE
         )
       }
 
       # Execute the Json API request with URL request string.
-      res <- self$jsonRequest(
-        self$requestString(endpoint = "chart", path = list(args$symbol), params)
+      res <- private$jsonRequest(
+        private$requestString(endpoint = "chart", path = list(args$symbol), params)
       )
 
       if (!utils::hasName(res, "chart")) {
@@ -143,20 +158,15 @@ yahooAPI <- R6::R6Class("yahooAPI", inherit = TDIConnection,
 
     }
   ),
-  
+
   # Private API handlers.
   private = list(
     # Handle JSON response for quoteSummary.
     quoteSummaryHandler = function(args, res) {
-      if (!utils::hasName(res, "quoteSummary")) {
-        warning("Unexpected response from Yahoo Finance API.")
-        return(NULL)
-        
-      } else if (!is.null(res$quoteSummary$error)) {
+      private$validateResponse(res, "quoteSummary")
+      if (!is.null(res$quoteSummary$error)) {
         symbol <- as.character(args$symbol)
-        warning(paste(res$quoteSummary$error$description, symbol, sep = ": "))
-        return(NULL)
-        
+        stop(paste(res$quoteSummary$error$description, symbol, sep = ": "))
       } else {
         # Convert the results into a new instrument object.
         return(yahooInstrument$new(
@@ -165,6 +175,6 @@ yahooAPI <- R6::R6Class("yahooAPI", inherit = TDIConnection,
           data = res$quoteSummary$result
         ))
       }
-    } 
+    }
   )
 )

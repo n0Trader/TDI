@@ -4,13 +4,10 @@
 \alias{TDIConnection}
 \title{TDIConnection (R6 class constructor)}
 \description{
-TDIConnection is a generic and abstract R6 class that wraps an object of class `TDIDriver` and connection parameters.
-Its purpose is to establish a connection and to store all connection details.
-Inherit from this class to implement API connections.
-}
-\details{
-The `TDIConnection` class is the super class for each API to hold the connection.
-Each API has a driver of class `TDIDriver` that can setup the API connection (of class `TDIConnection`).
+`TDIConnection` class is a generic and abstract R6 class,
+that wraps an object of class `TDIDriver` with the connection parameters.
+Its purpose is to provide the capabilities to connect with the API.
+Each API extends this class to implement the API specific capabilities.
 }
 \section{Super class}{
 \code{\link[TDI:baseTDI]{TDI::baseTDI}} -> \code{TDIConnection}
@@ -32,9 +29,6 @@ Each API has a driver of class `TDIDriver` that can setup the API connection (of
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{TDIConnection$new()}}
-\item \href{#method-validValue}{\code{TDIConnection$validValue()}}
-\item \href{#method-requestString}{\code{TDIConnection$requestString()}}
-\item \href{#method-jsonRequest}{\code{TDIConnection$jsonRequest()}}
 \item \href{#method-getInstrument}{\code{TDIConnection$getInstrument()}}
 \item \href{#method-getChart}{\code{TDIConnection$getChart()}}
 \item \href{#method-getCashFlow}{\code{TDIConnection$getCashFlow()}}
@@ -71,71 +65,6 @@ This class is abstract and cannot be instantiated.
 }
 \subsection{Returns}{
 An object of class `TDIConnection`.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-validValue"></a>}}
-\if{latex}{\out{\hypertarget{method-validValue}{}}}
-\subsection{Method \code{validValue()}}{
-Validate the parameter value against API allowed values.
-Return the first value if the parameter value is invalid.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TDIConnection$validValue(...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Parameter value to validate.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-Valid parameter value.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-requestString"></a>}}
-\if{latex}{\out{\hypertarget{method-requestString}{}}}
-\subsection{Method \code{requestString()}}{
-Construct request URL string for the API call.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TDIConnection$requestString(endpoint, path, query = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{endpoint}}{Endpoint name for the API request.}
-
-\item{\code{path}}{List with path parameters.}
-
-\item{\code{query}}{Optional request query parameters.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-URL string for the API request.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-jsonRequest"></a>}}
-\if{latex}{\out{\hypertarget{method-jsonRequest}{}}}
-\subsection{Method \code{jsonRequest()}}{
-Execute API Json request.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TDIConnection$jsonRequest(url)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{url}}{URL for the request.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-Response content in Json format.
 }
 }
 \if{html}{\out{<hr>}}
@@ -184,7 +113,7 @@ Interface method to be implemented by sub-class.
 
 \item{\code{to}}{Optional end date of period.}
 
-\item{\code{interval}}{}
+\item{\code{interval}}{Optional interval.}
 }
 \if{html}{\out{</div>}}
 }

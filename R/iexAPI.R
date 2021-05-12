@@ -1,7 +1,6 @@
 #' @title IEX Cloud API (R6 constructor class)
-#' @description 
-#' IEX Cloud API class inheriting from `TDIConnection`.
-#' This class implements the IEX Cloud API requests.
+#' @description
+#' IEX Cloud API class inherits `TDIConnection` to implement API requests.
 #' @seealso API documentation on \strong{\href{https://iexcloud.io/docs/api}{IEX Cloud API website}}.
 #' @import R6
 #' @export
@@ -10,36 +9,41 @@ iexAPI <- R6::R6Class("iexAPI", inherit = TDIConnection,
 
   # Implement API driver endpoints.
   public = list(
-    #' @description 
+    #' @description
     #' Retrieve historical prices for the symbol.
     #' @param ... see \code{\link{TDIConnection}}
     #' @return An object of class `Instrument` with historical prices.
     getChart = function(...) {
       args <- super$getChart(...)
-      
-      # Execute the Json API request with URL request string.
-      query <- list(chartByDay = TRUE, token = as.character(self$conn_args$api_token))
-      path <- list(version = self$conn_args$api_version, 
-        symbol = args$symbol, 
-        range = self$validValue(range = args$range)
-      )
-      res <- self$jsonRequest(
-        self$requestString(endpoint = "chart", path = path, query = query)
-      )
-      
-      # Check the response and handle the results.
-      if (is.data.frame(res)) {
-        # Convert the results into a new instrument object.
-        instr <- iexInstrument$new(
-          symbol = as.character(args$symbol),
-          source = as.character(class(self$driver)[1])
+
+      # Try to execute the Json API request.
+      tryCatch({
+        query <- list(chartByDay = TRUE, token = as.character(self$conn_args$api_token))
+        path <- list(version = self$conn_args$api_version,
+          symbol = args$symbol,
+          range = private$validateParam(range = args$range)
         )
-        
-        df <- res[, c("date", "open", "high", "low", "close", "volume")]
-        colnames(df) <- c("Date", "Open", "High", "Low", "Close", "Volume")
-        df$Date <- convertUnix2Date(df$Date)
-        return(instr$setSeries(df))
-      } else return(NULL)
+        res <- private$jsonRequest(
+          private$requestString(endpoint = "chart", path = path, query = query)
+        )
+
+        if (is.data.frame(res)) {
+          # Convert the results into a new instrument object.
+          instr <- iexInstrument$new(
+            symbol = as.character(args$symbol),
+            source = as.character(class(self$driver)[1])
+          )
+
+          df <- res[, c("date", "open", "high", "low", "close", "volume")]
+          colnames(df) <- c("Date", "Open", "High", "Low", "Close", "Volume")
+          df$Date <- convertUnix2Date(df$Date)
+          return(instr$setSeries(df))
+        } else return(NULL)
+
+      }, error = function(e) {
+        msg <- conditionMessage(e)
+        warning(msg, call. = TRUE)
+      })
     }
   )
 )
@@ -49,7 +53,7 @@ iexAPI <- R6::R6Class("iexAPI", inherit = TDIConnection,
 #' @noRd
 # .range_set <- function(d = as.Date(0)) {
 #   diff <- difftime(Sys.Date(), d, units = "days")
-#   if (diff > (2 * 365)) { r = "5y" 
+#   if (diff > (2 * 365)) { r = "5y"
 #   } else if (diff > 365) { r = "2y"
 #   } else if (diff > 175) { r = "1y"
 #   } else if (diff > 75) { r = "6m"

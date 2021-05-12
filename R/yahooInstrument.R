@@ -1,28 +1,30 @@
 #' @title Yahoo Finance instrument data mapper
-#' @description 
+#' @description
 #' Yahoo Finance API implementation to create an instrument.
 #' This class is a simple data mapper.
 #' @import R6
 #' @export
 yahooInstrument <- R6::R6Class("yahooInstrument", inherit = TDIInstrument,
   cloneable = FALSE, class = TRUE, # enabled S3 classes
-  
+
   # Implementation with object initialization.
   public = list(
-    #' @description 
-    #' Instrument object initialization for Yahoo Finance API. 
+    #' @description
+    #' Instrument object initialization for Yahoo Finance API.
     #' @param source API source for the data.
     #' @param symbol Symbol as instrument identification.
     #' @param data Data set returned by the API.
     #' @return An object of class `Instrument`.
     initialize = function(source, symbol, data) {
-      stopifnot(is.String(source))
-      stopifnot(is.String(symbol))
-      
+      stopifnot(
+        is.String(source),
+        is.String(symbol)
+      )
+
       # Set instrument fields.
       self$source <- source
       self$symbol <- symbol
-      
+
       if (!missing(data)) {
         self$sector <- data$summaryProfile$sector
         self$industry <- data$summaryProfile$industry

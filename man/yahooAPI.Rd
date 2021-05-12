@@ -4,8 +4,7 @@
 \alias{yahooAPI}
 \title{Yahoo Finance API}
 \description{
-Yahoo Finance API class inheriting from `TDIConnection`.
-This class implements the Yahoo Finance API requests.
+Yahoo Finance API class inherits `TDIConnection` to implement API requests.
 }
 \details{
 Yahoo Finance API provides a wide range of data that can be accessed via the below URL.
@@ -60,9 +59,6 @@ Available modules:
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="initialize">}\href{../../TDI/html/TDIConnection.html#method-initialize}{\code{TDI::TDIConnection$initialize()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="jsonRequest">}\href{../../TDI/html/TDIConnection.html#method-jsonRequest}{\code{TDI::TDIConnection$jsonRequest()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="requestString">}\href{../../TDI/html/TDIConnection.html#method-requestString}{\code{TDI::TDIConnection$requestString()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="validValue">}\href{../../TDI/html/TDIConnection.html#method-validValue}{\code{TDI::TDIConnection$validValue()}}\out{</span>}
 }
 \out{</details>}
 }

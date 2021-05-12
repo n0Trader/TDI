@@ -14,14 +14,10 @@ expect_true(grepl("iexapis", con$conn_args$baseURL))
 expect_true(hasName(con$conn_args, "api_token"))
 expect_true(hasName(con$conn_args, "api_version"))
 expect_true(hasName(con$endpoints, "chart"))
-
-# Test parameter range validation
-expect_equal(con$validValue(range = "5d"), "5d")
-expect_equal(con$validValue(range = "0d"), "3m")
-
-# Test parameter interval validation
-expect_equal(con$validValue(interval = "1mo"), "1mo")
-expect_equal(con$validValue(interval = "0d"), "1d")
-
-# Test getChart method.
 expect_silent(con$getChart("AAPL", range = "1d"))
+
+# Test IEX API parameter validation.
+expect_equal(con$.__enclos_env__$private$validateParam(range = "5d"), "5d")
+expect_equal(con$.__enclos_env__$private$validateParam(range = "0d"), "3m")
+expect_equal(con$.__enclos_env__$private$validateParam(interval = "1mo"), "1mo")
+expect_equal(con$.__enclos_env__$private$validateParam(interval = "0d"), "1d")

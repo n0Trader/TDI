@@ -8,7 +8,7 @@ MockDriver <<- R6::R6Class("MockDriver", inherit = TDIDriver,
     connect = function() {
       # Create connection to the MockAPI.
       con <- MockAPI$new(
-        driver = self, 
+        driver = self,
         conn_args = list(baseURL = "https://mock.com"),
         endpoints = list(a = "/api"),
         values = list(v = c(1,2))
