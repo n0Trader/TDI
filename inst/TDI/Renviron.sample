@@ -2,6 +2,10 @@
 TDI_host = "0.0.0.0"
 TDI_port = 8585
 
+# BData variables.
+bdata_base_url = "https://apidoc.borsdata.se"
+bdata_token = "<add_your_token>"
+
 # IEX variables.
 iex_base_url = "https://cloud.iexapis.com"
 iex_token = "<add_your_token>"

@@ -33,6 +33,8 @@ Collate:
     'TDIKeyData.R'
     'TDIResult.R'
     'plumber.R'
+    'bdataAPI.R'
+    'bdataDriver.R'
     'fredAPI.R'
     'fredDriver.R'
     'iexAPI.R'
