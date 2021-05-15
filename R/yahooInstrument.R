@@ -29,9 +29,6 @@ yahooInstrument <- R6::R6Class("yahooInstrument", inherit = TDIInstrument,
         self$sector <- data$summaryProfile$sector
         self$industry <- data$summaryProfile$industry
         self$country <- data$summaryProfile$country
-        self$city <- data$summaryProfile$city
-        self$description <- data$summaryProfile$longBusinessSummary
-        self$website <- data$summaryProfile$website
         self$exchange <- data$price$exchangeName
         self$name <- data$price$longName
         self$type <- data$price$quoteType

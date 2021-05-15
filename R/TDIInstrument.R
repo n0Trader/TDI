@@ -41,12 +41,6 @@ TDIInstrument <- R6::R6Class(is.Instrument(), inherit = TDIResult,
     industry = NULL,
     #' @field country Country of registration.
     country = NULL,
-    #' @field city City of registration.
-    city = NULL,
-    #' @field description Instrument description.
-    description = NULL,
-    #' @field website Website URL.
-    website = NULL,
     #' @field keyData Key data object.
     keyData = NA,
     #' @field annualCashFlow Annual cash flow data.

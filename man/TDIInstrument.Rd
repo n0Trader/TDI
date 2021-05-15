@@ -33,12 +33,6 @@ The class is abstract and should be implemented for each API.
 
 \item{\code{country}}{Country of registration.}
 
-\item{\code{city}}{City of registration.}
-
-\item{\code{description}}{Instrument description.}
-
-\item{\code{website}}{Website URL.}
-
 \item{\code{keyData}}{Key data object.}
 
 \item{\code{annualCashFlow}}{Annual cash flow data.}
