@@ -25,13 +25,15 @@ The class is abstract and should be implemented for each API.
 
 \item{\code{name}}{Name for the instrument.}
 
-\item{\code{exchange}}{Exchange for the instrument.}
+\item{\code{exchange}}{Market for the instrument.}
 
-\item{\code{sector}}{Business sector.}
+\item{\code{sector}}{Main sector of the business.}
 
-\item{\code{industry}}{Business industry.}
+\item{\code{industry}}{Main industry of the business.}
 
 \item{\code{country}}{Country of registration.}
+
+\item{\code{quote}}{List with latest price data.}
 
 \item{\code{keyData}}{Key data object.}
 
@@ -46,6 +48,7 @@ The class is abstract and should be implemented for each API.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
+\item \href{#method-setQuote}{\code{TDIInstrument$setQuote()}}
 \item \href{#method-setSeries}{\code{TDIInstrument$setSeries()}}
 \item \href{#method-getSession}{\code{TDIInstrument$getSession()}}
 \item \href{#method-getReturn}{\code{TDIInstrument$getReturn()}}
@@ -62,6 +65,34 @@ The class is abstract and should be implemented for each API.
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIResult" data-id="validate">}\href{../../TDI/html/TDIResult.html#method-validate}{\code{TDI::TDIResult$validate()}}\out{</span>}
 }
 \out{</details>}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-setQuote"></a>}}
+\if{latex}{\out{\hypertarget{method-setQuote}{}}}
+\subsection{Method \code{setQuote()}}{
+Set the latest quote for the instrument.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TDIInstrument$setQuote(Open, High, Low, Close, Volume)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{Open}}{Latest open price.}
+
+\item{\code{High}}{Latest high price.}
+
+\item{\code{Low}}{Latest low price.}
+
+\item{\code{Close}}{Latest close price.}
+
+\item{\code{Volume}}{Volume traded.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The object itself.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-setSeries"></a>}}

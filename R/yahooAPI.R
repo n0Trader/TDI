@@ -166,11 +166,11 @@ yahooAPI <- R6::R6Class("yahooAPI", inherit = TDIConnection,
         stop(paste(res$quoteSummary$error$description, symbol, sep = ": "))
       } else {
         # Convert the results into a new instrument object.
-        return(yahooInstrument$new(
+        yahooInstrument$new(
           source = as.character(class(self$driver)[1]),
           symbol = as.character(args$symbol),
           data = res$quoteSummary$result
-        ))
+        ) %>% return()
       }
     }
   )

@@ -35,6 +35,7 @@ Collate:
     'plumber.R'
     'bdataAPI.R'
     'bdataDriver.R'
+    'bdataInstrument.R'
     'fredAPI.R'
     'fredDriver.R'
     'iexAPI.R'

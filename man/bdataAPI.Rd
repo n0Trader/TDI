@@ -24,6 +24,8 @@ API documentation on \strong{\href{https://github.com/Borsdata-Sweden/API}{Börs
 \item{\code{markets}}{Data frame with list of markets.}
 
 \item{\code{instruments}}{Data frame with list of instruments.}
+
+\item{\code{prices}}{Latest instrument prices.}
 }
 \if{html}{\out{</div>}}
 }
@@ -31,14 +33,14 @@ API documentation on \strong{\href{https://github.com/Borsdata-Sweden/API}{Börs
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{bdataAPI$new()}}
+\item \href{#method-getInstrument}{\code{bdataAPI$getInstrument()}}
+\item \href{#method-getChart}{\code{bdataAPI$getChart()}}
 }
 }
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="getCashFlow">}\href{../../TDI/html/TDIConnection.html#method-getCashFlow}{\code{TDI::TDIConnection$getCashFlow()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="getChart">}\href{../../TDI/html/TDIConnection.html#method-getChart}{\code{TDI::TDIConnection$getChart()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIConnection" data-id="getInstrument">}\href{../../TDI/html/TDIConnection.html#method-getInstrument}{\code{TDI::TDIConnection$getInstrument()}}\out{</span>}
 }
 \out{</details>}
 }
@@ -60,6 +62,46 @@ API documentation on \strong{\href{https://github.com/Borsdata-Sweden/API}{Börs
 }
 \subsection{Returns}{
 An object of class `bdataAPI`.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getInstrument"></a>}}
+\if{latex}{\out{\hypertarget{method-getInstrument}{}}}
+\subsection{Method \code{getInstrument()}}{
+Retrieve instrument details for the symbol.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{bdataAPI$getInstrument(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{see \code{\link{TDIConnection}}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An object of class `Instrument` with details.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getChart"></a>}}
+\if{latex}{\out{\hypertarget{method-getChart}{}}}
+\subsection{Method \code{getChart()}}{
+Retrieve historical prices for the symbol.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{bdataAPI$getChart(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{see \code{\link{TDIConnection}}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An object of class `Instrument` with historical prices.
 }
 }
 }

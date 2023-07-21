@@ -14,6 +14,6 @@ expect_true(grepl("borsdata.se", con$conn_args$baseURL))
 expect_true(hasName(con$endpoints, "instruments"))
 
 # Test API calls.
+expect_silent(con$getInstrument("RAIL")$isValid())
 # expect_silent(con$getChart("AAPL"))
-# expect_silent(con$getInstrument("MSFT")$isValid())
 # expect_silent(con$getCashFlow("TSLA")$isValid())

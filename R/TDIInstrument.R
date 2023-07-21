@@ -33,14 +33,16 @@ TDIInstrument <- R6::R6Class(is.Instrument(), inherit = TDIResult,
     type = NULL,
     #' @field name Name for the instrument.
     name = NULL,
-    #' @field exchange Exchange for the instrument.
+    #' @field exchange Market for the instrument.
     exchange = NULL,
-    #' @field sector Business sector.
+    #' @field sector Main sector of the business.
     sector = NULL,
-    #' @field industry Business industry.
+    #' @field industry Main industry of the business.
     industry = NULL,
     #' @field country Country of registration.
     country = NULL,
+    #' @field quote List with latest price data.
+    quote = list(),
     #' @field keyData Key data object.
     keyData = NA,
     #' @field annualCashFlow Annual cash flow data.
@@ -49,6 +51,23 @@ TDIInstrument <- R6::R6Class(is.Instrument(), inherit = TDIResult,
     quarterlyCashFlow = NA,
     #' @field series Xts time series with (historical) data.
     series = NA,
+
+    #' @description
+    #' Set the latest quote for the instrument.
+    #' @param Open Latest open price.
+    #' @param High Latest high price.
+    #' @param Low Latest low price.
+    #' @param Close Latest close price.
+    #' @param Volume Volume traded.
+    #' @return The object itself.
+    setQuote = function(Open, High, Low, Close, Volume) {
+      self$quote$Open = Open
+      self$quote$High = High
+      self$quote$Low = Low
+      self$quote$Close = Close
+      self$quote$Volume = Volume
+      invisible(self)
+    },
 
     #' @description
     #' Set series or add additional column(s) to the existing data.

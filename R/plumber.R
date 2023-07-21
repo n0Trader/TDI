@@ -21,6 +21,8 @@ function() {
 #* @filter connection
 function(req, source = NULL) {
   message("TDI request: ", req$PATH_INFO, req$QUERY_STRING)
+  message("Content-type: ", req$HTTP_CONTENT_TYPE)
+  message("Body: ", req$bodyRaw)
   plumber::forward()
 }
 
@@ -29,7 +31,6 @@ function(req, source = NULL) {
 #* @param symbol Instrument symbol.
 #* @param source Data source.
 #* @return Instrument summary data.
-#*
 #* @serializer unboxedJSON
 #* @get /instrument
 function(symbol, source) {
@@ -51,6 +52,32 @@ function(symbol, source, range = "1y") {
   con <- TDIConnector$connect(tolower(source))
   ins <- con$getChart(toupper(symbol), range = range)
   return(as.data.frame(ins$series))
+}
+
+#* POST symbols with source to retrieve quotes.
+#*
+#* @return Quotes for instrument(s).
+#* @serializer unboxedJSON
+#* @post /quotes
+function(req) {
+  symbols <- rawToChar(req$bodyRaw) %>%
+    jsonlite::fromJSON()
+
+  quotes <- apply(symbols, 1, function(x) {
+    con <- TDIConnector$connect(tolower(x["source"]))
+    ins <- con$getInstrument(toupper(x["symbol"]))
+    if (is.Instrument(ins)) {
+      return(ins$quote)
+    }
+  })
+
+  result <- cbind(
+    symbol = symbols$symbol,
+    source = symbols$source,
+    quote = quotes
+  )
+
+  return(data.frame(result))
 }
 
 #* POST instrument technical analysis.

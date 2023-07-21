@@ -26,6 +26,7 @@ This class is a simple data mapper.
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIInstrument" data-id="getReturn">}\href{../../TDI/html/TDIInstrument.html#method-getReturn}{\code{TDI::TDIInstrument$getReturn()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIInstrument" data-id="getSession">}\href{../../TDI/html/TDIInstrument.html#method-getSession}{\code{TDI::TDIInstrument$getSession()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIInstrument" data-id="getWealthIndex">}\href{../../TDI/html/TDIInstrument.html#method-getWealthIndex}{\code{TDI::TDIInstrument$getWealthIndex()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIInstrument" data-id="setQuote">}\href{../../TDI/html/TDIInstrument.html#method-setQuote}{\code{TDI::TDIInstrument$setQuote()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="TDI" data-topic="TDIInstrument" data-id="setSeries">}\href{../../TDI/html/TDIInstrument.html#method-setSeries}{\code{TDI::TDIInstrument$setSeries()}}\out{</span>}
 }
 \out{</details>}

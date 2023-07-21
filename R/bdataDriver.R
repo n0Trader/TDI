@@ -26,7 +26,9 @@ bdata <- R6::R6Class("bdata", inherit = TDIDriver,
           countries = "/v1/countries",
           sectors = "/v1/sectors",
           markets = "/v1/markets",
-          instruments = "/v1/instruments"
+          instruments = "/v1/instruments",
+          stockPricesList = "/v1/instruments/stockprices/last",
+          chart = "/v1/instruments/%s/stockprices"
         ),
         # Valid parameter values (default = [1]).
         values = list(
